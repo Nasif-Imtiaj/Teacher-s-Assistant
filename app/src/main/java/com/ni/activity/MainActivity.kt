@@ -6,13 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.ni.screens.classRoomScreen.ClassRoomFragment
 import com.ni.screens.homeScreen.HomeScreenFragment
 import com.ni.screens.homeScreen.HomeScreenListener
 import com.ni.screens.teacherProfileScreen.TeacherProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 
-class MainActivity  : AppCompatActivity(),HomeScreenListener {
+class MainActivity : AppCompatActivity(), HomeScreenListener {
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,21 +22,29 @@ class MainActivity  : AppCompatActivity(),HomeScreenListener {
         setContentView(binding.root)
         init()
     }
-    private fun init(){
-       loadHomeScreen()
+
+    private fun init() {
+        loadHomeScreen()
     }
 
-    private fun loadHomeScreen(){
-        loadFragment(HomeScreenFragment.newInstance(),true,false,HomeScreenFragment.TAG)
+    private fun loadHomeScreen() {
+        loadFragment(HomeScreenFragment.newInstance(), true, false, HomeScreenFragment.TAG)
     }
 
-    private fun loadTeacherProfile(){
-        loadFragment(TeacherProfileFragment.newInstance(),true,false,TeacherProfileFragment.TAG)
+    private fun loadTeacherProfile() {
+        loadFragment(TeacherProfileFragment.newInstance(), true, false, TeacherProfileFragment.TAG)
+    }
 
+    private fun loadClassRoom() {
+        loadFragment(ClassRoomFragment.newInstance(), true, false, ClassRoomFragment.TAG)
     }
 
     override fun onTeacherProfileClicked() {
         loadTeacherProfile()
+    }
+
+    override fun onClassRoomClicked() {
+        loadClassRoom()
     }
 
     fun loadFragment(
@@ -82,9 +91,10 @@ class MainActivity  : AppCompatActivity(),HomeScreenListener {
                 fragmentTransaction.commit()
             }
         } catch (ex: Exception) {
-        //    Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
+            //    Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
     }
+
     private fun handleDoubleClick() {
         Handler().postDelayed({ lastFragmentTag = "" }, 500)
     }

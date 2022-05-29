@@ -42,6 +42,9 @@ class HomeScreenFragment :
         binding.ivTeacherAva.setOnClickListener {
            notify { it.onTeacherProfileClicked() }
         }
+        binding.cvClassroom.setOnClickListener {
+            notify { it.onClassRoomClicked() }
+        }
     }
 
 
