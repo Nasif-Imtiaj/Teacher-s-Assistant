@@ -21,13 +21,19 @@ class HomeScreenFragment : BaseObservableFragment<HomeScreenFragmentBinding,Home
     }
 
     private fun initUiListener() {
-
+        initBtnListener()
     }
     private fun initObservers(){
 
     }
     private fun initBackPressed(){
 
+    }
+
+    private fun initBtnListener(){
+        binding.ivTeacherAva.setOnClickListener {
+
+        }
     }
 
 
