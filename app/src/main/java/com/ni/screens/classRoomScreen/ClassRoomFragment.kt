@@ -72,12 +72,9 @@ class ClassRoomFragment :
             object : GenericSimpleRecyclerBindingInterface<ClassRoomModel> {
                 override fun bindData(item: ClassRoomModel, view: View) {
                     val itemBinding = ClassroomItemLayoutBinding.inflate(layoutInflater)
-                    itemBinding.tvDept.text = item.dept.toString()
-                    itemBinding.tvBatch.text = item.batch.toString()
+                    itemBinding.tvTitle.text = item.dept.toString()
                     itemBinding.tvSection.text = item.section
                     itemBinding.tvStudents.text = item.students.toString()
-                    itemBinding.tvSubject.text = item.subject
-                    itemBinding.tvCode.text = item.subjectCode
                 }
             })
     }

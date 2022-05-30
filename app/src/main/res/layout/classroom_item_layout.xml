@@ -2,13 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="4dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cdMainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="16dp"
+        android:elevation="32dp"
+        app:cardCornerRadius="8dp"
+        app:contentPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -17,88 +22,49 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tvDept"
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawablePadding="4dp"
+                android:layout_marginStart="8dp"
                 android:gravity="start|center_vertical"
-                android:text="CSE"
-                android:textSize="16sp"
+                android:text="CSE 331: Project Final"
+                android:textSize="24sp"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvBatch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:drawablePadding="4dp"
-                android:gravity="start|center_vertical"
-                android:text="44th"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
-                app:layout_constraintStart_toEndOf="@id/tvDept"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tvSection"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:drawablePadding="4dp"
-                android:gravity="start|center_vertical"
-                android:text="B"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
-                app:layout_constraintStart_toEndOf="@id/tvBatch"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvStudents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:drawablePadding="4dp"
                 android:gravity="start|center_vertical"
                 android:text="24"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
+                app:drawableStartCompat="@drawable/ic_students"
+                app:layout_constraintEnd_toStartOf="@id/tvSection"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvDept" />
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
             <TextView
-                android:id="@+id/tvSubject"
+                android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
+                android:layout_marginStart="16dp"
                 android:drawablePadding="4dp"
                 android:gravity="start|center_vertical"
-                android:text="Subject"
+                android:text="44th-B, 44th-A, 44th-C"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
+                app:drawableStartCompat="@drawable/ic_section"
                 app:layout_constraintStart_toEndOf="@id/tvStudents"
-                app:layout_constraintTop_toBottomOf="@id/tvDept" />
-
-            <TextView
-                android:id="@+id/tvCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:drawablePadding="4dp"
-                android:gravity="start|center_vertical"
-                android:text="CSE-498"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_dummy"
-                app:layout_constraintStart_toEndOf="@id/tvSubject"
-                app:layout_constraintTop_toBottomOf="@id/tvDept" />
+                app:layout_constraintTop_toTopOf="@id/tvStudents" />
 
             <ImageView
+                android:id="@+id/ivNxtBtn"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
@@ -108,4 +74,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
