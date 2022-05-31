@@ -1,29 +1,19 @@
 package com.ni.screens.classRoomScreen
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
 import com.ni.core.adapter.AbstractAdapter
-import com.ni.core.adapter.GenericRecyclerAdapter
-import com.ni.core.adapter.GenericSimpleRecyclerBindingInterface
 import com.ni.core.baseClasses.BaseObservableFragment
+import com.ni.core.dialogs.createClassRoomDialog.CreateClassRoomDialog
+import com.ni.core.dialogs.createClassRoomDialog.CreateClassRoomDialogListener
 import com.ni.models.ClassRoomModel
-import com.ni.screens.teacherProfileScreen.TeacherProfileFragment
-import com.ni.screens.teacherProfileScreen.TeacherProfileViewModel
-import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
-import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 
 class ClassRoomFragment :
-    BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate) {
+    BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
+    CreateClassRoomDialogListener        {
     companion object {
         const val TAG = "ClassRoomFragment"
         fun newInstance() = ClassRoomFragment().apply {}
@@ -73,11 +63,23 @@ class ClassRoomFragment :
             })
     }
 
-    private fun initBtnListener() {}
+    private fun initBtnListener() {
+        binding.fabAdd.setOnClickListener{
+            val dialog = CreateClassRoomDialog()
+            dialog.show(childFragmentManager, "CreateClassRoomDialog")
+        }
+    }
 
     private fun initRecycler() {
         binding.optionRecyclerViewCRF.adapter = adapter
     }
 
+    override fun onDialogPositiveClick(dept: String, sub: String, code: String) {
+        Log.d(TAG, "onDialogPositiveClick: $dept $sub $code")
+    }
+
+    override fun onDialogNegativeClick() {
+       
+    }
 
 }
