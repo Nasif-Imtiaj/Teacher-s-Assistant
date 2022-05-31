@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.viewModels
+import com.ni.core.adapter.AbstractAdapter
 import com.ni.core.adapter.GenericRecyclerAdapter
 import com.ni.core.adapter.GenericSimpleRecyclerBindingInterface
 import com.ni.core.baseClasses.BaseObservableFragment
@@ -23,16 +24,28 @@ import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate) {
-
     companion object {
         const val TAG = "ClassRoomFragment"
         fun newInstance() = ClassRoomFragment().apply {}
     }
 
-    private var data = arrayListOf<ClassRoomModel>()
-
     val viewModel by viewModels<ClassRoomViewModel>()
 
+    private val adapter: AbstractAdapter<ClassRoomModel, ClassroomItemLayoutBinding> by lazy {
+        object :
+            AbstractAdapter<ClassRoomModel, ClassroomItemLayoutBinding>(ClassroomItemLayoutBinding::inflate) {
+            override fun bind(
+                itemBinding: ClassroomItemLayoutBinding,
+                item: ClassRoomModel,
+                position: Int
+            ) {
+                itemBinding.tvTitle.text = viewModel.getTitle(item)
+                itemBinding.tvStudents.text = item.students.toString()
+                itemBinding.tvSection.text = item.section
+                itemBinding.cdMainContainer.setOnClickListener {}
+            }
+        }
+    }
 
     override fun initView() {
         initUiListener()
@@ -47,9 +60,7 @@ class ClassRoomFragment :
 
     private fun initObservers() {
         viewModel.classRoomDataList.observe(this) {
-            data.clear()
-            data.addAll(it)
-            binding.optionRecyclerViewCRF.adapter?.notifyDataSetChanged()
+            adapter.setItems(it)
         }
     }
 
@@ -62,21 +73,10 @@ class ClassRoomFragment :
             })
     }
 
-    private fun initBtnListener() {
-
-    }
+    private fun initBtnListener() {}
 
     private fun initRecycler() {
-        binding.optionRecyclerViewCRF.adapter = GenericRecyclerAdapter(
-            data, R.layout.classroom_item_layout,
-            object : GenericSimpleRecyclerBindingInterface<ClassRoomModel> {
-                override fun bindData(item: ClassRoomModel, view: View) {
-                    val itemBinding = ClassroomItemLayoutBinding.inflate(layoutInflater)
-                    itemBinding.tvTitle.text = item.dept.toString()
-                    itemBinding.tvSection.text = item.section
-                    itemBinding.tvStudents.text = item.students.toString()
-                }
-            })
+        binding.optionRecyclerViewCRF.adapter = adapter
     }
 
 

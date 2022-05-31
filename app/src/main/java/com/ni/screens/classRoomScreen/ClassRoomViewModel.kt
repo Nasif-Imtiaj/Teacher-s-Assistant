@@ -22,7 +22,7 @@ class ClassRoomViewModel : ViewModel() {
                 "B",
                 24,
                 "Project-400",
-                "CSE-654"
+                654
             )
         )
         classRoomInfoList.add(
@@ -32,9 +32,13 @@ class ClassRoomViewModel : ViewModel() {
                 "B",
                 24,
                 "Project-300",
-                "CSE-454"
+                454
             )
         )
         classRoomDataList.postValue(classRoomInfoList)
+    }
+
+    public fun getTitle(item:ClassRoomModel):String{
+        return item.dept.toString()+" "+item.subjectCode+" : " + item.subject
     }
 }
