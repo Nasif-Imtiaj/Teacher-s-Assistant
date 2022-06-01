@@ -1,4 +1,4 @@
-package com.ni.core.dialogs.createClassRoomDialog
+package com.ni.dialogs.createClassRoomDialog
 
 import android.app.AlertDialog
 import android.app.Dialog

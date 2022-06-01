@@ -1,5 +1,12 @@
 package com.ni.models
 
-import com.ni.core.constants.Departments
 
-data class ClassRoomModel(val dept: Departments, val batch:Int, val section:String, val students:Int, val subject:String, val subjectCode:Int)
+data class ClassRoomModel(
+    val classRoomId: String,
+    val dept: String,
+    val batch: String,
+    val section: String,
+    val students: Int,
+    val subject: String,
+    val subjectCode: String
+)
