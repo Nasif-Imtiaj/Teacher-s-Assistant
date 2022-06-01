@@ -5,5 +5,7 @@ data class StudentInfoModel(
     val studentId: String,
     val dept: String,
     val batch: String,
-    val section: String
+    val section: String,
+    val img:Int,
+    val subjectWiseMarks: ArrayList<Pair<String,Float>>
 )

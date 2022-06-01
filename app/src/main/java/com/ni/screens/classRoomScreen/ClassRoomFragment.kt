@@ -1,6 +1,7 @@
 package com.ni.screens.classRoomScreen
 
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.core.adapter.AbstractAdapter
 import com.ni.core.baseClasses.BaseObservableFragment
@@ -8,6 +9,8 @@ import com.ni.dialogs.createClassRoomDialog.CreateClassRoomDialog
 import com.ni.dialogs.createClassRoomDialog.CreateClassRoomDialogListener
 import com.ni.models.ClassRoomModel
 import com.ni.models.StudentInfoModel
+import com.ni.screens.studentProfileScreen.StudentProfileFragment
+import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
@@ -54,7 +57,8 @@ class ClassRoomFragment :
                 itemBinding.tvBatch.text = item.batch
                 itemBinding.tvSection.text = item.section
                 itemBinding.cvMainContainer.setOnClickListener {
-                    binding.optionRecyclerViewCRF.adapter = classRoomAdapter
+                   // binding.optionRecyclerViewCRF.adapter = classRoomAdapter
+                    loadStudentProfile()
                 }
             }
         }
@@ -106,5 +110,26 @@ class ClassRoomFragment :
 
     override fun onDialogNegativeClick() {
 
+    }
+
+    fun loadStudentProfile(){
+        var fragment = StudentProfileFragment.newInstance()
+        loadSubFragment(fragment, R.id.flFraContainer, StudentProfileFragment.TAG)
+    }
+
+    private fun loadSubFragment(
+        newFragment: Fragment,
+        containerId: Int,
+        fragmentTag: String,
+    ) {
+        try {
+            childFragmentManager.beginTransaction()
+                .replace(containerId, newFragment, fragmentTag)
+                .addToBackStack(fragmentTag)
+
+                .commitAllowingStateLoss()
+        } catch (ex: Exception) {
+            //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
+        }
     }
 }

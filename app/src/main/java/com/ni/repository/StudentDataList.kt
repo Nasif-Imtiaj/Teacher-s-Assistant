@@ -16,7 +16,9 @@ object StudentDataList {
                 "181-115-045",
                 "CSE",
                 "44",
-                "B"
+                "B",
+                4,
+                arrayListOf()
             )
         )
         studentList.add(
@@ -25,7 +27,9 @@ object StudentDataList {
                 "181-115-055",
                 "CSE",
                 "44",
-                "B"
+                "B",
+                4,
+                arrayListOf()
             )
         )
         studentList.add(
@@ -34,7 +38,9 @@ object StudentDataList {
                 "181-115-058",
                 "CSE",
                 "44",
-                "B"
+                "B",
+                4,
+                arrayListOf()
             )
 
         )
@@ -44,7 +50,9 @@ object StudentDataList {
                 "181-115-047",
                 "CSE",
                 "44",
-                "B"
+                "B",
+                4,
+                arrayListOf()
             )
         )
     }
