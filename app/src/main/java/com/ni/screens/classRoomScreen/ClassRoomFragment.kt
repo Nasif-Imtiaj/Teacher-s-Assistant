@@ -1,19 +1,49 @@
 package com.ni.screens.classRoomScreen
 
+
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ni.core.adapter.AbstractAdapter
 import com.ni.core.baseClasses.BaseObservableFragment
+import com.ni.models.StudentInfoModel
+import com.ni.screens.studentProfileScreen.StudentProfileFragment
+import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
+import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate) {
     companion object {
         const val TAG = "ClassRoomFragment"
-        fun newInstance() = ClassRoomFragment().apply {}
+        fun newInstance(roomId: String) = ClassRoomFragment().apply {
+            this.roomId = roomId
+        }
     }
 
+    var roomId = ""
     val viewModel by viewModels<ClassRoomViewModel>()
+
+    private val studentAdapter: AbstractAdapter<StudentInfoModel, StudentItemLayoutBinding> by lazy {
+        object :
+            AbstractAdapter<StudentInfoModel, StudentItemLayoutBinding>(StudentItemLayoutBinding::inflate) {
+            override fun bind(
+                itemBinding: StudentItemLayoutBinding,
+                item: StudentInfoModel,
+                position: Int
+            ) {
+                Log.d(TAG, "bind: ")
+                itemBinding.tvId.text = item.studentId
+                itemBinding.tvDept.text = item.dept
+                itemBinding.tvBatch.text = item.batch
+                itemBinding.tvSection.text = item.section
+                itemBinding.cvMainContainer.setOnClickListener {
+
+                }
+            }
+        }
+    }
 
     override fun initView() {
         initUiListener()
@@ -22,11 +52,16 @@ class ClassRoomFragment :
     }
 
     private fun initUiListener() {
-        initBtnListener()
         initRecycler()
+        initBtnListener()
+        viewModel.filterByClassRoom(roomId)
     }
 
     private fun initObservers() {
+        viewModel.studentDataList.observe(this) {
+            Log.d(TAG, "initObservers: ${it.size}")
+            studentAdapter.setItems(it)
+        }
     }
 
     private fun initBackPressed() {
@@ -42,6 +77,12 @@ class ClassRoomFragment :
     }
 
     private fun initRecycler() {
+        binding.optionRecyclerViewCRF.adapter = studentAdapter
+    }
+
+    fun loadStudentProfile() {
+        var fragment = StudentProfileFragment.newInstance()
+        loadSubFragment(fragment, R.id.flFraContainer, StudentProfileFragment.TAG)
     }
 
     private fun loadSubFragment(

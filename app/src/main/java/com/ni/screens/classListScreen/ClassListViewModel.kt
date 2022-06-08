@@ -1,27 +1,21 @@
 package com.ni.screens.classListScreen
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.ni.models.ClassRoomModel
-import com.ni.models.StudentInfoModel
-import com.ni.repository.ClassRoomDataList
-import com.ni.repository.StudentDataList
+import com.ni.models.ClassListModel
+import com.ni.repository.ClassListDataList
 
 class ClassListViewModel : ViewModel() {
-    private val _classRoomList = ClassRoomDataList
-    private val _studentDataList = StudentDataList
-    val classRoomDataList = MutableLiveData<List<ClassRoomModel>>()
-    val studentDataList = MutableLiveData<List<StudentInfoModel>>()
-    init {
+    private val _classRoomList = ClassListDataList
+    val classRoomDataList = MutableLiveData<List<ClassListModel>>()
 
-        classRoomDataList.postValue(_classRoomList.classRoomList)
+    init {
+        classRoomDataList.postValue(_classRoomList.classList)
     }
 
-
     fun addToClassRoom(dept: String, sub: String, code: String) {
-        _classRoomList.classRoomList.add(
-            ClassRoomModel(
+        _classRoomList.classList.add(
+            ClassListModel(
                 "CR-3",
                 dept,
                 "",
@@ -31,22 +25,10 @@ class ClassListViewModel : ViewModel() {
                 code
             )
         )
-        classRoomDataList.postValue(_classRoomList.classRoomList)
+        classRoomDataList.postValue(_classRoomList.classList)
     }
 
-    public fun getTitle(item: ClassRoomModel): String {
+    public fun getTitle(item: ClassListModel): String {
         return item.dept.toString() + " " + item.subjectCode + " : " + item.subject
-    }
-
-    public fun filterByClassRoom(classRoomId:String){
-        Log.d("TAG", "filterByClassRoom: $classRoomId")
-        var list = ArrayList<StudentInfoModel>()
-        for(i in _studentDataList.studentList){
-            Log.d("TAG", "filterByClassRoom: ${i}")
-            if(i.classRoomIds.contains(classRoomId))
-                list.add(i)
-        }
-        Log.d("TAG", "filterByClassRoom: ${list.size}")
-        studentDataList.postValue(list)
     }
 }

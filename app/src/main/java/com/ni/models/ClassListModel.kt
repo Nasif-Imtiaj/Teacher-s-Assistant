@@ -1,7 +1,7 @@
 package com.ni.models
 
 
-data class ClassRoomModel(
+data class ClassListModel(
     val classRoomId: String,
     val dept: String,
     val batch: String,

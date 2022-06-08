@@ -1,17 +1,17 @@
 package com.ni.repository
 
-import com.ni.models.ClassRoomModel
+import com.ni.models.ClassListModel
 
-object ClassRoomDataList {
-   var classRoomList = ArrayList<ClassRoomModel>()
+object ClassListDataList {
+   var classList = ArrayList<ClassListModel>()
 
     init {
         create_dummy()
     }
 
     fun create_dummy() {
-        classRoomList.add(
-            ClassRoomModel(
+        classList.add(
+            ClassListModel(
                 "CR-1",
                 "CSE",
                 "44",
@@ -21,8 +21,8 @@ object ClassRoomDataList {
                 "654"
             )
         )
-        classRoomList.add(
-            ClassRoomModel(
+        classList.add(
+            ClassListModel(
                 "CR-2",
                 "CSE",
                 "44",
@@ -32,8 +32,8 @@ object ClassRoomDataList {
                 "454"
             )
         )
-        classRoomList.add(
-            ClassRoomModel(
+        classList.add(
+            ClassListModel(
                 "CR-3",
                 "CSE",
                 "41",
@@ -43,8 +43,8 @@ object ClassRoomDataList {
                 "754"
             )
         )
-        classRoomList.add(
-            ClassRoomModel(
+        classList.add(
+            ClassListModel(
                 "CR-4",
                 "CSE",
                 "45",
