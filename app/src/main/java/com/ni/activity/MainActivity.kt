@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.ni.screens.classRoomScreen.ClassRoomFragment
+import com.ni.screens.classListScreen.ClassListFragment
 import com.ni.screens.homeScreen.HomeScreenFragment
 import com.ni.screens.homeScreen.HomeScreenListener
 import com.ni.screens.teacherProfileScreen.TeacherProfileFragment
@@ -35,8 +35,8 @@ class MainActivity : AppCompatActivity(), HomeScreenListener {
         loadFragment(TeacherProfileFragment.newInstance(), true, false, TeacherProfileFragment.TAG)
     }
 
-    private fun loadClassRoom() {
-        loadFragment(ClassRoomFragment.newInstance(), true, false, ClassRoomFragment.TAG)
+    private fun loadClassList() {
+        loadFragment(ClassListFragment.newInstance(), true, false, ClassListFragment.TAG)
     }
 
     override fun onTeacherProfileClicked() {
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), HomeScreenListener {
     }
 
     override fun onClassRoomClicked() {
-        loadClassRoom()
+        loadClassList()
     }
 
     fun loadFragment(
