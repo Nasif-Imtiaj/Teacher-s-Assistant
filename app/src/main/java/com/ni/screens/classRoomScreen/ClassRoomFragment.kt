@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.core.adapter.AbstractAdapter
 import com.ni.core.baseClasses.BaseObservableFragment
+import com.ni.models.AssignmentModel
 import com.ni.models.StudentInfoModel
 import com.ni.screens.studentProfileScreen.StudentProfileFragment
 import com.ni.teachersassistant.R
+import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
 
@@ -39,8 +41,23 @@ class ClassRoomFragment :
                 itemBinding.tvBatch.text = item.batch
                 itemBinding.tvSection.text = item.section
                 itemBinding.cvMainContainer.setOnClickListener {
-
+                loadStudentProfile()
                 }
+            }
+        }
+    }
+
+    private val assignmentAdapter: AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding> by lazy {
+        object :
+            AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding>(AssignmentItemLayoutBinding::inflate) {
+            override fun bind(
+                itemBinding: AssignmentItemLayoutBinding,
+                item: AssignmentModel,
+                position: Int
+            ) {
+              itemBinding.tvTitle.text = item.name
+              itemBinding.tvDueDate.text = item.endDate
+              itemBinding.tvCounter.text = "16/20"
             }
         }
     }
@@ -59,8 +76,10 @@ class ClassRoomFragment :
 
     private fun initObservers() {
         viewModel.studentDataList.observe(this) {
-            Log.d(TAG, "initObservers: ${it.size}")
             studentAdapter.setItems(it)
+        }
+        viewModel.assignmentDataList.observe(this) {
+            assignmentAdapter.setItems(it)
         }
     }
 
@@ -74,6 +93,12 @@ class ClassRoomFragment :
     }
 
     private fun initBtnListener() {
+        binding.tvBtnStudents.setOnClickListener {
+            binding.optionRecyclerViewCRF.adapter = studentAdapter
+        }
+        binding.tvBtnClassWork.setOnClickListener {
+            binding.optionRecyclerViewCRF.adapter = assignmentAdapter
+        }
     }
 
     private fun initRecycler() {
