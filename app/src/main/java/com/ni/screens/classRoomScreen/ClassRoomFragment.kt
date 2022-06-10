@@ -107,7 +107,7 @@ class ClassRoomFragment :
 
     fun loadStudentProfile() {
         var fragment = StudentProfileFragment.newInstance()
-        loadSubFragment(fragment, R.id.flFraContainer, StudentProfileFragment.TAG)
+        loadSubFragment(fragment, R.id.flCRFContainer, StudentProfileFragment.TAG)
     }
 
     private fun loadSubFragment(
