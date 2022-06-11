@@ -1,4 +1,4 @@
-package com.ni.dialogs.createClassRoomDialog
+package com.ni.dialogs.plagiarismPenaltyDialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -7,19 +7,18 @@ import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.ni.teachersassistant.R
-import kotlinx.android.synthetic.main.create_classroom_dialog_layout.view.*
+import kotlinx.android.synthetic.main.plagiarism_penalty_dialog_layout.view.*
 
-class CreateClassRoomDialog : DialogFragment() {
-    lateinit var listener: CreateClassRoomDialogListener
-
+class PlagiarismPenaltyDialog :DialogFragment(){
+    lateinit var listener: PlagiarismPenaltyDialogListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parentFragment?.let {
-            if (it is CreateClassRoomDialogListener) {
+            if (it is PlagiarismPenaltyDialogListener) {
                 listener = it
             }
         }
-        if (context is CreateClassRoomDialogListener) {
+        if (context is PlagiarismPenaltyDialogListener) {
             listener = context
         }
     }
@@ -28,18 +27,16 @@ class CreateClassRoomDialog : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;
-            var view = inflater.inflate(R.layout.create_classroom_dialog_layout, null)
+            var view = inflater.inflate(R.layout.plagiarism_penalty_dialog_layout, null)
             builder.setView(view)
                 .setPositiveButton("Done",
                     DialogInterface.OnClickListener { dialog, id ->
-                        var dept = view.etDepartment.getText().toString()
-                        var sub = view.etSubject.getText().toString()
-                        var code = view.etCode.getText().toString()
-                        listener.onDialogPositiveClick(dept,sub,code)
+                        var value = view.etPenaltyMark.text
+
+                        listener.onDialogPositiveClick((value.toString()).toInt())
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->
-                        listener.onDialogNegativeClick()
                         getDialog()?.cancel()
                     })
             builder.create()

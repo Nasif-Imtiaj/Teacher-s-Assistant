@@ -22,7 +22,7 @@
         android:drawableStart="@drawable/ic_dummy"
         android:drawablePadding="4dp"
         android:padding="4dp"
-        android:text="Calculate"
+        android:text="Plagiarism"
         app:layout_constraintEnd_toStartOf="@id/tvPrint"
         app:layout_constraintTop_toTopOf="parent" />
 
