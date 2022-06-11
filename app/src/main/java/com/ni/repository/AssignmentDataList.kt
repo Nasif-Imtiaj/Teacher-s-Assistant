@@ -1,9 +1,6 @@
 package com.ni.repository
 
 import com.ni.models.AssignmentModel
-
-
-
 object AssignmentDataList {
     var assignmentList = ArrayList<AssignmentModel>()
     init{
