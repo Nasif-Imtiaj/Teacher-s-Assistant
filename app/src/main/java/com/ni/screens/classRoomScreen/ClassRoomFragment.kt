@@ -9,6 +9,7 @@ import com.ni.core.adapter.AbstractAdapter
 import com.ni.core.baseClasses.BaseObservableFragment
 import com.ni.models.AssignmentModel
 import com.ni.models.StudentInfoModel
+import com.ni.screens.assignmentScreen.AssignmentScreenFragment
 import com.ni.screens.studentProfileScreen.StudentProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
@@ -41,7 +42,7 @@ class ClassRoomFragment :
                 itemBinding.tvBatch.text = item.batch
                 itemBinding.tvSection.text = item.section
                 itemBinding.cvMainContainer.setOnClickListener {
-                loadStudentProfile()
+                    loadStudentProfile()
                 }
             }
         }
@@ -49,15 +50,20 @@ class ClassRoomFragment :
 
     private val assignmentAdapter: AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding> by lazy {
         object :
-            AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding>(AssignmentItemLayoutBinding::inflate) {
+            AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding>(
+                AssignmentItemLayoutBinding::inflate
+            ) {
             override fun bind(
                 itemBinding: AssignmentItemLayoutBinding,
                 item: AssignmentModel,
                 position: Int
             ) {
-              itemBinding.tvTitle.text = item.name
-              itemBinding.tvDueDate.text = item.endDate
-              itemBinding.tvCounter.text = "16/20"
+                itemBinding.tvTitle.text = item.name
+                itemBinding.tvDueDate.text = item.endDate
+                itemBinding.tvCounter.text = "16/20"
+                itemBinding.acMainContainer.setOnClickListener {
+                    loadAssignmentScreen(item.name)
+                }
             }
         }
     }
@@ -108,6 +114,11 @@ class ClassRoomFragment :
     fun loadStudentProfile() {
         var fragment = StudentProfileFragment.newInstance()
         loadSubFragment(fragment, R.id.flCRFContainer, StudentProfileFragment.TAG)
+    }
+
+    fun loadAssignmentScreen(assignmentName:String) {
+        var fragment = AssignmentScreenFragment.newInstance(assignmentName)
+        loadSubFragment(fragment, R.id.flCRFContainer, AssignmentScreenFragment.TAG)
     }
 
     private fun loadSubFragment(
