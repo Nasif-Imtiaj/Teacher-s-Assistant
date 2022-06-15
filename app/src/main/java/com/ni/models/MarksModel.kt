@@ -1,3 +1,3 @@
 package com.ni.models
 
-data class MarksModel(val obtained:Int,val penalty:Int,val bonus:Int,val total:Int,val examMarks:Int)
+data class MarksModel(var obtained:Int, var penalty:Int, var bonus:Int, var total:Int, val examMarks:Int)

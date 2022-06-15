@@ -9,7 +9,10 @@ import androidx.fragment.app.DialogFragment
 import com.ni.teachersassistant.R
 import kotlinx.android.synthetic.main.plagiarism_penalty_dialog_layout.view.*
 
-class PlagiarismPenaltyDialog :DialogFragment(){
+class PlagiarismPenaltyDialog : DialogFragment() {
+    companion object {
+        const val TAG = "PlagiarismPenaltyDialog"
+    }
     lateinit var listener: PlagiarismPenaltyDialogListener
     override fun onAttach(context: Context) {
         super.onAttach(context)

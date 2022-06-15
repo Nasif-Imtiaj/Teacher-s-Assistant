@@ -10,6 +10,10 @@ import com.ni.teachersassistant.R
 import kotlinx.android.synthetic.main.create_classroom_dialog_layout.view.*
 
 class CreateClassRoomDialog : DialogFragment() {
+    companion object {
+        const val TAG = "CreateClassRoomDialog"
+    }
+
     lateinit var listener: CreateClassRoomDialogListener
 
     override fun onAttach(context: Context) {
@@ -35,7 +39,7 @@ class CreateClassRoomDialog : DialogFragment() {
                         var dept = view.etDepartment.getText().toString()
                         var sub = view.etSubject.getText().toString()
                         var code = view.etCode.getText().toString()
-                        listener.onDialogPositiveClick(dept,sub,code)
+                        listener.onDialogPositiveClick(dept, sub, code)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

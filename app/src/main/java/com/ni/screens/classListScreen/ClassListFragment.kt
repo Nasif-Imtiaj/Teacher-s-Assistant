@@ -15,7 +15,8 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
 
-class ClassListFragment : BaseObservableFragment<ClassListFragmentBinding,ClassListListener>(ClassListFragmentBinding::inflate),
+class ClassListFragment :
+    BaseObservableFragment<ClassListFragmentBinding, ClassListListener>(ClassListFragmentBinding::inflate),
     CreateClassRoomDialogListener {
 
     companion object {
@@ -72,7 +73,7 @@ class ClassListFragment : BaseObservableFragment<ClassListFragmentBinding,ClassL
     private fun initBtnListener() {
         binding.fabAdd.setOnClickListener {
             val dialog = CreateClassRoomDialog()
-            dialog.show(childFragmentManager, "CreateClassRoomDialog")
+            dialog.show(childFragmentManager, CreateClassRoomDialog.TAG)
         }
     }
 
