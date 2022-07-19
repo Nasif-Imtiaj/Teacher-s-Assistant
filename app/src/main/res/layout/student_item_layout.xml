@@ -3,51 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:contentPadding="4dp"
-        app:cardCornerRadius="32dp"
-        android:elevation="32dp"
+        app:cardBackgroundColor="#F1EDFF"
+        app:cardCornerRadius="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/ivPic"
-                android:layout_width="64dp"
-                android:layout_height="64dp"
-                android:src="@drawable/ava"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_demo_student"
+
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID: "
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/tvDept"
+                app:layout_constraintStart_toStartOf="@id/tvDept"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:drawableStart="@drawable/ic_dummy"
-                android:drawablePadding="8dp"
-                android:gravity="start|center_vertical"
                 android:text="181-115-045"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/tvDept"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@id/vBar"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/vBar"
+                android:layout_width="43dp"
+                android:layout_height="2dp"
+                android:background="#6C46FE"
+                app:layout_constraintStart_toStartOf="@id/tvDept"
+                app:layout_constraintTop_toBottomOf="@id/tvId" />
 
             <TextView
                 android:id="@+id/tvDept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_dummy"
+                android:layout_marginTop="4dp"
+                android:drawableStart="@drawable/ic_st_dept"
                 android:drawablePadding="8dp"
                 android:gravity="start|center_vertical"
                 android:text="CSE"
@@ -62,7 +80,7 @@
                 android:id="@+id/tvBatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_dummy"
+                android:drawableStart="@drawable/ic_st_batch"
                 android:drawablePadding="8dp"
                 android:gravity="start|center_vertical"
                 android:text="44"
@@ -76,7 +94,7 @@
                 android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_dummy"
+                android:drawableStart="@drawable/ic_st_section"
                 android:drawablePadding="8dp"
                 android:gravity="start|center_vertical"
                 android:text="B"

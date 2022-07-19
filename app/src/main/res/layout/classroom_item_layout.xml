@@ -3,21 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="4dp">
+    android:padding="8dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cdMainContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="32dp"
-        app:cardCornerRadius="8dp"
-        app:contentPadding="8dp"
+        app:cardCornerRadius="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/acMainContainer"
+            android:background="@color/purple_200"
+            android:padding="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -25,9 +27,10 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:gravity="start|center_vertical"
                 android:text="CSE 331: Project Final"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,15 +40,15 @@
                 android:id="@+id/tvStudents"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:drawablePadding="4dp"
+                android:layout_marginStart="16dp"
                 android:gravity="start|center_vertical"
-                android:text="24"
-                android:textSize="16sp"
+                android:text="24 Students"
+                android:textSize="13sp"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_students"
-                app:layout_constraintEnd_toStartOf="@id/tvSection"
+                android:textColor="@color/white"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
@@ -53,15 +56,14 @@
                 android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:drawablePadding="4dp"
+                android:layout_marginTop="8dp"
                 android:gravity="start|center_vertical"
-                android:text="44th-B, 44th-A, 44th-C"
-                android:textSize="16sp"
+                android:text="B Section"
+                android:textSize="13sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_section"
-                app:layout_constraintStart_toEndOf="@id/tvStudents"
-                app:layout_constraintTop_toTopOf="@id/tvStudents" />
+                app:layout_constraintStart_toStartOf="@id/tvStudents"
+                app:layout_constraintTop_toBottomOf="@id/tvStudents" />
 
             <ImageView
                 android:id="@+id/ivNxtBtn"
