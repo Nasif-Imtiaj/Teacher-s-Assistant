@@ -45,6 +45,9 @@ class HomeFragment :
         binding.cvClassroom.setOnClickListener {
             notify { it.onClassRoomClicked() }
         }
+        binding.cvLibrary.setOnClickListener{
+            notify { it.onLibraryClicked() }
+        }
     }
 
 

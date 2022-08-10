@@ -12,6 +12,7 @@ import com.ni.ui.screens.home.HomeListener
 import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
+import com.ni.ui.screens.library.LibraryFragment
 
 class MainActivity : AppCompatActivity(), HomeListener {
     private lateinit var binding: MainActivityLayoutBinding
@@ -39,12 +40,21 @@ class MainActivity : AppCompatActivity(), HomeListener {
         loadFragment(ClassListFragment.newInstance(), true, false, ClassListFragment.TAG)
     }
 
+    private fun loadLibrary(){
+        loadFragment(LibraryFragment.newInstance(), true, false, ClassListFragment.TAG)
+
+    }
+
     override fun onTeacherProfileClicked() {
         loadTeacherProfile()
     }
 
     override fun onClassRoomClicked() {
         loadClassList()
+    }
+
+    override fun onLibraryClicked() {
+        loadLibrary()
     }
 
     fun loadFragment(
