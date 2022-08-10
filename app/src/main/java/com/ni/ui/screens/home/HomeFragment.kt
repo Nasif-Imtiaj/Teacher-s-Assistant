@@ -1,18 +1,18 @@
-package com.ni.ui.screens.homeScreen
+package com.ni.ui.screens.home
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.HomeScreenFragmentBinding
 
-class HomeScreenFragment :
-    BaseObservableFragment<HomeScreenFragmentBinding, HomeScreenListener>(HomeScreenFragmentBinding::inflate) {
+class HomeFragment :
+    BaseObservableFragment<HomeScreenFragmentBinding, HomeListener>(HomeScreenFragmentBinding::inflate) {
     companion object {
         const val TAG = "HomeScreenFragment"
-        fun newInstance() = HomeScreenFragment().apply {}
+        fun newInstance() = HomeFragment().apply {}
     }
 
-    val viewModel by viewModels<HomeScreenViewModel>()
+    val viewModel by viewModels<HomeViewModel>()
 
 
     override fun initView() {
@@ -55,12 +55,12 @@ class HomeScreenFragment :
 
     private fun registerListener() {
         parentFragment?.let {
-            if (it is HomeScreenListener) {
+            if (it is HomeListener) {
                 registerObserver(it)
             }
         }
-        if (context is HomeScreenListener) {
-            registerObserver(context as HomeScreenListener)
+        if (context is HomeListener) {
+            registerObserver(context as HomeListener)
         }
     }
 
@@ -71,12 +71,12 @@ class HomeScreenFragment :
 
     private fun unRegisterListener() {
         parentFragment?.let {
-            if (it is HomeScreenListener) {
+            if (it is HomeListener) {
                 unRegisterObserver(it)
             }
         }
-        if (context is HomeScreenListener) {
-            unRegisterObserver(context as HomeScreenListener)
+        if (context is HomeListener) {
+            unRegisterObserver(context as HomeListener)
         }
     }
 }

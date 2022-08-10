@@ -1,4 +1,4 @@
-package com.ni.ui.screens.classRoomScreen
+package com.ni.ui.screens.classRoom
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

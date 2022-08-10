@@ -6,14 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.ni.ui.screens.classListScreen.ClassListFragment
-import com.ni.ui.screens.homeScreen.HomeScreenFragment
-import com.ni.ui.screens.homeScreen.HomeScreenListener
-import com.ni.ui.screens.teacherProfileScreen.TeacherProfileFragment
+import com.ni.ui.screens.classList.ClassListFragment
+import com.ni.ui.screens.home.HomeFragment
+import com.ni.ui.screens.home.HomeListener
+import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 
-class MainActivity : AppCompatActivity(), HomeScreenListener {
+class MainActivity : AppCompatActivity(), HomeListener {
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), HomeScreenListener {
     }
 
     private fun loadHomeScreen() {
-        loadFragment(HomeScreenFragment.newInstance(), true, false, HomeScreenFragment.TAG)
+        loadFragment(HomeFragment.newInstance(), true, false, HomeFragment.TAG)
     }
 
     private fun loadTeacherProfile() {

@@ -1,4 +1,4 @@
-package com.ni.ui.screens.assignmentScreen
+package com.ni.ui.screens.assignment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -6,7 +6,7 @@ import com.ni.data.models.SubmitModel
 import com.ni.data.repository.SubmissionDataList
 
 
-class AssignmentScreenViewModel : ViewModel() {
+class AssignmentViewModel : ViewModel() {
     val assignmentDataList = MutableLiveData<List<SubmitModel>>()
     private val _assignmentDataList = SubmissionDataList
     var selectedIdx = 0

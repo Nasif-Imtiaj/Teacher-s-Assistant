@@ -1,4 +1,4 @@
-package com.ni.ui.screens.classListScreen
+package com.ni.ui.screens.classList
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

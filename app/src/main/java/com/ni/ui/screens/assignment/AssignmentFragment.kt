@@ -1,4 +1,4 @@
-package com.ni.ui.screens.assignmentScreen
+package com.ni.ui.screens.assignment
 
 import android.util.Log
 import androidx.activity.OnBackPressedCallback
@@ -10,22 +10,22 @@ import com.ni.ui.common.dialogs.editMarksDialog.EditMarksDialogListener
 import com.ni.ui.common.dialogs.plagiarismPenaltyDialog.PlagiarismPenaltyDialog
 import com.ni.ui.common.dialogs.plagiarismPenaltyDialog.PlagiarismPenaltyDialogListener
 import com.ni.data.models.SubmitModel
-import com.ni.ui.screens.classRoomScreen.ClassRoomFragment
+import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.databinding.AssignmentScreenFragmentBinding
 import com.ni.teachersassistant.databinding.SubmitItemLayoutBinding
 
-class AssignmentScreenFragment :
-    BaseObservableFragment<AssignmentScreenFragmentBinding, AssignmentScreenListener>(
+class AssignmentFragment :
+    BaseObservableFragment<AssignmentScreenFragmentBinding, AssignmentListener>(
         AssignmentScreenFragmentBinding::inflate
     ), PlagiarismPenaltyDialogListener, EditMarksDialogListener {
     companion object {
         const val TAG = "AssignmentScreenFragment"
-        fun newInstance(name: String) = AssignmentScreenFragment().apply {
+        fun newInstance(name: String) = AssignmentFragment().apply {
 
         }
     }
 
-    val viewModel by viewModels<AssignmentScreenViewModel>()
+    val viewModel by viewModels<AssignmentViewModel>()
     private val submitListAdapter: AbstractAdapter<SubmitModel, SubmitItemLayoutBinding> by lazy {
         object :
             AbstractAdapter<SubmitModel, SubmitItemLayoutBinding>(SubmitItemLayoutBinding::inflate) {

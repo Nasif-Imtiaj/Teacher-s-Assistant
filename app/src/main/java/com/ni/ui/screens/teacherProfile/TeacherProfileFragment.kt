@@ -1,4 +1,4 @@
-package com.ni.ui.screens.teacherProfileScreen
+package com.ni.ui.screens.teacherProfile
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels

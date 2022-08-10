@@ -1,4 +1,4 @@
-package com.ni.ui.screens.studentProfileScreen
+package com.ni.ui.screens.studentProfile
 
 import androidx.lifecycle.ViewModel
 

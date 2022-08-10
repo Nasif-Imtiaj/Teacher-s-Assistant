@@ -1,4 +1,4 @@
-package com.ni.ui.screens.classListScreen
+package com.ni.ui.screens.classList
 
 
 import androidx.fragment.app.Fragment
@@ -10,7 +10,7 @@ import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialog
 import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialogListener
 import com.ni.data.models.ClassListModel
-import com.ni.ui.screens.classRoomScreen.ClassRoomFragment
+import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding

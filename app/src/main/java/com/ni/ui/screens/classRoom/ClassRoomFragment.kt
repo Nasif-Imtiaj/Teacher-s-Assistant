@@ -1,4 +1,4 @@
-package com.ni.ui.screens.classRoomScreen
+package com.ni.ui.screens.classRoom
 
 
 import android.util.Log
@@ -9,8 +9,8 @@ import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.data.models.AssignmentModel
 import com.ni.data.models.StudentInfoModel
-import com.ni.ui.screens.assignmentScreen.AssignmentScreenFragment
-import com.ni.ui.screens.studentProfileScreen.StudentProfileFragment
+import com.ni.ui.screens.assignment.AssignmentFragment
+import com.ni.ui.screens.studentProfile.StudentProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
@@ -117,8 +117,8 @@ class ClassRoomFragment :
     }
 
     fun loadAssignmentScreen(assignmentName:String) {
-        var fragment = AssignmentScreenFragment.newInstance(assignmentName)
-        loadSubFragment(fragment, R.id.flCRFContainer, AssignmentScreenFragment.TAG)
+        var fragment = AssignmentFragment.newInstance(assignmentName)
+        loadSubFragment(fragment, R.id.flCRFContainer, AssignmentFragment.TAG)
     }
 
     private fun loadSubFragment(
