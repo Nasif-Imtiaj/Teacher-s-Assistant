@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.ni.data.models.Booklet
 import com.ni.teachersassistant.databinding.BookletItemLayoutBinding
 import com.ni.teachersassistant.databinding.LibraryFragmentLayoutBinding
@@ -30,6 +31,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 position: Int,
             ) {
                 itemBinding.tvName.text = item.name
+                Glide.with(itemBinding.ivPic).load(Uri.parse(item.remoteThumbUrl)).into(itemBinding.ivPic)
             }
         }
     }
@@ -54,9 +56,13 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun uploadFile(){
-        val url = Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + R.drawable.ic_delete)
-        var booklet = Booklet("1","Test",url.toString())
+        val url = Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + R.drawable.ic_dialog_alert)
+        val booklet = Booklet("1","Test",url.toString(),"","","")
         viewModel.uploadFile(booklet)
+    }
+
+    private fun downloadFile(){
+
     }
 
     private fun initRecycler() {
@@ -64,7 +70,9 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun initObservers() {
-
+        viewModel.libraryBookletList.observe(this){
+            bookletListAdapter.setItems(it)
+        }
     }
 
     private fun initBackPressed() {
