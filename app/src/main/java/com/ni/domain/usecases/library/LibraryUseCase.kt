@@ -1,7 +1,8 @@
 package com.ni.domain.usecases.library
 
 import android.net.Uri
-import android.widget.Toast
+import android.os.Environment
+import android.util.Log
 import com.google.firebase.storage.FirebaseStorage
 import com.ni.data.models.Booklet
 import com.ni.data.repository.remote.LibraryRepository
@@ -25,11 +26,17 @@ class LibraryUseCase : LibraryRepository {
     override fun retrieveFile(booklet: Booklet) {
         val fileName = booklet.name
         val storageRef = storage.reference.child("library/").child(fileName)
-        val localFile = File.createTempFile("temp", "txt")
-        val downloadTask = storageRef.getFile(localFile)
+        val downloadLocation = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+        val newFolder = File(downloadLocation,"Library_Materials/")
+        newFolder.mkdirs()
+        val file = File(newFolder,booklet.name+".png")
+        file.createNewFile()
+        val downloadTask = storageRef.getFile(file)
         downloadTask.addOnFailureListener {
         }.addOnSuccessListener { taskSnapshot ->
-
+            Log.e("TEST_download","success ${file.absolutePath}");
+        }.addOnFailureListener{
+            Log.e("TEST_download","Failed ", it)
         }
     }
 

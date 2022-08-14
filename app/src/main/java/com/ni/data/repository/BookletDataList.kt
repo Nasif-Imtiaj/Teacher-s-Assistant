@@ -10,7 +10,7 @@ object BookletDataList {
         dummyList.add(
             Booklet(
                 "CR-1",
-                "CSE",
+                "Test",
                 "",
                 "",
                 "https://firebasestorage.googleapis.com/v0/b/ni-teacher-assistant.appspot.com/o/library%2FTest?alt=media&token=c94323ef-99ca-42ec-a6f8-07d797b2efb2",

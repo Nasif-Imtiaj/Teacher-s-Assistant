@@ -32,6 +32,9 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
             ) {
                 itemBinding.tvName.text = item.name
                 Glide.with(itemBinding.ivPic).load(Uri.parse(item.remoteThumbUrl)).into(itemBinding.ivPic)
+                itemBinding.tvDownload.setOnClickListener {
+                    downloadFile(item)
+                }
             }
         }
     }
@@ -53,6 +56,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
              uploadFile()
             Toast.makeText(activity,"UploadClicked",Toast.LENGTH_SHORT)
         }
+
     }
 
     private fun uploadFile(){
@@ -61,8 +65,8 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
         viewModel.uploadFile(booklet)
     }
 
-    private fun downloadFile(){
-
+    private fun downloadFile(booklet: Booklet){
+        viewModel.downloadFile(booklet)
     }
 
     private fun initRecycler() {

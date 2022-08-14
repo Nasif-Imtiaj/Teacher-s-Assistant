@@ -15,6 +15,9 @@ class LibraryViewModel(private val libraryRepository: LibraryRepository):ViewMod
     fun uploadFile(booklet: Booklet){
         libraryRepository.createFile(booklet)
     }
+    fun downloadFile(booklet: Booklet) {
+        libraryRepository.retrieveFile(booklet)
+    }
 
 
 }
