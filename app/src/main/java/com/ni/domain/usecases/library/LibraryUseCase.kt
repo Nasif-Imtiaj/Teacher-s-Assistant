@@ -6,6 +6,7 @@ import android.util.Log
 import com.google.firebase.storage.FirebaseStorage
 import com.ni.data.models.Booklet
 import com.ni.data.repository.remote.LibraryRepository
+import com.ni.utils.FileUtils
 import java.io.File
 
 class LibraryUseCase : LibraryRepository {
@@ -26,8 +27,7 @@ class LibraryUseCase : LibraryRepository {
     override fun retrieveFile(booklet: Booklet) {
         val fileName = booklet.name
         val storageRef = storage.reference.child("library/").child(fileName)
-        val downloadLocation = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val newFolder = File(downloadLocation,"Library_Materials/")
+        val newFolder = FileUtils.getRootDownloadDirectory()
         newFolder.mkdirs()
         val file = File(newFolder,booklet.name+".png")
         file.createNewFile()

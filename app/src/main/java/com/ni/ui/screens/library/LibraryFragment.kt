@@ -2,6 +2,7 @@ package com.ni.ui.screens.library
 import android.R
 import android.net.Uri
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -11,6 +12,8 @@ import com.ni.teachersassistant.databinding.BookletItemLayoutBinding
 import com.ni.teachersassistant.databinding.LibraryFragmentLayoutBinding
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
+import com.ni.utils.FileUtils
+import kotlinx.coroutines.coroutineScope
 
 class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, LibraryListener>(
     LibraryFragmentLayoutBinding::inflate
@@ -32,6 +35,11 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
             ) {
                 itemBinding.tvName.text = item.name
                 Glide.with(itemBinding.ivPic).load(Uri.parse(item.remoteThumbUrl)).into(itemBinding.ivPic)
+                if(fileExists(item)){
+                    itemBinding.tvRead.visibility= View.VISIBLE
+                    itemBinding.tvShare.visibility= View.VISIBLE
+                    itemBinding.tvDownload.visibility = View.GONE
+                }
                 itemBinding.tvDownload.setOnClickListener {
                     downloadFile(item)
                 }
@@ -56,13 +64,16 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
              uploadFile()
             Toast.makeText(activity,"UploadClicked",Toast.LENGTH_SHORT)
         }
-
     }
 
     private fun uploadFile(){
         val url = Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + R.drawable.ic_dialog_alert)
         val booklet = Booklet("1","Test",url.toString(),"","","")
         viewModel.uploadFile(booklet)
+    }
+
+    private fun fileExists(booklet: Booklet):Boolean{
+        return FileUtils.isFileExistsOnDownload(booklet.name+".png")
     }
 
     private fun downloadFile(booklet: Booklet){
