@@ -15,6 +15,8 @@ import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.library.LibraryFragment
+import com.ni.ui.screens.user.login.LoginFragment
+import com.ni.ui.screens.user.login.LoginListener
 import io.realm.BuildConfig
 import io.realm.Realm
 import io.realm.log.LogLevel
@@ -31,7 +33,7 @@ const val PARTITION_EXTRA_KEY = "PARTITION"
 const val PROJECT_NAME_EXTRA_KEY = "PROJECT NAME"
 
 
-class MainActivity : AppCompatActivity(), HomeListener {
+class MainActivity : AppCompatActivity(), HomeListener, LoginListener {
     private var user: User? = null
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
@@ -42,18 +44,20 @@ class MainActivity : AppCompatActivity(), HomeListener {
         initRealmDatabase()
         init()
     }
+
     private fun init() {
-        val creds = Credentials.emailPassword("nasif@test.com","1234568")
-        taskApp.loginAsync(creds){
-            if(it.isSuccess)
-                loadHomeScreen()
-            else {
-                Log.d("TESTCRED","invb")
-                Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
-            }
+        user = taskApp.currentUser()
+        if (user == null) {
+            loadLoginScreen()
+        } else {
+            loadHomeScreen()
         }
-       //loadHomeScreen()
     }
+
+    private fun loadLoginScreen() {
+        loadFragment(LoginFragment.newInstance(), true, false, LoginFragment.TAG)
+    }
+
     private fun loadHomeScreen() {
         loadFragment(HomeFragment.newInstance(), true, false, HomeFragment.TAG)
     }
@@ -66,7 +70,7 @@ class MainActivity : AppCompatActivity(), HomeListener {
         loadFragment(ClassListFragment.newInstance(), true, false, ClassListFragment.TAG)
     }
 
-    private fun loadLibrary(){
+    private fun loadLibrary() {
         loadFragment(LibraryFragment.newInstance(), true, false, ClassListFragment.TAG)
 
     }
@@ -81,6 +85,15 @@ class MainActivity : AppCompatActivity(), HomeListener {
 
     override fun onLibraryClicked() {
         loadLibrary()
+    }
+
+    override fun onSuccessfulLogin() {
+        user = taskApp.currentUser()
+        loadHomeScreen()
+    }
+
+    override fun onRegisterClicked() {
+        TODO("Not yet implemented")
     }
 
     fun loadFragment(
@@ -135,7 +148,7 @@ class MainActivity : AppCompatActivity(), HomeListener {
         Handler().postDelayed({ lastFragmentTag = "" }, 500)
     }
 
-    fun initRealmDatabase(){
+    fun initRealmDatabase() {
         Realm.init(this)
         taskApp = App(
             AppConfiguration.Builder("teacher_assistant-xxpjn")
