@@ -1,10 +1,15 @@
 package com.ni.ui.screens.library
 import android.R
+import android.content.ClipData
+import android.content.Intent
 import android.net.Uri
+import android.os.Environment
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.ni.data.models.Booklet
@@ -14,6 +19,7 @@ import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.utils.FileUtils
 import kotlinx.coroutines.coroutineScope
+import java.io.File
 
 class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, LibraryListener>(
     LibraryFragmentLayoutBinding::inflate
@@ -42,6 +48,9 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 }
                 itemBinding.tvDownload.setOnClickListener {
                     downloadFile(item)
+                }
+                itemBinding.tvRead.setOnClickListener {
+                    openFile(item)
                 }
             }
         }
@@ -79,6 +88,23 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     private fun downloadFile(booklet: Booklet){
         viewModel.downloadFile(booklet)
     }
+
+    private fun openFile(booklet: Booklet){
+            var file = File(FileUtils.getRootDownloadDirectory() ,  booklet.name+".png")
+            val uriPdfPath = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", file)
+            val pdfOpenIntent =  Intent(Intent.ACTION_VIEW)
+            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
+            pdfOpenIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            pdfOpenIntent.clipData = ClipData.newRawUri("", uriPdfPath)
+            pdfOpenIntent.setDataAndType(uriPdfPath, mimeType)
+            pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            pdfOpenIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            try {
+                startActivity(pdfOpenIntent);
+            } catch (e:Exception) {
+                Toast.makeText(requireContext(),"There is no app to load corresponding PDF",Toast.LENGTH_LONG).show()
+            }
+        }
 
     private fun initRecycler() {
         binding.optionRecyclerViewLF.adapter = bookletListAdapter
