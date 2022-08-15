@@ -52,6 +52,9 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 itemBinding.tvRead.setOnClickListener {
                     openFile(item)
                 }
+                itemBinding.tvShare.setOnClickListener {
+                    shareFile(item)
+                }
             }
         }
     }
@@ -105,6 +108,20 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 Toast.makeText(requireContext(),"There is no app to load corresponding PDF",Toast.LENGTH_LONG).show()
             }
         }
+
+    private fun shareFile(booklet: Booklet){
+        var file = File(FileUtils.getRootDownloadDirectory() ,  booklet.name+".png")
+        val uriPdfPath = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", file)
+        val pdfOpenIntent =  Intent(Intent.ACTION_SEND)
+        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
+        pdfOpenIntent.setType(mimeType)
+        pdfOpenIntent.putExtra(Intent.EXTRA_STREAM,uriPdfPath)
+        try {
+            startActivity(pdfOpenIntent);
+        } catch (e:Exception) {
+            Toast.makeText(requireContext(),"There is no app to load corresponding PDF",Toast.LENGTH_LONG).show()
+        }
+    }
 
     private fun initRecycler() {
         binding.optionRecyclerViewLF.adapter = bookletListAdapter
