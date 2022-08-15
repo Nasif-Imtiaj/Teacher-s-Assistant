@@ -8,13 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.ni.teachersassistant.R
+import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.classList.ClassListFragment
 import com.ni.ui.screens.home.HomeFragment
 import com.ni.ui.screens.home.HomeListener
-import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
-import com.ni.teachersassistant.R
-import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.library.LibraryFragment
+import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
 import com.ni.ui.screens.user.register.RegisterFragment
@@ -25,9 +25,8 @@ import io.realm.log.LogLevel
 import io.realm.log.RealmLog
 import io.realm.mongodb.App
 import io.realm.mongodb.AppConfiguration
-import io.realm.mongodb.Credentials
 import io.realm.mongodb.User
-import kotlin.math.log
+import kotlinx.android.synthetic.main.main_activity_layout.*
 
 lateinit var taskApp: App
 inline fun <reified T> T.TAG(): String = T::class.java.simpleName
@@ -91,6 +90,18 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
 
     override fun onLibraryClicked() {
         loadLibrary()
+    }
+
+    override fun onLogoutClicked() {
+        user?.logOutAsync {
+            if (it.isSuccess) {
+                user = null
+                this.supportFragmentManager.popBackStack()
+                loadLoginScreen()
+            } else {
+                Toast.makeText(this,"Logout failed!!",Toast.LENGTH_LONG)
+            }
+        }
     }
 
     override fun onSuccessfulLogin() {

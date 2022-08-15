@@ -48,6 +48,9 @@ class HomeFragment :
         binding.cvLibrary.setOnClickListener{
             notify { it.onLibraryClicked() }
         }
+        binding.tvLogout.setOnClickListener {
+            notify { it.onLogoutClicked() }
+        }
     }
 
 
