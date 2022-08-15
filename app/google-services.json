@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "136282136846",
+    "project_id": "ni-teacher-assistant",
+    "storage_bucket": "ni-teacher-assistant.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:136282136846:android:f2f1c425dfe6c5cf49b75f",
+        "android_client_info": {
+          "package_name": "com.ni.teachersassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "136282136846-137sp8m0luv50vbprl046h153lemtdpi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2kKr3pKq5Wq1Ahy3AkyXrgk94XCM_0z4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "136282136846-137sp8m0luv50vbprl046h153lemtdpi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
