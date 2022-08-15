@@ -17,6 +17,8 @@ import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.library.LibraryFragment
 import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
+import com.ni.ui.screens.user.register.RegisterFragment
+import com.ni.ui.screens.user.register.RegisterListener
 import io.realm.BuildConfig
 import io.realm.Realm
 import io.realm.log.LogLevel
@@ -33,7 +35,7 @@ const val PARTITION_EXTRA_KEY = "PARTITION"
 const val PROJECT_NAME_EXTRA_KEY = "PROJECT NAME"
 
 
-class MainActivity : AppCompatActivity(), HomeListener, LoginListener {
+class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterListener {
     private var user: User? = null
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
@@ -56,6 +58,10 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener {
 
     private fun loadLoginScreen() {
         loadFragment(LoginFragment.newInstance(), true, false, LoginFragment.TAG)
+    }
+
+    private fun loadRegisterScreen() {
+        loadFragment(RegisterFragment.newInstance(), true, false, RegisterFragment.TAG)
     }
 
     private fun loadHomeScreen() {
@@ -93,7 +99,7 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener {
     }
 
     override fun onRegisterClicked() {
-        TODO("Not yet implemented")
+        loadRegisterScreen()
     }
 
     fun loadFragment(
@@ -163,5 +169,9 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener {
         }
 
         Log.v(TAG(), "Initialized the Realm App configuration for: ${taskApp.configuration.appId}")
+    }
+
+    override fun onRegisteredSuccessfully() {
+       loadHomeScreen()
     }
 }

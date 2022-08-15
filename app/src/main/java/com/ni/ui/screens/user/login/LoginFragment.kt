@@ -6,7 +6,6 @@ import androidx.activity.OnBackPressedCallback
 import com.ni.teachersassistant.databinding.LoginFragmentBinding
 import com.ni.ui.activity.taskApp
 import com.ni.ui.common.baseClasses.BaseObservableFragment
-import com.ni.ui.screens.home.HomeListener
 import io.realm.mongodb.Credentials
 
 
@@ -37,6 +36,12 @@ class LoginFragment :
                 var password = binding.etPassword.text.toString()
                 validUser(email,password)
             }
+        binding.bRegister.setOnClickListener {
+             popFragment()
+            notify {
+                it.onRegisterClicked()
+            }
+        }
     }
 
     private fun validUser(email:String,password:String){
