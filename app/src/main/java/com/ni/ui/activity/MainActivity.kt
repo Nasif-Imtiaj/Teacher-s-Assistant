@@ -2,6 +2,8 @@ package com.ni.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -13,21 +15,45 @@ import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.library.LibraryFragment
+import io.realm.BuildConfig
+import io.realm.Realm
+import io.realm.log.LogLevel
+import io.realm.log.RealmLog
+import io.realm.mongodb.App
+import io.realm.mongodb.AppConfiguration
+import io.realm.mongodb.Credentials
+import io.realm.mongodb.User
+import kotlin.math.log
+
+lateinit var taskApp: App
+inline fun <reified T> T.TAG(): String = T::class.java.simpleName
+const val PARTITION_EXTRA_KEY = "PARTITION"
+const val PROJECT_NAME_EXTRA_KEY = "PROJECT NAME"
+
 
 class MainActivity : AppCompatActivity(), HomeListener {
+    private var user: User? = null
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initRealmDatabase()
         init()
     }
-
     private fun init() {
-        loadHomeScreen()
+        val creds = Credentials.emailPassword("nasif@test.com","1234568")
+        taskApp.loginAsync(creds){
+            if(it.isSuccess)
+                loadHomeScreen()
+            else {
+                Log.d("TESTCRED","invb")
+                Toast.makeText(this, "failed", Toast.LENGTH_SHORT)
+            }
+        }
+       //loadHomeScreen()
     }
-
     private fun loadHomeScreen() {
         loadFragment(HomeFragment.newInstance(), true, false, HomeFragment.TAG)
     }
@@ -107,5 +133,22 @@ class MainActivity : AppCompatActivity(), HomeListener {
 
     private fun handleDoubleClick() {
         Handler().postDelayed({ lastFragmentTag = "" }, 500)
+    }
+
+    fun initRealmDatabase(){
+        Realm.init(this)
+        taskApp = App(
+            AppConfiguration.Builder("teacher_assistant-xxpjn")
+                .defaultSyncErrorHandler { session, error ->
+                    Log.e(TAG(), "Sync error: ${error.errorMessage}")
+                }
+                .build())
+
+        // Enable more logging in debug mode
+        if (BuildConfig.DEBUG) {
+            RealmLog.setLevel(LogLevel.ALL)
+        }
+
+        Log.v(TAG(), "Initialized the Realm App configuration for: ${taskApp.configuration.appId}")
     }
 }
