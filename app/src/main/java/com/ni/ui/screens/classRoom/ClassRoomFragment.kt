@@ -67,9 +67,10 @@ class ClassRoomFragment :
                 item: Assignment,
                 position: Int
             ) {
-                itemBinding.tvTitle.text = item.name
-                itemBinding.tvDueDate.text = item.endDate
-                itemBinding.tvCounter.text = "16/20"
+                itemBinding.tvName.text = item.name
+                itemBinding.tvStartDate.text = item.startDate
+                itemBinding.tvEndDate.text = item.endDate
+                itemBinding.tvExamMarks.text = "Marks: "+ item.mark.toString()
                 itemBinding.acMainContainer.setOnClickListener {
                     loadAssignmentScreen(item.name)
                 }
