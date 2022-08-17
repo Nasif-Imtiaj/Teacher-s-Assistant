@@ -1,4 +1,4 @@
-package com.ni.ui.common.dialogs.newStudentDialog
+package com.ni.ui.common.dialogs.newAssignmentDialog
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,27 +6,33 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.ni.data.models.Student
+import com.ni.data.models.Assignment
 import com.ni.teachersassistant.R
-import kotlinx.android.synthetic.main.new_student_dialog_layout.*
+import kotlinx.android.synthetic.main.new_assignment_dialog_layout.*
+import kotlinx.android.synthetic.main.new_assignment_dialog_layout.view.*
+import kotlinx.android.synthetic.main.new_student_dialog_layout.etName
 import kotlinx.android.synthetic.main.new_student_dialog_layout.view.*
+import kotlinx.android.synthetic.main.new_student_dialog_layout.view.etName
 import java.util.*
 
-
-class NewStudentDialog : DialogFragment() {
+class NewAssignmentDialog : DialogFragment() {
     companion object {
-        const val TAG = "NewStudentDialog"
+        const val TAG = "NewAssignmentDialog"
+        fun newInstance(roomId: String) = NewAssignmentDialog().apply {
+            this.roomId = roomId
+        }
     }
 
-    lateinit var listener: NewStudentDialogListener
+    var roomId = ""
+    lateinit var listener: NewAssignmentDialogListener
     override fun onAttach(context: Context) {
         super.onAttach(context)
         parentFragment?.let {
-            if (it is NewStudentDialogListener) {
+            if (it is NewAssignmentDialogListener) {
                 listener = it
             }
         }
-        if (context is NewStudentDialogListener) {
+        if (context is NewAssignmentDialogListener) {
             listener = context
         }
     }
@@ -35,20 +41,19 @@ class NewStudentDialog : DialogFragment() {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;
-            var view = inflater.inflate(R.layout.new_student_dialog_layout, null)
+            var view = inflater.inflate(R.layout.new_assignment_dialog_layout, null)
             builder.setView(view)
                 .setPositiveButton("Done",
                     DialogInterface.OnClickListener { dialog, id ->
-                        var student = Student(
+                        var assignment = Assignment(
                             UUID.randomUUID().toString(),
+                            roomId,
                             view.etName.text.toString(),
-                            view.etStudentId.text.toString(),
-                            view.etDepartment.text.toString(),
-                            view.etBatch.text.toString(),
-                            view.etSection.text.toString(),
-                            "https://firebasestorage.googleapis.com/v0/b/ni-teacher-assistant.appspot.com/o/profilePic%2Fp1.jpeg?alt=media&token=0592c9d4-3861-4809-adf3-7663815c5617"
+                            view.etStartDate.text.toString(),
+                            view.etEndDate.text.toString(),
+                            view.etMarks.text.toString().toInt()
                         )
-                        listener.onDialogPositiveClick(student)
+                        listener.onDialogPositiveClick(assignment)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

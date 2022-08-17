@@ -49,7 +49,7 @@
     </LinearLayout>
 
     <ImageView
-
+        android:visibility="gone"
         android:id="@+id/ivAddStudent"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
-        android:visibility="gone"
+
         android:id="@+id/ivAddAssignment"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -75,10 +75,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="48dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivAddStudent" />
+        app:layout_constraintTop_toBottomOf="@id/llBtns" />
 
     <FrameLayout
         android:id="@+id/flCRFContainer"

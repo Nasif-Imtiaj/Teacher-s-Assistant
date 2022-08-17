@@ -15,13 +15,16 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
+import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialog
+import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
+import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
-    NewStudentDialogListener {
+    NewStudentDialogListener,NewAssignmentDialogListener {
     companion object {
         const val TAG = "ClassRoomFragment"
         fun newInstance(roomId: String) = ClassRoomFragment().apply {
@@ -30,7 +33,9 @@ class ClassRoomFragment :
     }
 
     var roomId = ""
-    val viewModel by viewModels<ClassRoomViewModel>()
+    val viewModel by viewModels<ClassRoomViewModel>(){
+        ViewModelFactory()
+    }
 
     private val studentAdapter: AbstractAdapter<Student, StudentItemLayoutBinding> by lazy {
         object :
@@ -112,6 +117,10 @@ class ClassRoomFragment :
             val dialog = NewStudentDialog()
             dialog.show(childFragmentManager, NewStudentDialog.TAG)
         }
+        binding.ivAddAssignment.setOnClickListener {
+            val dialog = NewAssignmentDialog.newInstance(roomId)
+            dialog.show(childFragmentManager, NewAssignmentDialog.TAG)
+        }
     }
 
     private fun initRecycler() {
@@ -148,7 +157,12 @@ class ClassRoomFragment :
 
     }
 
+    override fun onDialogPositiveClick(assignment: Assignment) {
+       viewModel.createAssignment(assignment)
+    }
+
+
     override fun onDialogNegativeClick() {
-        TODO("Not yet implemented")
+
     }
 }
