@@ -3,7 +3,6 @@ import android.R
 import android.content.ClipData
 import android.content.Intent
 import android.net.Uri
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
@@ -15,10 +14,10 @@ import com.bumptech.glide.Glide
 import com.ni.data.models.Booklet
 import com.ni.teachersassistant.databinding.BookletItemLayoutBinding
 import com.ni.teachersassistant.databinding.LibraryFragmentLayoutBinding
+import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.utils.FileUtils
-import kotlinx.coroutines.coroutineScope
 import java.io.File
 
 class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, LibraryListener>(
@@ -29,7 +28,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
         fun newInstance() = LibraryFragment().apply {}
     }
 
-    val viewModel by viewModels<LibraryViewModel>{ LibraryViewModelFactory() }
+    val viewModel by viewModels<LibraryViewModel>{ ViewModelFactory() }
 
     private val bookletListAdapter: AbstractAdapter<Booklet, BookletItemLayoutBinding> by lazy {
         object :

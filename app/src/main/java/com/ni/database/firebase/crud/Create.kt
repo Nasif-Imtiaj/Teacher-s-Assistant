@@ -1,7 +1,7 @@
 package com.ni.database.firebase.crud
 
 import com.google.firebase.database.FirebaseDatabase
-import com.ni.database.firebase.models.*
+import com.ni.data.models.*
 
 class Create {
     companion object {

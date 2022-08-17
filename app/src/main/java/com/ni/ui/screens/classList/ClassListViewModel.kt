@@ -1,45 +1,70 @@
 package com.ni.ui.screens.classList
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.ni.data.models.ClassListModel
+import androidx.lifecycle.viewModelScope
 import com.ni.data.repository.ClassListDataList
-import com.ni.database.firebase.crud.Create
 import com.ni.database.firebase.crud.Retrieve
-import com.ni.database.firebase.models.Classroom
+import com.ni.data.models.Classroom
+import com.ni.data.repository.remote.ClassroomCallbacks
+import com.ni.data.repository.remote.ClassroomRepository
+import com.ni.ui.common.baseClasses.BaseViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
-class ClassListViewModel : ViewModel() {
-    private val _classRoomList = ClassListDataList
-
-    val classRoomDataList = MutableLiveData<List<ClassListModel>>()
+class ClassListViewModel(private val classroomRepository: ClassroomRepository) : BaseViewModel() {
+    private val dummyClassRoomList = ClassListDataList
+    private val _classRoomDataList = MutableLiveData<ArrayList<Classroom>>()
+    val classRoomDataList: LiveData<ArrayList<Classroom>>
+        get() = _classRoomDataList
 
     init {
-        var list = Retrieve.classroom()
-        Log.d("TEST_DATA", ": ${list.size}")
-        for(i in list)
-            Log.d("TEST_DATA", ": $i")
-        classRoomDataList.postValue(_classRoomList.classList)
+        _classRoomDataList.postValue(dummyClassRoomList.classList)
+        retrieveClassrooms()
+    }
+
+    private suspend fun retrieveClassroomsAsync() {
+        viewModelScope.launch(Dispatchers.IO) {
+            classroomRepository.retrieve(object : ClassroomCallbacks {
+                override fun onSuccess(list: ArrayList<Classroom>) {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        _isLoading.postValue(false)
+                        _classRoomDataList.postValue(list)
+                    }
+                }
+
+                override fun onFailed() {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        _isLoading.postValue(false)
+                    }
+                }
+            })
+        }
+    }
+
+    fun retrieveClassrooms() {
+        viewModelScope.launch {
+            _isLoading.postValue(true)
+            retrieveClassroomsAsync()
+        }
+    }
+
+    private fun createClassroom(classroom: Classroom) {
+        classroomRepository.create(classroom)
     }
 
     fun addToClassRoom(courseName: String, department: String, batch: String) {
-      /*  _classRoomList.classList.add(
-            ClassListModel(
-                "CR-3",
-                dept,
-                "",
-                "",
-                0,
-                sub,
-                code
-            )
-        )
-        classRoomDataList.postValue(_classRoomList.classList)*/
-        Create.classroom(Classroom(UUID.randomUUID().toString(),courseName,department,batch,"16/09/22"))
+        createClassroom(Classroom(UUID.randomUUID().toString(),
+            courseName,
+            department,
+            batch,
+            "16/09/22"))
     }
 
-    public fun getTitle(item: ClassListModel): String {
-        return item.dept.toString() + " " + item.subjectCode + " : " + item.subject
+    public fun getTitle(item: Classroom): String {
+        return item.courseName
     }
 }

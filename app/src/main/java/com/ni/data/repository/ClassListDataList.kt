@@ -1,57 +1,39 @@
 package com.ni.data.repository
 
-import com.ni.data.models.ClassListModel
+import com.ni.data.models.Classroom
 
 object ClassListDataList {
-   var classList = ArrayList<ClassListModel>()
+   var classList = ArrayList<Classroom>()
 
     init {
         create_dummy()
     }
-
     fun create_dummy() {
         classList.add(
-            ClassListModel(
-                "CR-1",
-                "CSE",
+            Classroom(
+                "6546456546",
+                "p-400",
                 "44",
                 "B",
-                24,
-                "Project-400",
-                "654"
+                "16/06/22",
             )
         )
         classList.add(
-            ClassListModel(
-                "CR-2",
-                "CSE",
-                "44",
-                "B",
-                24,
-                "Project-300",
-                "454"
-            )
-        )
-        classList.add(
-            ClassListModel(
-                "CR-3",
-                "CSE",
-                "41",
-                "C",
-                45,
-                "Project-200",
-                "754"
-            )
-        )
-        classList.add(
-            ClassListModel(
-                "CR-4",
-                "CSE",
-                "45",
+            Classroom(
+                "456345453",
+                "p-300",
+                "46",
                 "A",
-                20,
-                "Project-100",
-                "484"
+                "17/06/22",
+            )
+        )
+        classList.add(
+            Classroom(
+                "5454",
+                "p-200",
+                "42",
+                "A",
+                "15/06/22",
             )
         )
     }

@@ -2,7 +2,7 @@ package com.ni.database.firebase.crud
 
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
-import com.ni.database.firebase.models.Classroom
+import com.ni.data.models.Classroom
 
 
 class Retrieve {

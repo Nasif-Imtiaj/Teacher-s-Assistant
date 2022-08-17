@@ -5,15 +5,16 @@ import androidx.fragment.app.Fragment
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import com.ni.data.models.Classroom
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialog
 import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialogListener
-import com.ni.data.models.ClassListModel
 import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
+import com.ni.ui.common.ViewModelFactory
 
 class ClassListFragment :
     BaseObservableFragment<ClassListFragmentBinding, ClassListListener>(ClassListFragmentBinding::inflate),
@@ -24,21 +25,22 @@ class ClassListFragment :
         fun newInstance() = ClassListFragment().apply {}
     }
 
-    val viewModel by viewModels<ClassListViewModel>()
+    val viewModel by viewModels<ClassListViewModel> {
+        ViewModelFactory()
+    }
 
-    private val classListAdapter: AbstractAdapter<ClassListModel, ClassroomItemLayoutBinding> by lazy {
+    private val classListAdapter: AbstractAdapter<Classroom, ClassroomItemLayoutBinding> by lazy {
         object :
-            AbstractAdapter<ClassListModel, ClassroomItemLayoutBinding>(ClassroomItemLayoutBinding::inflate) {
+            AbstractAdapter<Classroom, ClassroomItemLayoutBinding>(ClassroomItemLayoutBinding::inflate) {
             override fun bind(
                 itemBinding: ClassroomItemLayoutBinding,
-                item: ClassListModel,
-                position: Int
+                item: Classroom,
+                position: Int,
             ) {
                 itemBinding.tvTitle.text = viewModel.getTitle(item)
-                itemBinding.tvStudents.text = item.students.toString() + " Students"
                 itemBinding.tvSection.text = item.section + " Section"
                 itemBinding.cdMainContainer.setOnClickListener {
-                    loadClassRoom(item.classRoomId)
+                    loadClassRoom(item.id)
                 }
             }
         }

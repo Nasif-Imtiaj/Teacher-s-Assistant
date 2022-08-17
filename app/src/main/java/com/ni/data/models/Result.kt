@@ -1,4 +1,4 @@
-package com.ni.database.firebase.models
+package com.ni.data.models
 
 data class Result(val id:String,val submissionId:String,val examMarks:Float,val obtained:Float
 ,val bonus:Float, val penalty:Float,val totalMarks: Float){
