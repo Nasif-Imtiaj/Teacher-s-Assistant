@@ -1,30 +1,29 @@
 package com.ni.data.repository.dummy
 
-import com.ni.data.models.AssignmentModel
-import java.util.*
+import com.ni.data.models.Assignment
 import kotlin.collections.ArrayList
 
 object AssignmentDataList {
-    var assignmentList = ArrayList<AssignmentModel>()
+    var list = ArrayList<Assignment>()
     init{
-        create_dummy()
+        createDummy()
     }
-    fun create_dummy(){
-        assignmentList.add(
-            AssignmentModel(
-                UUID.randomUUID().toString(),
-                "AGN-1",
-                "10/06/22",
-                "18/06/22",
-            )
-        )
-        assignmentList.add(
-            AssignmentModel(
-                UUID.randomUUID().toString(),
-                "AGN-2",
-                "11/06/22",
-                "15/06/22",
-            )
-        )
+    private fun createDummy(){
+        list.add(Assignment(
+            "456456",
+            "544645",
+            "Assign-1",
+            "01/02/22",
+            "02/03/22",
+            0
+        ))
+        list.add(Assignment(
+            "45645656456",
+            "32131",
+            "Assign-1",
+            "01/02/22",
+            "02/03/22",
+            0
+        ))
     }
 }

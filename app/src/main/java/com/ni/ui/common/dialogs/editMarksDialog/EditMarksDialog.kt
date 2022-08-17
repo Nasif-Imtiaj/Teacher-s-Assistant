@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
-import com.ni.data.models.SubmitModel
 import com.ni.teachersassistant.R
 import kotlinx.android.synthetic.main.edit_marks_dialog_layout.view.*
 
@@ -31,15 +30,15 @@ class EditMarksDialog : DialogFragment() {
             listener = context
         }
     }
-    fun newInstance(item: SubmitModel): EditMarksDialog? {
-        val fragment = EditMarksDialog()
-        val bundle = Bundle()
-        bundle.putInt(KEY_OBTAINED, item.marks.obtained)
-        bundle.putInt(KEY_BONUS, item.marks.bonus)
-        bundle.putInt(KEY_PENALTY, item.marks.penalty)
-        fragment.arguments = bundle
-        return fragment
-    }
+//    fun newInstance(item: SubmitModel): EditMarksDialog? {
+//        val fragment = EditMarksDialog()
+//        val bundle = Bundle()
+//        bundle.putInt(KEY_OBTAINED, item.marks.obtained)
+//        bundle.putInt(KEY_BONUS, item.marks.bonus)
+//        bundle.putInt(KEY_PENALTY, item.marks.penalty)
+//        fragment.arguments = bundle
+//        return fragment
+//    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {

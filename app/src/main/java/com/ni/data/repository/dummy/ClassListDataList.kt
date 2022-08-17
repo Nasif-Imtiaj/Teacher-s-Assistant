@@ -13,6 +13,7 @@ object ClassListDataList {
             Classroom(
                 "6546456546",
                 "p-400",
+                "CSE-335",
                 "44",
                 "B",
                 "16/06/22",
@@ -22,6 +23,7 @@ object ClassListDataList {
             Classroom(
                 "456345453",
                 "p-300",
+                "CSE-335",
                 "46",
                 "A",
                 "17/06/22",
@@ -31,6 +33,7 @@ object ClassListDataList {
             Classroom(
                 "5454",
                 "p-200",
+                "CSE-335",
                 "42",
                 "A",
                 "15/06/22",

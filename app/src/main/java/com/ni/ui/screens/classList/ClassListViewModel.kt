@@ -69,9 +69,10 @@ class ClassListViewModel(private val classroomRepository: ClassroomRepository) :
         classroomRepository.create(classroom)
     }
 
-    fun addToClassRoom(courseName: String, department: String, batch: String) {
+    fun addToClassRoom(courseName: String,courseCode:String, department: String, batch: String) {
         createClassroom(Classroom(UUID.randomUUID().toString(),
             courseName,
+            courseCode,
             department,
             batch,
             "16/09/22"))

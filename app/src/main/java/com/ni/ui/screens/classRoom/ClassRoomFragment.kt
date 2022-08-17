@@ -5,10 +5,10 @@ import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ni.data.models.Assignment
+import com.ni.data.models.Student
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
-import com.ni.data.models.AssignmentModel
-import com.ni.data.models.StudentInfoModel
 import com.ni.ui.screens.assignment.AssignmentFragment
 import com.ni.ui.screens.studentProfile.StudentProfileFragment
 import com.ni.teachersassistant.R
@@ -28,17 +28,17 @@ class ClassRoomFragment :
     var roomId = ""
     val viewModel by viewModels<ClassRoomViewModel>()
 
-    private val studentAdapter: AbstractAdapter<StudentInfoModel, StudentItemLayoutBinding> by lazy {
+    private val studentAdapter: AbstractAdapter<Student, StudentItemLayoutBinding> by lazy {
         object :
-            AbstractAdapter<StudentInfoModel, StudentItemLayoutBinding>(StudentItemLayoutBinding::inflate) {
+            AbstractAdapter<Student, StudentItemLayoutBinding>(StudentItemLayoutBinding::inflate) {
             override fun bind(
                 itemBinding: StudentItemLayoutBinding,
-                item: StudentInfoModel,
+                item: Student,
                 position: Int
             ) {
                 Log.d(TAG, "bind: ")
                 itemBinding.tvId.text = item.studentId
-                itemBinding.tvDept.text = item.dept
+                itemBinding.tvDept.text = item.department
                 itemBinding.tvBatch.text = item.batch
                 itemBinding.tvSection.text = item.section
                 itemBinding.cvMainContainer.setOnClickListener {
@@ -48,14 +48,14 @@ class ClassRoomFragment :
         }
     }
 
-    private val assignmentAdapter: AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding> by lazy {
+    private val assignmentAdapter: AbstractAdapter<Assignment, AssignmentItemLayoutBinding> by lazy {
         object :
-            AbstractAdapter<AssignmentModel, AssignmentItemLayoutBinding>(
+            AbstractAdapter<Assignment, AssignmentItemLayoutBinding>(
                 AssignmentItemLayoutBinding::inflate
             ) {
             override fun bind(
                 itemBinding: AssignmentItemLayoutBinding,
-                item: AssignmentModel,
+                item: Assignment,
                 position: Int
             ) {
                 itemBinding.tvTitle.text = item.name

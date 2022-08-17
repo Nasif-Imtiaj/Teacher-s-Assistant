@@ -1,10 +1,10 @@
 package com.ni.data.repository.remote
 
-import com.ni.data.models.AssignmentModel
+import com.ni.data.models.Assignment
 
 interface AssignmentRepository {
-    fun getAssignment(): AssignmentModel
-    fun createAssignment(assignmentModel : AssignmentModel)
-    fun deleteAssignment(assignmentModel : AssignmentModel)
-    fun updateAssignment(assignmentModel : AssignmentModel)
+    fun retrieve()
+    fun create(assignment: Assignment)
+    fun delete(assignment: Assignment)
+    fun update(assignment: Assignment)
 }

@@ -9,7 +9,6 @@ import com.ni.ui.common.dialogs.editMarksDialog.EditMarksDialog
 import com.ni.ui.common.dialogs.editMarksDialog.EditMarksDialogListener
 import com.ni.ui.common.dialogs.plagiarismPenaltyDialog.PlagiarismPenaltyDialog
 import com.ni.ui.common.dialogs.plagiarismPenaltyDialog.PlagiarismPenaltyDialogListener
-import com.ni.data.models.SubmitModel
 import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.databinding.AssignmentScreenFragmentBinding
 import com.ni.teachersassistant.databinding.SubmitItemLayoutBinding
@@ -25,29 +24,29 @@ class AssignmentFragment :
         }
     }
 
-    val viewModel by viewModels<AssignmentViewModel>()
-    private val submitListAdapter: AbstractAdapter<SubmitModel, SubmitItemLayoutBinding> by lazy {
-        object :
-            AbstractAdapter<SubmitModel, SubmitItemLayoutBinding>(SubmitItemLayoutBinding::inflate) {
-            override fun bind(
-                itemBinding: SubmitItemLayoutBinding,
-                item: SubmitModel,
-                position: Int
-            ) {
-                Log.d(ClassRoomFragment.TAG, "bind: ")
-                itemBinding.tvId.text = item.studentID
-                itemBinding.tvExamValue.text = item.marks.examMarks.toString()
-                itemBinding.tvObtainedValue.text = item.marks.obtained.toString()
-                itemBinding.tvBonusValue.text = item.marks.bonus.toString()
-                itemBinding.tvPenaltyValue.text = item.marks.penalty.toString()
-                itemBinding.tvTotalValue.text = item.marks.total.toString()
-                itemBinding.ivEditMarks.setOnClickListener {
-                    viewModel.updateSelectedStudent(position)
-                    loadEditMarksDialog(item)
-                }
-            }
-        }
-    }
+//    val viewModel by viewModels<AssignmentViewModel>()
+//    private val submitListAdapter: AbstractAdapter<SubmitModel, SubmitItemLayoutBinding> by lazy {
+//        object :
+//            AbstractAdapter<SubmitModel, SubmitItemLayoutBinding>(SubmitItemLayoutBinding::inflate) {
+//            override fun bind(
+//                itemBinding: SubmitItemLayoutBinding,
+//                item: SubmitModel,
+//                position: Int
+//            ) {
+//                Log.d(ClassRoomFragment.TAG, "bind: ")
+//                itemBinding.tvId.text = item.studentID
+//                itemBinding.tvExamValue.text = item.marks.examMarks.toString()
+//                itemBinding.tvObtainedValue.text = item.marks.obtained.toString()
+//                itemBinding.tvBonusValue.text = item.marks.bonus.toString()
+//                itemBinding.tvPenaltyValue.text = item.marks.penalty.toString()
+//                itemBinding.tvTotalValue.text = item.marks.total.toString()
+//                itemBinding.ivEditMarks.setOnClickListener {
+//                    viewModel.updateSelectedStudent(position)
+//                    loadEditMarksDialog(item)
+//                }
+//            }
+//        }
+//    }
 
 
     override fun initView() {
@@ -62,9 +61,9 @@ class AssignmentFragment :
     }
 
     private fun initObservers() {
-        viewModel.assignmentDataList.observe(this) {
-            submitListAdapter.setItems(it)
-        }
+//        viewModel.assignmentDataList.observe(this) {
+//            submitListAdapter.setItems(it)
+//        }
     }
 
     private fun initBackPressed() {
@@ -77,7 +76,7 @@ class AssignmentFragment :
     }
 
     private fun initRecycler() {
-        binding.optionRecyclerViewASF.adapter = submitListAdapter
+     //   binding.optionRecyclerViewASF.adapter = submitListAdapter
     }
 
     private fun initBtnListener() {
@@ -91,9 +90,9 @@ class AssignmentFragment :
         dialog.show(childFragmentManager, PlagiarismPenaltyDialog.TAG)
     }
 
-    private fun loadEditMarksDialog(item: SubmitModel) {
-        EditMarksDialog().newInstance(item)?.show(childFragmentManager, EditMarksDialog.TAG)
-    }
+//    private fun loadEditMarksDialog(item: SubmitModel) {
+//        EditMarksDialog().newInstance(item)?.show(childFragmentManager, EditMarksDialog.TAG)
+//    }
 
     override fun onDialogNegativeClick() {
 
@@ -104,8 +103,8 @@ class AssignmentFragment :
     }
 
     override fun onUpdatedMarks(obtained: Int, bonus: Int, penalty: Int) {
-        Log.d(TAG, "onUpdatedMarks: $obtained $bonus $penalty")
-        viewModel.updateResultData(obtained, bonus, penalty)
+      //  Log.d(TAG, "onUpdatedMarks: $obtained $bonus $penalty")
+       // viewModel.updateResultData(obtained, bonus, penalty)
     }
 
 }

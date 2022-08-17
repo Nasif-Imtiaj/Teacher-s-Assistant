@@ -87,7 +87,7 @@ class ClassListFragment :
     }
 
     override fun onDialogPositiveClick(dept: String, sub: String, code: String) {
-        viewModel.addToClassRoom(dept, sub, code)
+        viewModel.addToClassRoom(dept,"CSE-335", sub, code)
     }
 
     override fun onDialogNegativeClick() {

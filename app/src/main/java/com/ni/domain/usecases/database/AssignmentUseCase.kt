@@ -1,40 +1,27 @@
 package com.ni.domain.usecases.database
 
 import com.google.firebase.database.FirebaseDatabase
-import com.ni.data.models.AssignmentModel
+import com.ni.data.models.Assignment
 import com.ni.data.repository.remote.AssignmentRepository
-import com.ni.teachersassistant.BuildConfig
 
-private val debugRef = "debug/"
-private val releaseRef = "production/"
-private val assignment = "assignment"
+class AssignmentUseCase : AssignmentRepository {
+    override fun retrieve() {
 
-class  AssignmentUseCase : AssignmentRepository {
-    override fun getAssignment(): AssignmentModel {
-        TODO("Not yet implemented")
     }
 
-    override fun createAssignment(assignmentModel: AssignmentModel) {
-        val reference = FirebaseDatabase.getInstance()
-            .reference
-            .child(if (BuildConfig.DEBUG) debugRef else releaseRef)
-            .child(assignment)
-            .child(assignmentModel.id)
-            .push()
-        reference.setValue(assignmentModel)
+    override fun create(assignment: Assignment) {
+        var databse = FirebaseDatabase.getInstance()
+        var ref = databse.getReference("TeachersAssistant")
+            .child("Assignment")
+            .child(assignment.id)
+        ref.setValue(assignment)
     }
 
-    override fun deleteAssignment(assignmentModel: AssignmentModel) {
-        TODO("Not yet implemented")
+    override fun delete(assignment: Assignment) {
+
     }
 
-    override fun updateAssignment(assignmentModel: AssignmentModel) {
-        val reference = FirebaseDatabase.getInstance()
-            .reference
-            .child(if (BuildConfig.DEBUG) debugRef else releaseRef)
-            .child(assignment)
-            .child(assignmentModel.id)
-            .push()
-        reference.setValue(assignmentModel)
+    override fun update(assignment: Assignment) {
+
     }
 }

@@ -1,58 +1,57 @@
 package com.ni.data.repository.dummy
 
-import com.ni.data.models.StudentInfoModel
+import com.ni.data.models.Student
 
 object StudentDataList {
-    var studentList = ArrayList<StudentInfoModel>()
+    var list = ArrayList<Student>()
 
     init {
-        create_dummy()
+        createDummy()
     }
 
-    fun create_dummy() {
-        studentList.add(
-            StudentInfoModel(
-                arrayListOf( "CR-1","CR-1"),
+    private fun createDummy() {
+        list.add(
+            Student(
+                "54fg54df6g",
+                "Nasif",
                 "181-115-045",
                 "CSE",
-                "44",
+                "44th",
                 "B",
-                4,
-                arrayListOf()
+                ""
             )
         )
-        studentList.add(
-            StudentInfoModel(
-                arrayListOf( "CR-1","CR-1"),
+        list.add(
+            Student(
+                "456456",
+                "Rahnama",
                 "181-115-055",
                 "CSE",
-                "44",
+                "44th",
                 "B",
-                4,
-                arrayListOf()
+                ""
             )
         )
-        studentList.add(
-            StudentInfoModel(
-                arrayListOf( "CR-1","CR-3"),
-                "181-115-058",
+        list.add(
+            Student(
+                "rtfdgfdg",
+                "Hafiz",
+                "181-115-050",
                 "CSE",
-                "44",
+                "44th",
                 "B",
-                4,
-                arrayListOf()
+                ""
             )
-
         )
-        studentList.add(
-            StudentInfoModel(
-                arrayListOf( "CR-2","CR-3"),
-                "181-115-047",
+        list.add(
+            Student(
+                "ertertret",
+                "Ratul",
+                "181-115-050",
                 "CSE",
-                "44",
+                "44th",
                 "B",
-                4,
-                arrayListOf()
+                ""
             )
         )
     }
