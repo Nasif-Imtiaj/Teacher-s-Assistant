@@ -1,11 +1,9 @@
 package com.ni.ui.screens.classList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.ni.data.repository.ClassListDataList
-import com.ni.database.firebase.crud.Retrieve
+import com.ni.data.repository.dummy.ClassListDataList
 import com.ni.data.models.Classroom
 import com.ni.data.repository.remote.ClassroomCallbacks
 import com.ni.data.repository.remote.ClassroomRepository

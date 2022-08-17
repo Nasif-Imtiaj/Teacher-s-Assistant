@@ -3,7 +3,7 @@ package com.ni.ui.screens.assignment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ni.data.models.SubmitModel
-import com.ni.data.repository.SubmissionDataList
+import com.ni.data.repository.dummy.SubmissionDataList
 
 
 class AssignmentViewModel : ViewModel() {

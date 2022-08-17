@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ni.data.models.AssignmentModel
 import com.ni.data.models.StudentInfoModel
-import com.ni.data.repository.AssignmentDataList
-import com.ni.data.repository.StudentDataList
+import com.ni.data.repository.dummy.AssignmentDataList
+import com.ni.data.repository.dummy.StudentDataList
 
 class ClassRoomViewModel : ViewModel() {
     val studentDataList = MutableLiveData<List<StudentInfoModel>>()

@@ -42,13 +42,13 @@ class HomeFragment :
         binding.ivTeacherAva.setOnClickListener {
            notify { it.onTeacherProfileClicked() }
         }
-        binding.cvClassroom.setOnClickListener {
+        binding.ivClassroom.setOnClickListener {
             notify { it.onClassRoomClicked() }
         }
-        binding.cvLibrary.setOnClickListener{
+        binding.ivLibrary.setOnClickListener{
             notify { it.onLibraryClicked() }
         }
-        binding.tvLogout.setOnClickListener {
+        binding.ivLogout.setOnClickListener {
             notify { it.onLogoutClicked() }
         }
     }

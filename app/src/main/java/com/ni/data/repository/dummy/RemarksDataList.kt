@@ -1,4 +1,4 @@
-package com.ni.data.repository
+package com.ni.data.repository.dummy
 
 import com.ni.data.models.RemarksModel
 
