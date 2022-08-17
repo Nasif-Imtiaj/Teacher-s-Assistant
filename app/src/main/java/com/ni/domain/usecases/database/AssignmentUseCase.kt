@@ -5,9 +5,6 @@ import com.ni.data.models.Assignment
 import com.ni.data.repository.remote.AssignmentRepository
 
 class AssignmentUseCase : AssignmentRepository {
-    override fun retrieve() {
-
-    }
 
     override fun create(assignment: Assignment) {
         var databse = FirebaseDatabase.getInstance()
@@ -17,11 +14,17 @@ class AssignmentUseCase : AssignmentRepository {
         ref.setValue(assignment)
     }
 
-    override fun delete(assignment: Assignment) {
+    override fun retrieve() {
 
     }
 
     override fun update(assignment: Assignment) {
 
     }
+
+    override fun delete(assignment: Assignment) {
+
+    }
+
+
 }

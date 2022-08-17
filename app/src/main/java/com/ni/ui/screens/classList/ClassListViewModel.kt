@@ -16,10 +16,10 @@ import kotlin.collections.ArrayList
 class ClassListViewModel(private val classroomRepository: ClassroomRepository) : BaseViewModel() {
     private val dummyClassRoomList = ClassListDataList
     private val _classRoomDataList = MutableLiveData<ArrayList<Classroom>>()
-    private var colorList = ArrayList<String>()
-    private var idx = 0
     val classRoomDataList: LiveData<ArrayList<Classroom>>
         get() = _classRoomDataList
+    private var colorList = ArrayList<String>()
+    private var idx = 0
 
     init {
         _classRoomDataList.postValue(dummyClassRoomList.classList)

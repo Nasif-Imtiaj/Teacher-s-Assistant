@@ -15,9 +15,13 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
+import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialog
+import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
+import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
 
 class ClassRoomFragment :
-    BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate) {
+    BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
+    NewStudentDialogListener {
     companion object {
         const val TAG = "ClassRoomFragment"
         fun newInstance(roomId: String) = ClassRoomFragment().apply {
@@ -77,7 +81,6 @@ class ClassRoomFragment :
     private fun initUiListener() {
         initRecycler()
         initBtnListener()
-        viewModel.filterByClassRoom(roomId)
     }
 
     private fun initObservers() {
@@ -105,6 +108,10 @@ class ClassRoomFragment :
         binding.tvBtnClassWork.setOnClickListener {
             binding.optionRecyclerViewCRF.adapter = assignmentAdapter
         }
+        binding.ivAddStudent.setOnClickListener {
+            val dialog = NewStudentDialog()
+            dialog.show(childFragmentManager, NewStudentDialog.TAG)
+        }
     }
 
     private fun initRecycler() {
@@ -116,7 +123,7 @@ class ClassRoomFragment :
         loadSubFragment(fragment, R.id.flCRFContainer, StudentProfileFragment.TAG)
     }
 
-    fun loadAssignmentScreen(assignmentName:String) {
+    fun loadAssignmentScreen(assignmentName: String) {
         var fragment = AssignmentFragment.newInstance(assignmentName)
         loadSubFragment(fragment, R.id.flCRFContainer, AssignmentFragment.TAG)
     }
@@ -135,5 +142,13 @@ class ClassRoomFragment :
         } catch (ex: Exception) {
             //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
+    }
+
+    override fun onDialogPositiveClick(student: Student) {
+
+    }
+
+    override fun onDialogNegativeClick() {
+        TODO("Not yet implemented")
     }
 }

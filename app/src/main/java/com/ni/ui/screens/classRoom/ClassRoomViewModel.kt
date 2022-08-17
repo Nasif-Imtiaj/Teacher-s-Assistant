@@ -1,31 +1,33 @@
 package com.ni.ui.screens.classRoom
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ni.data.models.Assignment
+import com.ni.data.models.Classroom
 import com.ni.data.models.Student
 import com.ni.data.repository.dummy.AssignmentDataList
 import com.ni.data.repository.dummy.StudentDataList
+import com.ni.data.repository.remote.AssignmentRepository
+import com.ni.data.repository.remote.ClassroomRepository
+import com.ni.ui.common.baseClasses.BaseViewModel
 
-class ClassRoomViewModel : ViewModel() {
-    val studentDataList = MutableLiveData<List<Student>>()
-    private val _studentDataList = StudentDataList
-    val assignmentDataList = MutableLiveData<List<Assignment>>()
-    private val _assignmentDataList = AssignmentDataList
+class ClassRoomViewModel(private val assignmentRepository: AssignmentRepository) : BaseViewModel() {
+    private val _studentDataList = MutableLiveData<ArrayList<Student>>()
+    val studentDataList: LiveData<ArrayList<Student>>
+        get() = _studentDataList
+    private val _assignmentDataList = MutableLiveData<ArrayList<Assignment>>()
+    val assignmentDataList: LiveData<ArrayList<Assignment>>
+        get() = _assignmentDataList
+
+    fun createAssignment(assignment: Assignment){
+        assignmentRepository.create(assignment)
+    }
+
     init {
-        studentDataList.postValue(_studentDataList.list)
-        assignmentDataList.postValue(_assignmentDataList.list)
-    }
-    fun filterByClassRoom(classRoomId: String) {
-        var list = ArrayList<Student>()
-        for (i in _studentDataList.list) {
 
-            if (i.id.contains(classRoomId))
-                list.add(i)
-        }
-        Log.d("TAG", "filterByClassRoom: ${list.size}")
-        studentDataList.postValue(list)
     }
+
 
 }
