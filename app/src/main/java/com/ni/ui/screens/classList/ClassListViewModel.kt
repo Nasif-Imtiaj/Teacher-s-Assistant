@@ -39,6 +39,17 @@ class ClassListViewModel(private val classroomRepository: ClassroomRepository) :
         colorList.add("#42D292")
     }
 
+    private fun createClassroom(classroom: Classroom) {
+        classroomRepository.create(classroom)
+    }
+
+    private fun retrieveClassrooms() {
+        viewModelScope.launch {
+            _isLoading.postValue(true)
+            retrieveClassroomsAsync()
+        }
+    }
+
     private suspend fun retrieveClassroomsAsync() {
         viewModelScope.launch(Dispatchers.IO) {
             classroomRepository.retrieve(object : ClassroomCallbacks {
@@ -58,16 +69,6 @@ class ClassListViewModel(private val classroomRepository: ClassroomRepository) :
         }
     }
 
-    fun retrieveClassrooms() {
-        viewModelScope.launch {
-            _isLoading.postValue(true)
-            retrieveClassroomsAsync()
-        }
-    }
-
-    private fun createClassroom(classroom: Classroom) {
-        classroomRepository.create(classroom)
-    }
 
     fun addToClassRoom(courseName: String,courseCode:String, department: String, batch: String) {
         createClassroom(Classroom(UUID.randomUUID().toString(),

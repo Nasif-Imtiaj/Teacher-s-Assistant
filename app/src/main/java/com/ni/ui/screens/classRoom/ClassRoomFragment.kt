@@ -81,6 +81,8 @@ class ClassRoomFragment :
         initUiListener()
         initObservers()
         initBackPressed()
+        viewModel.roomId = roomId
+        viewModel.retrieveAssignment()
     }
 
     private fun initUiListener() {
