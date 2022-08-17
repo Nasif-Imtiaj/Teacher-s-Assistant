@@ -1,4 +1,4 @@
-package com.ni.domain.usecases.assignment
+package com.ni.domain.usecases.database
 
 import com.google.firebase.database.FirebaseDatabase
 import com.ni.data.models.AssignmentModel

@@ -3,7 +3,7 @@ package com.ni.ui.common
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ni.domain.usecases.database.ClassroomUseCase
-import com.ni.domain.usecases.library.LibraryUseCase
+import com.ni.domain.usecases.database.LibraryUseCase
 import com.ni.ui.screens.classList.ClassListViewModel
 import com.ni.ui.screens.library.LibraryViewModel
 

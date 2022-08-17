@@ -1,4 +1,4 @@
-package com.ni.domain.usecases.library
+package com.ni.domain.usecases.database
 
 import android.net.Uri
 import android.os.Environment
