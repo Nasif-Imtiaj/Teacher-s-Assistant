@@ -16,12 +16,27 @@ import kotlin.collections.ArrayList
 class ClassListViewModel(private val classroomRepository: ClassroomRepository) : BaseViewModel() {
     private val dummyClassRoomList = ClassListDataList
     private val _classRoomDataList = MutableLiveData<ArrayList<Classroom>>()
+    private var colorList = ArrayList<String>()
+    private var idx = 0
     val classRoomDataList: LiveData<ArrayList<Classroom>>
         get() = _classRoomDataList
 
     init {
         _classRoomDataList.postValue(dummyClassRoomList.classList)
         retrieveClassrooms()
+        colorList.add("#d8d8d8")
+        colorList.add("#BD30FF")
+        colorList.add("#3038FF")
+        colorList.add("#4690FE")
+        colorList.add("#8146FE")
+        colorList.add("#DF9025")
+        colorList.add("#2A428C")
+        colorList.add("#FF5630")
+        colorList.add("#9DB55F")
+        colorList.add("#000000")
+        colorList.add("#DFC49C")
+        colorList.add("#172B4D")
+        colorList.add("#42D292")
     }
 
     private suspend fun retrieveClassroomsAsync() {
@@ -62,7 +77,12 @@ class ClassListViewModel(private val classroomRepository: ClassroomRepository) :
             "16/09/22"))
     }
 
-    public fun getTitle(item: Classroom): String {
+     fun getTitle(item: Classroom): String {
         return item.courseName
+    }
+
+    fun getColor():String{
+        idx%=colorList.size
+        return colorList[idx++]
     }
 }

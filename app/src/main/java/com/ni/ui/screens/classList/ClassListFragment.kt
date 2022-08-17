@@ -1,6 +1,8 @@
 package com.ni.ui.screens.classList
 
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 
 import androidx.activity.OnBackPressedCallback
@@ -42,6 +44,7 @@ class ClassListFragment :
                 itemBinding.cdMainContainer.setOnClickListener {
                     loadClassRoom(item.id)
                 }
+                itemBinding.acMainContainer.backgroundTintList = ColorStateList.valueOf(Color.parseColor(viewModel.getColor()))
             }
         }
     }
@@ -73,7 +76,7 @@ class ClassListFragment :
     }
 
     private fun initBtnListener() {
-        binding.fabAdd.setOnClickListener {
+        binding.ivAddClassroom.setOnClickListener {
             val dialog = CreateClassRoomDialog()
             dialog.show(childFragmentManager, CreateClassRoomDialog.TAG)
         }
