@@ -1,5 +1,6 @@
 package com.ni.ui.screens.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -35,6 +36,7 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     it.uid, object : UserCallBacks {
                         override fun onSuccess(user: User) {
                             _isLoading.postValue(false)
+                            Log.d("ISUSERCALLED", "onSuccess: ")
                             _user.postValue(user)
                         }
 
@@ -48,6 +50,7 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
     }
 
     fun getUserTpe():String{
+        Log.d("ISUSERCALLED", "getUserTpe: ${user.value!!.userType}")
         return user.value?.userType ?: "Teacher"
     }
 

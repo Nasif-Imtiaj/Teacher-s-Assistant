@@ -16,7 +16,7 @@ class UserUseCase : UserRepository {
 
     override fun retrieve(currentUserId: String, callbacks: UserCallBacks) {
         var databse = FirebaseDatabase.getInstance()
-        var ref = databse.getReference("TeachersAssistant").child("Assignment")
+        var ref = databse.getReference("TeachersAssistant").child("User")
         var res = User()
         ref.get().addOnSuccessListener {
             for (i in it.children) {

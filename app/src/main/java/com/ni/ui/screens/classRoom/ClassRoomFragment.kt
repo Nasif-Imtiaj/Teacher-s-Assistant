@@ -1,6 +1,7 @@
 package com.ni.ui.screens.classRoom
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -87,10 +88,14 @@ class ClassRoomFragment :
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.retrieveAssignment()
         viewModel.retrieveEnrollment()
-        if (userType == 1)
+        Log.d(TAG, "initView: $userType")
+        if (userType == 1) {
             binding.ivAddAssignment.visibility = View.VISIBLE
-        else
+            binding.ivEnroll.visibility = View.GONE
+        } else {
+            binding.ivAddAssignment.visibility = View.GONE
             binding.ivEnroll.visibility = View.VISIBLE
+        }
     }
 
     private fun initUiListener() {

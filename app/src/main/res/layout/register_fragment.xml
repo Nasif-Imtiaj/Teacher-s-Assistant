@@ -64,6 +64,7 @@
                         android:layout_marginStart="24dp"
                         android:background="@null"
                         android:hint="Name"
+                        android:padding="8dp"
                         android:textColor="@color/black"
                         android:textSize="10sp" />
 
@@ -94,6 +95,7 @@
                         android:layout_marginStart="24dp"
                         android:background="@null"
                         android:hint="EMAIL"
+                        android:padding="8dp"
                         android:textColor="@color/black"
                         android:textSize="10sp" />
 
@@ -124,6 +126,7 @@
                         android:layout_marginStart="24dp"
                         android:background="@null"
                         android:hint="PASSWORD"
+                        android:padding="8dp"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -152,6 +155,7 @@
                         android:layout_marginStart="24dp"
                         android:background="@null"
                         android:hint="CONFIRM PASSWORD"
+                        android:padding="8dp"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -180,6 +184,7 @@
                         android:layout_marginStart="24dp"
                         android:background="@null"
                         android:hint="PHONE NUMBER"
+                        android:padding="8dp"
                         android:textSize="10sp" />
                 </LinearLayout>
 
