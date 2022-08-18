@@ -39,7 +39,7 @@ class RegisterFragment :
             var password = binding.etPassword.text.toString()
             var confirm = binding.etConfirmPassword.text.toString()
             var teacher = binding.rbTeacher.isChecked
-            var student = binding.rbTeacher.isChecked
+            var student = binding.rbStudent.isChecked
             var phoneNumber = binding.etPhoneNumber.text.toString()
             var type = "";
             if (teacher) type = "Teacher"

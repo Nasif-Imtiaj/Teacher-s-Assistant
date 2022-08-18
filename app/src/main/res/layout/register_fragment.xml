@@ -44,7 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                >
 
                 <LinearLayout
                     android:id="@+id/llName"
@@ -85,7 +85,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_person_24" />
+                        android:src="@drawable/ic_baseline_email_24" />
 
                     <EditText
                         android:id="@+id/etEmail"
@@ -174,7 +174,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_lock_24" />
+                        android:src="@drawable/ic_baseline_local_phone_24" />
 
                     <EditText
                         android:id="@+id/etPhoneNumber"

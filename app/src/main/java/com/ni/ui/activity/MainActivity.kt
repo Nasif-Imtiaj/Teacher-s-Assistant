@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.ni.data.models.Student
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.home.HomeFragment
@@ -16,7 +17,8 @@ import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
 
 
-var userType = 1
+var activityVmUserType = 1
+var activityVmStudent = Student()
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashListener {
 
     private lateinit var binding: MainActivityLayoutBinding

@@ -53,7 +53,6 @@ class NewAssignmentDialog : DialogFragment() {
                             view.etEndDate.text.toString(),
                             view.etMarks.text.toString().toInt()
                         )
-                        listener.onDialogPositiveClick(assignment)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

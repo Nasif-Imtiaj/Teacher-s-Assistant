@@ -18,7 +18,6 @@ import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
-import com.ni.ui.activity.userType
 import com.ni.ui.common.ViewModelFactory
 
 class ClassListFragment :

@@ -6,15 +6,16 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.data.models.Student
 import com.ni.teachersassistant.R
-import kotlinx.android.synthetic.main.new_student_dialog_layout.*
 import kotlinx.android.synthetic.main.new_student_dialog_layout.view.*
-import java.util.*
+import kotlinx.android.synthetic.main.new_student_dialog_layout.view.etName
 
 
 class NewStudentDialog : DialogFragment() {
     companion object {
+        fun newInstance() = NewStudentDialog().apply {}
         const val TAG = "NewStudentDialog"
     }
 
@@ -32,7 +33,7 @@ class NewStudentDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return activity?.let {
+        var dialog = activity?.let {
             val builder = AlertDialog.Builder(it)
             val inflater = requireActivity().layoutInflater;
             var view = inflater.inflate(R.layout.new_student_dialog_layout, null)
@@ -40,7 +41,7 @@ class NewStudentDialog : DialogFragment() {
                 .setPositiveButton("Done",
                     DialogInterface.OnClickListener { dialog, id ->
                         var student = Student(
-                            UUID.randomUUID().toString(),
+                            FirebaseAuth.getInstance().currentUser!!.uid,
                             view.etName.text.toString(),
                             view.etStudentId.text.toString(),
                             view.etDepartment.text.toString(),
@@ -50,12 +51,12 @@ class NewStudentDialog : DialogFragment() {
                         )
                         listener.onDialogPositiveClick(student)
                     })
-                .setNegativeButton("Cancel",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        listener.onDialogNegativeClick()
-                        getDialog()?.cancel()
-                    })
             builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        }
+        if (dialog != null) {
+            dialog.setCanceledOnTouchOutside(false)
+            dialog.setCancelable(false)
+        }
+        return dialog ?: throw IllegalStateException("Activity cannot be null")
     }
 }

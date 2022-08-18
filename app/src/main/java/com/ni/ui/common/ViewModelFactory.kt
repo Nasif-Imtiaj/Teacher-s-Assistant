@@ -19,14 +19,16 @@ class ViewModelFactory() : ViewModelProvider.Factory {
             return ClassListViewModel(ClassroomUseCase()) as T
         }
         if (modelClass.isAssignableFrom(ClassRoomViewModel::class.java)) {
-            return ClassRoomViewModel(EnrollmentUseCase(),
+            return ClassRoomViewModel(
+                EnrollmentUseCase(),
                 StudentUseCase(),
-                AssignmentUseCase()) as T
+                AssignmentUseCase()
+            ) as T
         }
         if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
-            return HomeViewModel(UserUseCase()) as T
+            return HomeViewModel(UserUseCase(), StudentUseCase()) as T
         }
-        if(modelClass.isAssignableFrom(RegisterViewModel::class.java)){
+        if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(UserUseCase()) as T
         }
         throw IllegalArgumentException("Please provide the way how this viewModel can be initialized in LibraryViewModelFactory class")

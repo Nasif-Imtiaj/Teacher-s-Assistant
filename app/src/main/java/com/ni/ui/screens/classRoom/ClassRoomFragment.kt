@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.data.models.Assignment
-import com.ni.data.models.Enrollment
 import com.ni.data.models.Student
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
@@ -17,16 +16,15 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
-import com.ni.ui.activity.userType
+import com.ni.ui.activity.activityVmUserType
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
-import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
 import java.util.*
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
-    NewStudentDialogListener, NewAssignmentDialogListener {
+     NewAssignmentDialogListener {
     companion object {
         const val TAG = "ClassRoomFragment"
         const val CLASSROOMID = "classroomId"
@@ -88,8 +86,7 @@ class ClassRoomFragment :
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.retrieveAssignment()
         viewModel.retrieveEnrollment()
-        Log.d(TAG, "initView: $userType")
-        if (userType == 1) {
+        if (activityVmUserType == 1) {
             binding.ivAddAssignment.visibility = View.VISIBLE
             binding.ivEnroll.visibility = View.GONE
         } else {
@@ -172,15 +169,6 @@ class ClassRoomFragment :
         }
     }
 
-    override fun onDialogPositiveClick(student: Student) {
-        viewModel.createStudent(student)
-        var enrollment = Enrollment(
-            UUID.randomUUID().toString(),
-            student.id,
-            viewModel.classroomId
-        )
-        viewModel.createEnrollment(enrollment)
-    }
 
     override fun onDialogPositiveClick(assignment: Assignment) {
         viewModel.createAssignment(assignment)
