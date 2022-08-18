@@ -23,10 +23,8 @@ class AssignmentUseCase : AssignmentRepository {
         var list = ArrayList<Assignment>()
         ref.get().addOnSuccessListener {
             for (i in it.children) {
-
                 var assignment = i.getValue(Assignment::class.java)
                 if (assignment != null) {
-                    Log.d("AssignmentUseCase", "retrieve:room-> $roomId  ass-> ${assignment.classroomId}")
                     if (assignment.classroomId == roomId)
                         list.add(assignment)
                 }

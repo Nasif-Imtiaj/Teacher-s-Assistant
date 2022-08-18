@@ -1,11 +1,11 @@
 package com.ni.ui.screens.classRoom
 
-
-import android.util.Log
+import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.data.models.Assignment
+import com.ni.data.models.Enrollment
 import com.ni.data.models.Student
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
@@ -16,24 +16,26 @@ import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
 import com.ni.ui.common.ViewModelFactory
-import com.ni.ui.common.dialogs.createClassRoomDialog.CreateClassRoomDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
+import java.util.*
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
-    NewStudentDialogListener,NewAssignmentDialogListener {
+    NewStudentDialogListener, NewAssignmentDialogListener {
     companion object {
         const val TAG = "ClassRoomFragment"
-        fun newInstance(roomId: String) = ClassRoomFragment().apply {
-            this.roomId = roomId
+        const val CLASSROOMID = "classroomId"
+        fun newInstance(classroomId: String) = ClassRoomFragment().apply {
+            this.arguments = Bundle().apply {
+                putString(CLASSROOMID, classroomId)
+            }
         }
     }
 
-    var roomId = ""
-    val viewModel by viewModels<ClassRoomViewModel>(){
+    val viewModel by viewModels<ClassRoomViewModel>() {
         ViewModelFactory()
     }
 
@@ -43,9 +45,8 @@ class ClassRoomFragment :
             override fun bind(
                 itemBinding: StudentItemLayoutBinding,
                 item: Student,
-                position: Int
+                position: Int,
             ) {
-                Log.d(TAG, "bind: ")
                 itemBinding.tvId.text = item.studentId
                 itemBinding.tvDept.text = item.department
                 itemBinding.tvBatch.text = item.batch
@@ -65,12 +66,12 @@ class ClassRoomFragment :
             override fun bind(
                 itemBinding: AssignmentItemLayoutBinding,
                 item: Assignment,
-                position: Int
+                position: Int,
             ) {
                 itemBinding.tvName.text = item.name
                 itemBinding.tvStartDate.text = item.startDate
                 itemBinding.tvEndDate.text = item.endDate
-                itemBinding.tvExamMarks.text = "Marks: "+ item.mark.toString()
+                itemBinding.tvExamMarks.text = "Marks: " + item.mark.toString()
                 itemBinding.acMainContainer.setOnClickListener {
                     loadAssignmentScreen(item.name)
                 }
@@ -82,7 +83,7 @@ class ClassRoomFragment :
         initUiListener()
         initObservers()
         initBackPressed()
-        viewModel.roomId = roomId
+        viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.retrieveAssignment()
     }
 
@@ -121,7 +122,7 @@ class ClassRoomFragment :
             dialog.show(childFragmentManager, NewStudentDialog.TAG)
         }
         binding.ivAddAssignment.setOnClickListener {
-            val dialog = NewAssignmentDialog.newInstance(roomId)
+            val dialog = NewAssignmentDialog.newInstance(viewModel.classroomId)
             dialog.show(childFragmentManager, NewAssignmentDialog.TAG)
         }
     }
@@ -152,18 +153,22 @@ class ClassRoomFragment :
 
                 .commitAllowingStateLoss()
         } catch (ex: Exception) {
-            //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
     }
 
     override fun onDialogPositiveClick(student: Student) {
-
+        viewModel.createStudent(student)
+        var enrollment = Enrollment(
+            UUID.randomUUID().toString(),
+            student.id,
+            viewModel.classroomId
+        )
+        viewModel.createEnrollment(enrollment)
     }
 
     override fun onDialogPositiveClick(assignment: Assignment) {
-       viewModel.createAssignment(assignment)
+        viewModel.createAssignment(assignment)
     }
-
 
     override fun onDialogNegativeClick() {
 

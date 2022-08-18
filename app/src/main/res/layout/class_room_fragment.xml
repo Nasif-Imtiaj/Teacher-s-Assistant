@@ -49,7 +49,7 @@
     </LinearLayout>
 
     <ImageView
-        android:visibility="gone"
+
         android:id="@+id/ivAddStudent"
         android:layout_width="32dp"
         android:layout_height="32dp"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <ImageView
-
+        android:visibility="gone"
         android:id="@+id/ivAddAssignment"
         android:layout_width="32dp"
         android:layout_height="32dp"
