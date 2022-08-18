@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.data.models.Assignment
 import com.ni.data.models.Enrollment
 import com.ni.data.models.Student
@@ -11,6 +12,8 @@ import com.ni.data.repository.remote.*
 import com.ni.ui.common.baseClasses.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ClassRoomViewModel(
     private val enrollmentRepository: EnrollmentRepository,
@@ -126,5 +129,15 @@ class ClassRoomViewModel(
             list.add(i.studentId)
         }
         _enrolledStudentList.postValue(list)
+    }
+
+    fun enrollNewStudent() {
+        createEnrollment(
+            Enrollment(
+                UUID.randomUUID().toString(),
+                FirebaseAuth.getInstance().currentUser!!.uid,
+                classroomId,
+            )
+        )
     }
 }

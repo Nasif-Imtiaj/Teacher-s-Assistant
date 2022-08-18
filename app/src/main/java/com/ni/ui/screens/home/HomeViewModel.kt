@@ -18,10 +18,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
         get() = _user
 
     init {
-
+        retrieveUser()
     }
-
-
 
     fun retrieveUser() {
         viewModelScope.launch {
@@ -47,6 +45,10 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                 )
             }
         }
+    }
+
+    fun getUserTpe():String{
+        return user.value?.userType ?: "Teacher"
     }
 
     fun logout() {

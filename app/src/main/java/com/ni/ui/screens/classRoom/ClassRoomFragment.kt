@@ -1,6 +1,7 @@
 package com.ni.ui.screens.classRoom
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,10 +16,10 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
+import com.ni.ui.activity.userType
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
-import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
 import java.util.*
 
@@ -86,6 +87,10 @@ class ClassRoomFragment :
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.retrieveAssignment()
         viewModel.retrieveEnrollment()
+        if (userType == 1)
+            binding.ivAddAssignment.visibility = View.VISIBLE
+        else
+            binding.ivEnroll.visibility = View.VISIBLE
     }
 
     private fun initUiListener() {
@@ -124,9 +129,8 @@ class ClassRoomFragment :
         binding.tvBtnClassWork.setOnClickListener {
             binding.optionRecyclerViewCRF.adapter = assignmentAdapter
         }
-        binding.ivAddStudent.setOnClickListener {
-            val dialog = NewStudentDialog()
-            dialog.show(childFragmentManager, NewStudentDialog.TAG)
+        binding.ivEnroll.setOnClickListener {
+            viewModel.enrollNewStudent()
         }
         binding.ivAddAssignment.setOnClickListener {
             val dialog = NewAssignmentDialog.newInstance(viewModel.classroomId)

@@ -6,8 +6,12 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.ni.data.models.Classroom
 import com.ni.teachersassistant.R
 import kotlinx.android.synthetic.main.create_classroom_dialog_layout.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class CreateClassRoomDialog : DialogFragment() {
     companion object {
@@ -36,10 +40,23 @@ class CreateClassRoomDialog : DialogFragment() {
             builder.setView(view)
                 .setPositiveButton("Done",
                     DialogInterface.OnClickListener { dialog, id ->
-                        var dept = view.etDepartment.getText().toString()
-                        var sub = view.etSubject.getText().toString()
-                        var code = view.etCode.getText().toString()
-                        listener.onDialogPositiveClick(dept, sub, code)
+                        var courseName = view.etCourseName.text.toString()
+                        var courseCode = view.etCourseCode.text.toString()
+                        var department = view.etDepartment.text.toString()
+                        var batch = view.etBatch.text.toString()
+                        var section = view.etSection.text.toString()
+                        listener.onDialogPositiveClick(
+                            Classroom(
+                                UUID.randomUUID().toString(),
+                                FirebaseAuth.getInstance().currentUser!!.uid,
+                                courseName,
+                                courseCode,
+                                department,
+                                batch,
+                                section,
+                                SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+                            )
+                        )
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

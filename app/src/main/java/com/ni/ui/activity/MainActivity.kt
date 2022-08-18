@@ -2,7 +2,6 @@ package com.ni.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -17,7 +16,7 @@ import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
 
 
-
+var userType = 1
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashListener {
 
     private lateinit var binding: MainActivityLayoutBinding
@@ -67,7 +66,6 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashLis
     ) {
         try {
             if (lastFragmentTag == tag) {
-                //Toaster.debugToast(this, "Eto speed e click kora jabe na")
                 return
             }
             lastFragmentTag = tag
@@ -75,11 +73,8 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashLis
             val mFragmentManager: FragmentManager = supportFragmentManager
             if (clearBackStack) {
                 if (mFragmentManager.isStateSaved) {
-                    // If the state is saved we can't clear the back stack. Simply not doing this, but
-                    // still replacing fragment is a bad idea. Therefore we abort the entire operation.
                     return
                 }
-                // Remove all entries from back stack
                 mFragmentManager.popBackStackImmediate(
                     null,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -88,7 +83,6 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashLis
             val fragmentTransaction =
                 mFragmentManager.beginTransaction()
             if (addToBackStack) fragmentTransaction.addToBackStack(tag)
-            // Change to a new fragment
             fragmentTransaction.add(
                 container,
                 newFragment,
@@ -101,7 +95,6 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashLis
                 fragmentTransaction.commit()
             }
         } catch (ex: Exception) {
-            //    Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
     }
 

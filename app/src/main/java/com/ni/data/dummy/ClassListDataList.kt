@@ -1,4 +1,4 @@
-package com.ni.data.repository.dummy
+package com.ni.data.dummy
 
 import com.ni.data.models.Classroom
 
@@ -12,8 +12,10 @@ object ClassListDataList {
         classList.add(
             Classroom(
                 "6546456546",
+                "545446",
                 "p-400",
                 "CSE-335",
+                "CSE",
                 "44",
                 "B",
                 "16/06/22",
@@ -21,22 +23,14 @@ object ClassListDataList {
         )
         classList.add(
             Classroom(
-                "456345453",
-                "p-300",
+                "6546456546",
+                "545446",
+                "p-400",
                 "CSE-335",
-                "46",
-                "A",
-                "17/06/22",
-            )
-        )
-        classList.add(
-            Classroom(
-                "5454",
-                "p-200",
-                "CSE-335",
-                "42",
-                "A",
-                "15/06/22",
+                "CSE",
+                "44",
+                "B",
+                "16/06/22",
             )
         )
     }

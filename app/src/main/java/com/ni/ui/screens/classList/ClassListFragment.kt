@@ -3,10 +3,12 @@ package com.ni.ui.screens.classList
 
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.view.View
 import androidx.fragment.app.Fragment
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.data.models.Classroom
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
@@ -16,6 +18,7 @@ import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
+import com.ni.ui.activity.userType
 import com.ni.ui.common.ViewModelFactory
 
 class ClassListFragment :
@@ -44,7 +47,8 @@ class ClassListFragment :
                 itemBinding.cdMainContainer.setOnClickListener {
                     loadClassRoom(item.id)
                 }
-                itemBinding.acMainContainer.backgroundTintList = ColorStateList.valueOf(Color.parseColor(viewModel.getColor()))
+                itemBinding.acMainContainer.backgroundTintList =
+                    ColorStateList.valueOf(Color.parseColor(viewModel.getColor()))
             }
         }
     }
@@ -86,8 +90,8 @@ class ClassListFragment :
         binding.optionRecyclerViewCLF.adapter = classListAdapter
     }
 
-    override fun onDialogPositiveClick(dept: String, sub: String, code: String) {
-        viewModel.addToClassRoom(dept,"CSE-335", sub, code)
+    override fun onDialogPositiveClick(classroom: Classroom) {
+        viewModel.createClassroom(classroom)
     }
 
     override fun onDialogNegativeClick() {

@@ -1,4 +1,4 @@
-package com.ni.data.repository.dummy
+package com.ni.data.dummy
 import com.ni.data.models.Booklet
 object BookletDataList {
     var dummyList = ArrayList<Booklet>()
