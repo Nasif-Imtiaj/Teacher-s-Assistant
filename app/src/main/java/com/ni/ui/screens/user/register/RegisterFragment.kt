@@ -32,19 +32,27 @@ class RegisterFragment :
             var email = binding.etEmail.text.toString()
             var password = binding.etPassword.text.toString()
             var confirm = binding.etConfirmPassword.text.toString()
-            if (password != confirm) {
-                Log.d(TAG, "initBtnListener: failed $email $password $confirm")
-                Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_LONG)
+            var teacher = binding.rbTeacher.isChecked
+            var student = binding.rbTeacher.isChecked
+            if (!teacher && !student) {
+                Toast.makeText(requireContext(), "User type is required", Toast.LENGTH_LONG).show()
+            } else if (password != confirm) {
+                Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_LONG).show()
+            } else if (password.length < 6) {
+                Toast.makeText(requireContext(), "Passwords too short", Toast.LENGTH_LONG).show()
             } else {
                 binding.llProgressBar.visibility = View.VISIBLE
                 fAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
-                        if(it.isSuccessful){
+                        if (it.isSuccessful) {
                             binding.llProgressBar.visibility = View.GONE
-                            Toast.makeText(requireContext(),"User Created", Toast.LENGTH_SHORT).show()
-                        }else{
+                            Toast.makeText(requireContext(), "User Created", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
                             binding.llProgressBar.visibility = View.GONE
-                            Toast.makeText(requireContext(),"User Created Failed", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(requireContext(),
+                                "User Created Failed",
+                                Toast.LENGTH_SHORT).show()
                         }
                     }
             }

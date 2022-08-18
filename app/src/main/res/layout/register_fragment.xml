@@ -131,7 +131,27 @@
                     android:layout_height="1dp"
                     android:layout_marginVertical="8dp"
                     android:background="@color/black" />
+                <RadioGroup
+                    android:id="@+id/radioGroup1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    >
+                    <RadioButton
+                        android:id="@+id/rbTeacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Teacher" />
 
+                    <RadioButton
+                        android:id="@+id/rbStudent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Student" />
+                </RadioGroup>
 
                 <ImageView
                     android:id="@+id/ivRegister"
@@ -148,6 +168,9 @@
                     android:layout_marginTop="16dp"
                     android:text="Back"
                     android:textSize="18sp" />
+
+
+
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

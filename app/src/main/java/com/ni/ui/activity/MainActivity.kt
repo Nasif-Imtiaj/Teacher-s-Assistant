@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.auth.FirebaseAuth
+import com.ni.data.models.User
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.classList.ClassListFragment
@@ -19,8 +20,8 @@ import com.ni.ui.screens.user.login.LoginListener
 import com.ni.ui.screens.user.register.RegisterFragment
 import com.ni.ui.screens.user.register.RegisterListener
 
-var fAuth = FirebaseAuth.getInstance()
-var user = fAuth.currentUser
+
+
 
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterListener {
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
     }
 
     private fun init() {
-        if (user == null) {
+        if (FirebaseAuth.getInstance().currentUser == null) {
             loadLoginScreen()
         } else {
             loadHomeScreen()
@@ -79,14 +80,11 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
     }
 
     override fun onLogoutClicked() {
-        fAuth.signOut()
-        user = null
         this.supportFragmentManager.popBackStack()
         loadLoginScreen()
     }
 
     override fun onSuccessfulLogin() {
-        user = fAuth.currentUser
         loadHomeScreen()
     }
 

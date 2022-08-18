@@ -49,6 +49,7 @@ class HomeFragment :
             notify { it.onLibraryClicked() }
         }
         binding.ivLogout.setOnClickListener {
+            viewModel.logout()
             notify { it.onLogoutClicked() }
         }
     }
