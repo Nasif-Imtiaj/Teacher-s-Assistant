@@ -31,12 +31,12 @@ class LoginFragment :
     }
 
     private fun initBtnListener() {
-            binding.bLogin.setOnClickListener{
+            binding.ivLogin.setOnClickListener{
                 var email = binding.etEmail.text.toString()
                 var password = binding.etPassword.text.toString()
                 validUser(email,password)
             }
-        binding.bRegister.setOnClickListener {
+        binding.tvRegister.setOnClickListener {
              popFragment()
             notify {
                 it.onRegisterClicked()

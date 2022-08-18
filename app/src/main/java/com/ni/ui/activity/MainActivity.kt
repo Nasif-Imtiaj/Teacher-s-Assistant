@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
     private fun init() {
         user = taskApp.currentUser()
         if (user == null) {
-            loadHomeScreen()
-           // loadLoginScreen()
+           loadHomeScreen()
+            // loadLoginScreen()
         } else {
             loadHomeScreen()
         }
