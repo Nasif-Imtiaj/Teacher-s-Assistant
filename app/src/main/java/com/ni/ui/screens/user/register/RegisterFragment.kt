@@ -23,7 +23,7 @@ class RegisterFragment :BaseObservableFragment<RegisterFragmentBinding,RegisterL
     }
 
     private fun initBtnListener() {
-        binding.bRegister.setOnClickListener{
+        binding.ivRegister.setOnClickListener{
             var email = binding.etEmail.text.toString()
             var password = binding.etPassword.text.toString()
             var confirm = binding.etConfirmPassword.text.toString()
