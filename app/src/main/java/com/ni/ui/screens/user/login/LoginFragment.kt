@@ -1,12 +1,11 @@
 package com.ni.ui.screens.user.login
 
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import com.ni.teachersassistant.databinding.LoginFragmentBinding
-import com.ni.ui.activity.taskApp
+import com.ni.ui.activity.fAuth
 import com.ni.ui.common.baseClasses.BaseObservableFragment
-import io.realm.mongodb.Credentials
 
 
 class LoginFragment :
@@ -15,6 +14,7 @@ class LoginFragment :
         const val TAG = "LoginFragment"
         fun newInstance() = LoginFragment().apply {}
     }
+
 
     override fun initView() {
         initUiListener()
@@ -31,34 +31,31 @@ class LoginFragment :
     }
 
     private fun initBtnListener() {
-            binding.ivLogin.setOnClickListener{
-                var email = binding.etEmail.text.toString()
-                var password = binding.etPassword.text.toString()
-                validUser(email,password)
-            }
+        binding.ivLogin.setOnClickListener {
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            validUser(email, password)
+        }
         binding.tvRegister.setOnClickListener {
-             popFragment()
+            popFragment()
             notify {
                 it.onRegisterClicked()
             }
         }
     }
 
-    private fun validUser(email:String,password:String){
-        val creds = Credentials.emailPassword(email, password)
-        Log.d(TAG, "validUser: $email $password")
-        taskApp.loginAsync(creds) {
-            Log.d(TAG, "validUser1: $email $password")
-            if (it.isSuccess) {
-                Log.d(TAG, "validUser2: $email $password")
+    private fun validUser(email: String, password: String) {
+        binding.llProgressBar.visibility = View.VISIBLE
+        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+            binding.llProgressBar.visibility = View.GONE
+            if (it.isSuccessful) {
                 popFragment()
                 notify {
-                   it.onSuccessfulLogin()
+                    it.onSuccessfulLogin()
                 }
-            }
-            else {
-                Log.d(TAG, "validUser3: $email $password")
-                Toast.makeText(requireContext(), "failed", Toast.LENGTH_SHORT)
+            } else {
+                Toast.makeText(requireContext(), "Incorrect email/password", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
@@ -71,6 +68,7 @@ class LoginFragment :
                 }
             })
     }
+
     override fun onStart() {
         super.onStart()
         registerListener()

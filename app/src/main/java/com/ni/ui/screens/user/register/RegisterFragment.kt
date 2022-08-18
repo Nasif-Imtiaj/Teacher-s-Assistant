@@ -1,17 +1,22 @@
 package com.ni.ui.screens.user.register
 
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.teachersassistant.databinding.RegisterFragmentBinding
-import com.ni.ui.activity.taskApp
 import com.ni.ui.common.baseClasses.BaseObservableFragment
-class RegisterFragment :BaseObservableFragment<RegisterFragmentBinding,RegisterListener>(RegisterFragmentBinding::inflate) {
+
+class RegisterFragment :
+    BaseObservableFragment<RegisterFragmentBinding, RegisterListener>(RegisterFragmentBinding::inflate) {
 
     companion object {
         const val TAG = "RegisterFragment"
         fun newInstance() = RegisterFragment().apply {}
     }
+
+    val fAuth = FirebaseAuth.getInstance()
     override fun initView() {
         initUiListener()
         initObservers()
@@ -23,24 +28,25 @@ class RegisterFragment :BaseObservableFragment<RegisterFragmentBinding,RegisterL
     }
 
     private fun initBtnListener() {
-        binding.ivRegister.setOnClickListener{
+        binding.ivRegister.setOnClickListener {
             var email = binding.etEmail.text.toString()
             var password = binding.etPassword.text.toString()
             var confirm = binding.etConfirmPassword.text.toString()
-            if(password!=confirm){
+            if (password != confirm) {
                 Log.d(TAG, "initBtnListener: failed $email $password $confirm")
-                Toast.makeText(requireContext(),"Passwords don't match",Toast.LENGTH_LONG)
-            }else{
-                taskApp.emailPassword.registerUserAsync(email, password) {
-                    if (!it.isSuccess) {
-                        Log.d(TAG, "initBtnListener: failed $email $password")
-                        Toast.makeText(requireContext(),"Could not register user.",Toast.LENGTH_LONG)
-                    } else {
-                        Log.d(TAG, "initBtnListener: $email $password")
-                        popFragment()
-                        notify { it.onRegisteredSuccessfully() }
+                Toast.makeText(requireContext(), "Passwords don't match", Toast.LENGTH_LONG)
+            } else {
+                binding.llProgressBar.visibility = View.VISIBLE
+                fAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener {
+                        if(it.isSuccessful){
+                            binding.llProgressBar.visibility = View.GONE
+                            Toast.makeText(requireContext(),"User Created", Toast.LENGTH_SHORT).show()
+                        }else{
+                            binding.llProgressBar.visibility = View.GONE
+                            Toast.makeText(requireContext(),"User Created Failed", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             }
         }
     }
@@ -48,6 +54,7 @@ class RegisterFragment :BaseObservableFragment<RegisterFragmentBinding,RegisterL
     private fun initObservers() {
 
     }
+
     private fun initBackPressed() {
         (requireActivity()).onBackPressedDispatcher.addCallback(this,
             object : OnBackPressedCallback(true) {

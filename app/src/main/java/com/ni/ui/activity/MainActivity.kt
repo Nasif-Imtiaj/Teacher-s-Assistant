@@ -2,12 +2,11 @@ package com.ni.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.classList.ClassListFragment
@@ -19,38 +18,24 @@ import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
 import com.ni.ui.screens.user.register.RegisterFragment
 import com.ni.ui.screens.user.register.RegisterListener
-import io.realm.BuildConfig
-import io.realm.Realm
-import io.realm.log.LogLevel
-import io.realm.log.RealmLog
-import io.realm.mongodb.App
-import io.realm.mongodb.AppConfiguration
-import io.realm.mongodb.User
-import kotlinx.android.synthetic.main.main_activity_layout.*
 
-lateinit var taskApp: App
-inline fun <reified T> T.TAG(): String = T::class.java.simpleName
-const val PARTITION_EXTRA_KEY = "PARTITION"
-const val PROJECT_NAME_EXTRA_KEY = "PROJECT NAME"
-
+var fAuth = FirebaseAuth.getInstance()
+var user = fAuth.currentUser
 
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterListener {
-    private var user: User? = null
+
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = MainActivityLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initRealmDatabase()
         init()
     }
 
     private fun init() {
-        user = taskApp.currentUser()
         if (user == null) {
-           loadHomeScreen()
-            // loadLoginScreen()
+            loadLoginScreen()
         } else {
             loadHomeScreen()
         }
@@ -94,19 +79,14 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
     }
 
     override fun onLogoutClicked() {
-        user?.logOutAsync {
-            if (it.isSuccess) {
-                user = null
-                this.supportFragmentManager.popBackStack()
-                loadLoginScreen()
-            } else {
-                Toast.makeText(this,"Logout failed!!",Toast.LENGTH_LONG)
-            }
-        }
+        fAuth.signOut()
+        user = null
+        this.supportFragmentManager.popBackStack()
+        loadLoginScreen()
     }
 
     override fun onSuccessfulLogin() {
-        user = taskApp.currentUser()
+        user = fAuth.currentUser
         loadHomeScreen()
     }
 
@@ -166,24 +146,7 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
         Handler().postDelayed({ lastFragmentTag = "" }, 500)
     }
 
-    fun initRealmDatabase() {
-        Realm.init(this)
-        taskApp = App(
-            AppConfiguration.Builder("teacher_assistant-xxpjn")
-                .defaultSyncErrorHandler { session, error ->
-                    Log.e(TAG(), "Sync error: ${error.errorMessage}")
-                }
-                .build())
-
-        // Enable more logging in debug mode
-        if (BuildConfig.DEBUG) {
-            RealmLog.setLevel(LogLevel.ALL)
-        }
-
-        Log.v(TAG(), "Initialized the Realm App configuration for: ${taskApp.configuration.appId}")
-    }
-
     override fun onRegisteredSuccessfully() {
-       loadHomeScreen()
+        loadHomeScreen()
     }
 }
