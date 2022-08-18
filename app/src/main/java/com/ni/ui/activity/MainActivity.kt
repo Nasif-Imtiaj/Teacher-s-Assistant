@@ -2,28 +2,23 @@ package com.ni.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.google.firebase.auth.FirebaseAuth
-import com.ni.data.models.User
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
-import com.ni.ui.screens.classList.ClassListFragment
 import com.ni.ui.screens.home.HomeFragment
 import com.ni.ui.screens.home.HomeListener
-import com.ni.ui.screens.library.LibraryFragment
-import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
+import com.ni.ui.screens.splash.SplashFragment
+import com.ni.ui.screens.splash.SplashListener
 import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
-import com.ni.ui.screens.user.register.RegisterFragment
-import com.ni.ui.screens.user.register.RegisterListener
 
 
 
-
-class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterListener {
+class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashListener {
 
     private lateinit var binding: MainActivityLayoutBinding
     private var lastFragmentTag: String = ""
@@ -35,61 +30,31 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
     }
 
     private fun init() {
-        if (FirebaseAuth.getInstance().currentUser == null) {
-            loadLoginScreen()
-        } else {
-            loadHomeScreen()
-        }
+        loadSplashScreen()
+    }
+
+    private fun loadSplashScreen() {
+        loadFragment(SplashFragment.newInstance(), true, false, SplashFragment.TAG)
     }
 
     private fun loadLoginScreen() {
         loadFragment(LoginFragment.newInstance(), true, false, LoginFragment.TAG)
     }
 
-    private fun loadRegisterScreen() {
-        loadFragment(RegisterFragment.newInstance(), true, false, RegisterFragment.TAG)
-    }
-
     private fun loadHomeScreen() {
         loadFragment(HomeFragment.newInstance(), true, false, HomeFragment.TAG)
-    }
-
-    private fun loadTeacherProfile() {
-        loadFragment(TeacherProfileFragment.newInstance(), true, false, TeacherProfileFragment.TAG)
-    }
-
-    private fun loadClassList() {
-        loadFragment(ClassListFragment.newInstance(), true, false, ClassListFragment.TAG)
-    }
-
-    private fun loadLibrary() {
-        loadFragment(LibraryFragment.newInstance(), true, false, ClassListFragment.TAG)
-
-    }
-
-    override fun onTeacherProfileClicked() {
-        loadTeacherProfile()
-    }
-
-    override fun onClassRoomClicked() {
-        loadClassList()
-    }
-
-    override fun onLibraryClicked() {
-        loadLibrary()
-    }
-
-    override fun onLogoutClicked() {
-        this.supportFragmentManager.popBackStack()
-        loadLoginScreen()
     }
 
     override fun onSuccessfulLogin() {
         loadHomeScreen()
     }
 
-    override fun onRegisterClicked() {
-        loadRegisterScreen()
+    override fun showHomeScreen() {
+        loadHomeScreen()
+    }
+
+    override fun showLoginScreen() {
+        loadLoginScreen()
     }
 
     fun loadFragment(
@@ -144,7 +109,4 @@ class MainActivity : AppCompatActivity(), HomeListener, LoginListener, RegisterL
         Handler().postDelayed({ lastFragmentTag = "" }, 500)
     }
 
-    override fun onRegisteredSuccessfully() {
-        loadHomeScreen()
-    }
 }

@@ -3,9 +3,12 @@ package com.ni.ui.screens.user.login
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.teachersassistant.databinding.LoginFragmentBinding
-import com.ni.ui.activity.fAuth
 import com.ni.ui.common.baseClasses.BaseObservableFragment
+import com.ni.ui.screens.user.register.RegisterFragment
+import kotlinx.android.synthetic.main.login_fragment.*
 
 
 class LoginFragment :
@@ -37,16 +40,17 @@ class LoginFragment :
             validUser(email, password)
         }
         binding.tvRegister.setOnClickListener {
-            popFragment()
-            notify {
-                it.onRegisterClicked()
-            }
+            loadRegisterScreen()
         }
+    }
+
+    private fun loadRegisterScreen(){
+        loadSubFragment(RegisterFragment.newInstance(),flLoginContainer.id,RegisterFragment.TAG )
     }
 
     private fun validUser(email: String, password: String) {
         binding.llProgressBar.visibility = View.VISIBLE
-        fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password).addOnCompleteListener {
             binding.llProgressBar.visibility = View.GONE
             if (it.isSuccessful) {
                 popFragment()
@@ -98,6 +102,22 @@ class LoginFragment :
         }
         if (context is LoginListener) {
             unRegisterObserver(context as LoginListener)
+        }
+    }
+
+    private fun loadSubFragment(
+        newFragment: Fragment,
+        containerId: Int,
+        fragmentTag: String,
+    ) {
+        try {
+            childFragmentManager.beginTransaction()
+                .replace(containerId, newFragment, fragmentTag)
+                .addToBackStack(fragmentTag)
+
+                .commitAllowingStateLoss()
+        } catch (ex: Exception) {
+            //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
     }
 }

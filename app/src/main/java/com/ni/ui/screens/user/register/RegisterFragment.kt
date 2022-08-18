@@ -1,6 +1,5 @@
 package com.ni.ui.screens.user.register
 
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -48,6 +47,7 @@ class RegisterFragment :
                             binding.llProgressBar.visibility = View.GONE
                             Toast.makeText(requireContext(), "User Created", Toast.LENGTH_SHORT)
                                 .show()
+                            popFragment()
                         } else {
                             binding.llProgressBar.visibility = View.GONE
                             Toast.makeText(requireContext(),
@@ -56,6 +56,9 @@ class RegisterFragment :
                         }
                     }
             }
+        }
+        binding.tvBack.setOnClickListener {
+            popFragment()
         }
     }
 

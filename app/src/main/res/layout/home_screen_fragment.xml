@@ -75,4 +75,9 @@
         android:layout_margin="8dp"
         android:padding="24dp"/>
 
+    <FrameLayout
+        android:id="@+id/flHomeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="32dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

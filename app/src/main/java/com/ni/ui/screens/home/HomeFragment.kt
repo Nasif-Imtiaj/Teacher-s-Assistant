@@ -1,9 +1,14 @@
 package com.ni.ui.screens.home
 
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.HomeScreenFragmentBinding
+import com.ni.ui.screens.classList.ClassListFragment
+import com.ni.ui.screens.library.LibraryFragment
+import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
+import kotlinx.android.synthetic.main.home_screen_fragment.*
 
 class HomeFragment :
     BaseObservableFragment<HomeScreenFragmentBinding, HomeListener>(HomeScreenFragmentBinding::inflate) {
@@ -40,20 +45,36 @@ class HomeFragment :
 
     private fun initBtnListener() {
         binding.ivTeacherAva.setOnClickListener {
-           notify { it.onTeacherProfileClicked() }
+            loadTeacherProfileScreen()
         }
         binding.ivClassroom.setOnClickListener {
-            notify { it.onClassRoomClicked() }
+            loadClassListScreen()
         }
-        binding.ivLibrary.setOnClickListener{
-            notify { it.onLibraryClicked() }
+        binding.ivLibrary.setOnClickListener {
+            loadLibraryScreen()
         }
         binding.ivLogout.setOnClickListener {
-            viewModel.logout()
-            notify { it.onLogoutClicked() }
+            logout()
         }
     }
 
+    private fun loadTeacherProfileScreen() {
+        loadSubFragment(TeacherProfileFragment.newInstance(),
+            flHomeContainer.id,
+            TeacherProfileFragment.TAG)
+    }
+
+    private fun loadClassListScreen() {
+        loadSubFragment(ClassListFragment.newInstance(), flHomeContainer.id, ClassListFragment.TAG)
+    }
+
+    private fun loadLibraryScreen() {
+        loadSubFragment(LibraryFragment.newInstance(), flHomeContainer.id, LibraryFragment.TAG)
+    }
+
+    private fun logout() {
+        viewModel.logout()
+    }
 
     override fun onStart() {
         super.onStart()
@@ -84,6 +105,22 @@ class HomeFragment :
         }
         if (context is HomeListener) {
             unRegisterObserver(context as HomeListener)
+        }
+    }
+
+    private fun loadSubFragment(
+        newFragment: Fragment,
+        containerId: Int,
+        fragmentTag: String,
+    ) {
+        try {
+            childFragmentManager.beginTransaction()
+                .replace(containerId, newFragment, fragmentTag)
+                .addToBackStack(fragmentTag)
+
+                .commitAllowingStateLoss()
+        } catch (ex: Exception) {
+            //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
     }
 }
