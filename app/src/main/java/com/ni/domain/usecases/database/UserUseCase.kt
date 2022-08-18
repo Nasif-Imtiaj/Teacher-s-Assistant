@@ -5,8 +5,8 @@ import com.ni.data.models.User
 import com.ni.data.repository.remote.UserCallBacks
 import com.ni.data.repository.remote.UserRepository
 
-class UserUseCase :UserRepository {
-    override fun create(user:User) {
+class UserUseCase : UserRepository {
+    override fun create(user: User) {
         var databse = FirebaseDatabase.getInstance()
         var ref = databse.getReference("TeachersAssistant")
             .child("User")
@@ -23,10 +23,12 @@ class UserUseCase :UserRepository {
                 var user = i.getValue(User::class.java)
                 if (user != null) {
                     if (user.id == currentUserId)
-                       res = user
+                        res = user
                 }
             }
             callbacks.onSuccess(res)
+        }.addOnFailureListener {
+            callbacks.onFailed()
         }
     }
 

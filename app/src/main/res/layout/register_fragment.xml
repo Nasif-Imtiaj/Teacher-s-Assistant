@@ -47,6 +47,36 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
+                    android:id="@+id/llName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_person_24" />
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
+                        android:background="@null"
+                        android:hint="Name"
+                        android:textColor="@color/black"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/vDivider0"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@color/black" />
+
+                <LinearLayout
                     android:id="@+id/llEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
@@ -131,15 +161,44 @@
                     android:layout_height="1dp"
                     android:layout_marginVertical="8dp"
                     android:background="@color/black" />
+
+                <LinearLayout
+                    android:id="@+id/llPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_lock_24" />
+
+                    <EditText
+                        android:id="@+id/etPhoneNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="24dp"
+                        android:background="@null"
+                        android:hint="PHONE NUMBER"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/vDivider4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginVertical="8dp"
+                    android:background="@color/black" />
+
                 <RadioGroup
                     android:id="@+id/radioGroup1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    >
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/rbTeacher"
                         android:layout_width="wrap_content"
@@ -168,7 +227,6 @@
                     android:layout_marginTop="16dp"
                     android:text="Back"
                     android:textSize="18sp" />
-
 
 
             </LinearLayout>

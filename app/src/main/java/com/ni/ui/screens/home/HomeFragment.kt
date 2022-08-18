@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.HomeScreenFragmentBinding
+import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.screens.classList.ClassListFragment
 import com.ni.ui.screens.library.LibraryFragment
 import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
@@ -17,7 +18,9 @@ class HomeFragment :
         fun newInstance() = HomeFragment().apply {}
     }
 
-    val viewModel by viewModels<HomeViewModel>()
+    val viewModel by viewModels<HomeViewModel>(){
+        ViewModelFactory()
+    }
 
 
     override fun initView() {
@@ -31,7 +34,9 @@ class HomeFragment :
     }
 
     private fun initObservers() {
+        viewModel.user.observe(this){
 
+        }
     }
 
     private fun initBackPressed() {
@@ -74,6 +79,7 @@ class HomeFragment :
 
     private fun logout() {
         viewModel.logout()
+        notify { it.showLoginScreen() }
     }
 
     override fun onStart() {
