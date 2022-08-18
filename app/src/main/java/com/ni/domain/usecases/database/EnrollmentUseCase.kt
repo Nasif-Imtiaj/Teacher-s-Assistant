@@ -1,5 +1,6 @@
 package com.ni.domain.usecases.database
 
+import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import com.ni.data.models.Enrollment
 import com.ni.data.repository.remote.EnrollmentCallbacks
@@ -22,7 +23,7 @@ class EnrollmentUseCase :EnrollmentRepository{
             for (i in it.children) {
                 var enrollment = i.getValue(Enrollment::class.java)
                 if (enrollment != null) {
-                    if(enrollment.classroomId==classroomId)
+                    if(enrollment.classroomId == classroomId)
                         list.add(enrollment)
                 }
             }

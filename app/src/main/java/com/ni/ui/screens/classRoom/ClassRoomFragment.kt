@@ -85,6 +85,7 @@ class ClassRoomFragment :
         initBackPressed()
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.retrieveAssignment()
+        viewModel.retrieveEnrollment()
     }
 
     private fun initUiListener() {
@@ -98,6 +99,12 @@ class ClassRoomFragment :
         }
         viewModel.assignmentDataList.observe(this) {
             assignmentAdapter.setItems(it)
+        }
+        viewModel.enrollmentDataList.observe(this) {
+            viewModel.generateEnrolledStudentList()
+        }
+        viewModel.enrolledStudentList.observe(this) {
+            viewModel.retrieveStudent()
         }
     }
 
