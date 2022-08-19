@@ -1,4 +1,5 @@
 package com.ni.ui.screens.library
+
 import android.Manifest
 import android.R
 import android.app.Activity
@@ -36,7 +37,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
         fun newInstance() = LibraryFragment().apply {}
     }
 
-    val viewModel by viewModels<LibraryViewModel>{ ViewModelFactory() }
+    val viewModel by viewModels<LibraryViewModel> { ViewModelFactory() }
 
     private val bookletListAdapter: AbstractAdapter<Booklet, BookletItemLayoutBinding> by lazy {
         object :
@@ -47,8 +48,8 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 position: Int,
             ) {
                 itemBinding.tvName.text = item.name
-                if(fileExists(item)){
-                    itemBinding.ivShare.visibility= View.VISIBLE
+                if (fileExists(item)) {
+                    itemBinding.ivShare.visibility = View.VISIBLE
                     itemBinding.ivDownload.visibility = View.GONE
                 }
                 itemBinding.ivDownload.setOnClickListener {
@@ -77,57 +78,68 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
 
     private fun initBtnListener() {
         binding.ivUpload.setOnClickListener {
-            Log.d(TAG, "initBtnListener: UploadFile")
-             uploadFile()
-            Toast.makeText(activity,"UploadClicked",Toast.LENGTH_SHORT)
+            viewModel.startFileUpload()
         }
         binding.ivChooseFile.setOnClickListener {
             askPermissionAndBrowseFile()
         }
     }
 
-    private fun uploadFile(){
-        val url = Uri.parse("android.resource://" + activity?.packageName.toString() + "/" + R.drawable.ic_dialog_alert)
-        val booklet = Booklet("1","Test",url.toString(),"","","")
-        viewModel.uploadFile(booklet)
+
+    private fun fileExists(booklet: Booklet): Boolean {
+        return FileUtils.isFileExistsOnDownload(booklet.name + ".png")
     }
 
-    private fun fileExists(booklet: Booklet):Boolean{
-        return FileUtils.isFileExistsOnDownload(booklet.name+".png")
-    }
-
-    private fun downloadFile(booklet: Booklet){
+    private fun downloadFile(booklet: Booklet) {
         viewModel.downloadFile(booklet)
     }
 
-    private fun openFile(booklet: Booklet){
-            var file = File(FileUtils.getRootDownloadDirectory() ,  booklet.name+".png")
-            val uriPdfPath = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", file)
-            val pdfOpenIntent =  Intent(Intent.ACTION_VIEW)
-            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
-            pdfOpenIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            pdfOpenIntent.clipData = ClipData.newRawUri("", uriPdfPath)
-            pdfOpenIntent.setDataAndType(uriPdfPath, mimeType)
-            pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            pdfOpenIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-            try {
-                startActivity(pdfOpenIntent);
-            } catch (e:Exception) {
-                Toast.makeText(requireContext(),"There is no app to load corresponding PDF",Toast.LENGTH_LONG).show()
-            }
-        }
-
-    private fun shareFile(booklet: Booklet){
-        var file = File(FileUtils.getRootDownloadDirectory() ,  booklet.name+".png")
-        val uriPdfPath = FileProvider.getUriForFile(requireContext(), requireActivity().packageName + ".provider", file)
-        val pdfOpenIntent =  Intent(Intent.ACTION_SEND)
-        val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
-        pdfOpenIntent.setType(mimeType)
-        pdfOpenIntent.putExtra(Intent.EXTRA_STREAM,uriPdfPath)
+    private fun openFile(booklet: Booklet) {
+        var file = File(FileUtils.getRootDownloadDirectory(), booklet.name + ".png")
+        val uriPdfPath = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName + ".provider",
+            file
+        )
+        val pdfOpenIntent = Intent(Intent.ACTION_VIEW)
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
+        pdfOpenIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        pdfOpenIntent.clipData = ClipData.newRawUri("", uriPdfPath)
+        pdfOpenIntent.setDataAndType(uriPdfPath, mimeType)
+        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         try {
             startActivity(pdfOpenIntent);
-        } catch (e:Exception) {
-            Toast.makeText(requireContext(),"There is no app to load corresponding PDF",Toast.LENGTH_LONG).show()
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireContext(),
+                "There is no app to load corresponding PDF",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+    }
+
+    private fun shareFile(booklet: Booklet) {
+        var file = File(FileUtils.getRootDownloadDirectory(), booklet.name + ".png")
+        val uriPdfPath = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName + ".provider",
+            file
+        )
+        val pdfOpenIntent = Intent(Intent.ACTION_SEND)
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
+        pdfOpenIntent.setType(mimeType)
+        pdfOpenIntent.putExtra(Intent.EXTRA_STREAM, uriPdfPath)
+        try {
+            startActivity(pdfOpenIntent);
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireContext(),
+                "There is no app to load corresponding PDF",
+                Toast.LENGTH_LONG
+            ).show()
         }
     }
 
@@ -136,15 +148,31 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun initObservers() {
-        viewModel.libraryBookletList.observe(this){
+        viewModel.isLoading.observe(this) {
+            if (viewModel.isLoading.value == true) {
+                binding.llProgressBar.visibility = View.VISIBLE
+            } else {
+                binding.llProgressBar.visibility = View.GONE
+            }
+        }
+        viewModel.toastMsg.observe(this) {
+            Toast.makeText(requireContext(), viewModel.toastMsg.value, Toast.LENGTH_SHORT).show()
+        }
+        viewModel.libraryBookletList.observe(this) {
             bookletListAdapter.setItems(it)
         }
-        viewModel.fileUrl.observe(this){
-            queryFileName(requireContext().contentResolver, Uri.parse(viewModel.fileUrl.value))?.let { it1 ->
+        viewModel.localFileUrl.observe(this) {
+            queryFileName(
+                requireContext().contentResolver,
+                Uri.parse(viewModel.localFileUrl.value)
+            )?.let { it1 ->
                 viewModel.updateFilename(it1)
             }
         }
-        viewModel.fileName.observe(this){
+        viewModel.remoteFileUrl.observe(this){
+            viewModel.uploadBooklet()
+        }
+        viewModel.fileName.observe(this) {
             binding.tvFileName.text = viewModel.fileName.value
             binding.tvFileName.visibility = View.VISIBLE
             binding.ivUpload.visibility = View.VISIBLE
@@ -195,7 +223,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
             SubmitFragment.MY_RESULT_CODE_FILE_CHOOSER -> if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
                     val fileUri = data.data
-                    viewModel.updateFileUrl(fileUri.toString())
+                    viewModel.updateLocalFileUrl(fileUri.toString())
                 }
             }
         }

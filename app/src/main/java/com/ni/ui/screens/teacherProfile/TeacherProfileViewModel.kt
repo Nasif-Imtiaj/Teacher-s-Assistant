@@ -15,9 +15,6 @@ class TeacherProfileViewModel(private val userRepository: UserRepository,private
     val _imgUrl = MutableLiveData<String>()
     val imgUrl: LiveData<String>
         get() = _imgUrl
-    val _toastMsg = MutableLiveData<String>()
-    val toastMsg: LiveData<String>
-        get() = _toastMsg
     val _remoteUrl = MutableLiveData<String>()
     val remoteUrl: LiveData<String>
         get() = _remoteUrl
