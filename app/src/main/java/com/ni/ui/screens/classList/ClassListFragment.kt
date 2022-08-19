@@ -74,6 +74,12 @@ class ClassListFragment :
         viewModel.classRoomDataList.observe(this) {
             classListAdapter.setItems(it)
         }
+        viewModel.isLoading.observe(this){
+            if(viewModel.isLoading.value==true)
+                binding.llProgressBar.visibility = View.VISIBLE
+            else
+                binding.llProgressBar.visibility = View.GONE
+        }
     }
 
     private fun initBackPressed() {

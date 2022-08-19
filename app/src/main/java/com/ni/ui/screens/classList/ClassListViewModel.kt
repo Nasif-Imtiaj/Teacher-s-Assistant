@@ -21,7 +21,6 @@ class ClassListViewModel(private val classroomRepository: ClassroomRepository) :
     private var idx = 0
 
     init {
-        _classRoomDataList.postValue(dummyClassRoomList.classList)
         retrieveClassrooms()
         colorList.add("#d8d8d8")
         colorList.add("#BD30FF")

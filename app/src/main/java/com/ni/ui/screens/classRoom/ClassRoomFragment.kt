@@ -94,10 +94,6 @@ class ClassRoomFragment :
         viewModel.retrieveEnrollment()
         if (avmUserType == userIsTeacher && FirebaseAuth.getInstance().currentUser?.uid == viewModel.creatorId) {
             binding.ivAddAssignment.visibility = View.VISIBLE
-            binding.ivEnroll.visibility = View.GONE
-        } else {
-            binding.ivAddAssignment.visibility = View.GONE
-            binding.ivEnroll.visibility = View.VISIBLE
         }
     }
 
@@ -125,6 +121,13 @@ class ClassRoomFragment :
                     binding.ivEnroll.visibility = View.VISIBLE
                 else
                     binding.ivEnroll.visibility = View.GONE
+            }
+        }
+        viewModel.isLoading.observe(this) {
+            if (viewModel.isLoading.value == true) {
+                binding.llProgressBar.visibility = View.VISIBLE
+            } else {
+                binding.llProgressBar.visibility = View.GONE
             }
         }
     }
