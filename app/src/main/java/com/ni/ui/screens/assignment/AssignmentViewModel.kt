@@ -7,7 +7,7 @@ import com.ni.data.dummy.SubmissionDataList
 class AssignmentViewModel : ViewModel() {
 
     var assignmentName = ""
-
+    var assignmentId = ""
     init {
 
     }

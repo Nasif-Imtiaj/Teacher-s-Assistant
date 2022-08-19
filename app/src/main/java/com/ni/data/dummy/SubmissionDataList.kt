@@ -1,22 +1,15 @@
 package com.ni.data.dummy
 
-import com.ni.data.models.Submission
+import com.ni.data.models.Submit
 
 object SubmissionDataList {
-    var list = ArrayList<Submission>()
+    var list = ArrayList<Submit>()
 
     init {
         createDummy()
     }
 
     private fun createDummy() {
-        list.add(
-            Submission(
-                "id",
-                "studentId",
-                "assigmentID",
-                "answerscript"
-            )
-        )
+
     }
 }

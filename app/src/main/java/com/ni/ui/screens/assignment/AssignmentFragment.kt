@@ -20,9 +20,11 @@ class AssignmentFragment :
     companion object {
         const val TAG = "AssignmentScreenFragment"
         const val ASSIGNMENTNAME = "AssignmentName"
+        const val ASSIGNMENTID = "AssignmentId"
         fun newInstance(assignment: Assignment) = AssignmentFragment().apply {
             this.arguments = Bundle().apply {
                 putString(ASSIGNMENTNAME, assignment.name)
+                putString(ASSIGNMENTID, assignment.id)
             }
         }
     }
@@ -46,6 +48,7 @@ class AssignmentFragment :
 
     private fun initGetArguments() {
         viewModel.assignmentName = arguments?.getString(ASSIGNMENTNAME).toString()
+        viewModel.assignmentId = arguments?.getString(ASSIGNMENTID).toString()
     }
 
     private fun initSetupView() {
@@ -85,7 +88,12 @@ class AssignmentFragment :
     }
 
     private fun loadSubmitScreen() {
-        loadSubFragment(SubmitFragment.newInstance(), flAssignmentContainer.id, SubmitFragment.TAG)
+        loadSubFragment(
+            SubmitFragment.newInstance(
+                viewModel.assignmentId,
+                viewModel.assignmentName
+            ), flAssignmentContainer.id, SubmitFragment.TAG
+        )
     }
 
     private fun loadSubFragment(

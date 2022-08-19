@@ -2,8 +2,10 @@ package com.ni.ui.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.ni.data.repository.remote.FirebaseStorageRepository
 import com.ni.data.repository.remote.StudentRepository
 import com.ni.domain.usecases.database.*
+import com.ni.ui.screens.assignment.submit.SubmitViewModel
 import com.ni.ui.screens.classList.ClassListViewModel
 import com.ni.ui.screens.classRoom.ClassRoomViewModel
 import com.ni.ui.screens.home.HomeViewModel
@@ -30,6 +32,9 @@ class ViewModelFactory() : ViewModelProvider.Factory {
         }
         if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
             return RegisterViewModel(UserUseCase()) as T
+        }
+        if(modelClass.isAssignableFrom(SubmitViewModel::class.java)){
+            return SubmitViewModel(SubmitUseCase(),FirebaseStorageUseCase()) as T
         }
         throw IllegalArgumentException("Please provide the way how this viewModel can be initialized in LibraryViewModelFactory class")
     }
