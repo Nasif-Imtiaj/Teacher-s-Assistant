@@ -1,13 +1,20 @@
 package com.ni.ui.screens.library
+import android.Manifest
 import android.R
+import android.app.Activity
 import android.content.ClipData
+import android.content.ContentResolver
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
+import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
@@ -17,6 +24,7 @@ import com.ni.teachersassistant.databinding.LibraryFragmentLayoutBinding
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
+import com.ni.ui.screens.assignment.submit.SubmitFragment
 import com.ni.utils.FileUtils
 import java.io.File
 
@@ -73,6 +81,9 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
              uploadFile()
             Toast.makeText(activity,"UploadClicked",Toast.LENGTH_SHORT)
         }
+        binding.ivChooseFile.setOnClickListener {
+            askPermissionAndBrowseFile()
+        }
     }
 
     private fun uploadFile(){
@@ -128,6 +139,16 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
         viewModel.libraryBookletList.observe(this){
             bookletListAdapter.setItems(it)
         }
+        viewModel.fileUrl.observe(this){
+            queryFileName(requireContext().contentResolver, Uri.parse(viewModel.fileUrl.value))?.let { it1 ->
+                viewModel.updateFilename(it1)
+            }
+        }
+        viewModel.fileName.observe(this){
+            binding.tvFileName.text = viewModel.fileName.value
+            binding.tvFileName.visibility = View.VISIBLE
+            binding.ivUpload.visibility = View.VISIBLE
+        }
     }
 
     private fun initBackPressed() {
@@ -137,5 +158,56 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                     popFragment()
                 }
             })
+    }
+
+    private fun askPermissionAndBrowseFile() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // Check if we have Call permission
+            val permission = ActivityCompat.checkSelfPermission(
+                this.requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            if (permission != PackageManager.PERMISSION_GRANTED) {
+                // If don't have permission so prompt the user.
+                requestPermissions(
+                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                    SubmitFragment.MY_RESULT_CODE_FILE_CHOOSER
+                )
+                return
+            }
+        }
+        this.doBrowseFile()
+    }
+
+    private fun doBrowseFile() {
+        var chooseFileIntent = Intent(Intent.ACTION_GET_CONTENT)
+        chooseFileIntent.type = "*/*"
+        // Only return URIs that can be opened with ContentResolver
+        chooseFileIntent.addCategory(Intent.CATEGORY_OPENABLE)
+        chooseFileIntent = Intent.createChooser(chooseFileIntent, "Choose a file")
+        startActivityForResult(chooseFileIntent, SubmitFragment.MY_RESULT_CODE_FILE_CHOOSER)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            SubmitFragment.MY_RESULT_CODE_FILE_CHOOSER -> if (resultCode == Activity.RESULT_OK) {
+                if (data != null) {
+                    val fileUri = data.data
+                    viewModel.updateFileUrl(fileUri.toString())
+                }
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun queryFileName(resolver: ContentResolver, uri: Uri): String? {
+        val returnCursor = resolver.query(uri, null, null, null, null)!!
+        val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+        returnCursor.moveToFirst()
+        val name = returnCursor.getString(nameIndex)
+        returnCursor.close()
+        return name
     }
 }

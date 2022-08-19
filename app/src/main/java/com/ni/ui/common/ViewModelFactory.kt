@@ -18,7 +18,7 @@ import com.ni.ui.screens.user.register.RegisterViewModel
 class ViewModelFactory() : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LibraryViewModel::class.java)) {
-            return LibraryViewModel(LibraryUseCase()) as T;
+            return LibraryViewModel(LibraryUseCase(),FirebaseStorageUseCase()) as T;
         }
         if (modelClass.isAssignableFrom(ClassListViewModel::class.java)) {
             return ClassListViewModel(ClassroomUseCase()) as T
