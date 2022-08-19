@@ -2,16 +2,21 @@ package com.ni.ui.screens.assignment
 
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.data.models.Assignment
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.AssignmentScreenFragmentBinding
-import com.ni.ui.common.ViewModelFactory
+import com.ni.ui.activity.avmUserType
+import com.ni.ui.activity.userIsStudent
+import com.ni.ui.screens.assignment.submission.SubmissionFragment
+import com.ni.ui.screens.assignment.submit.SubmitFragment
+import kotlinx.android.synthetic.main.assignment_screen_fragment.*
 
 class AssignmentFragment :
     BaseObservableFragment<AssignmentScreenFragmentBinding, AssignmentListener>(
         AssignmentScreenFragmentBinding::inflate
-    )  {
+    ) {
     companion object {
         const val TAG = "AssignmentScreenFragment"
         const val ASSIGNMENTNAME = "AssignmentName"
@@ -23,7 +28,6 @@ class AssignmentFragment :
     }
 
     val viewModel by viewModels<AssignmentViewModel>()
-
 
     override fun initView() {
         initUiListener()
@@ -46,6 +50,21 @@ class AssignmentFragment :
 
     private fun initSetupView() {
         binding.tvAssignmentName.text = viewModel.assignmentName
+        if (avmUserType == userIsStudent)
+            binding.tvOption2.text = "Submit"
+        else
+            binding.tvOption2.text = "Submissions"
+    }
+
+    private fun initRecycler() {}
+
+    private fun initBtnListener() {
+        binding.tvOption2.setOnClickListener {
+            if (avmUserType == userIsStudent)
+                loadSubmitScreen()
+            else
+                loadSubmissionScreen()
+        }
     }
 
     private fun initBackPressed() {
@@ -57,7 +76,31 @@ class AssignmentFragment :
             })
     }
 
-    private fun initRecycler() {}
+    private fun loadSubmissionScreen() {
+        loadSubFragment(
+            SubmissionFragment.newInstance(),
+            flAssignmentContainer.id,
+            SubmissionFragment.TAG
+        )
+    }
 
-    private fun initBtnListener() {}
+    private fun loadSubmitScreen() {
+        loadSubFragment(SubmitFragment.newInstance(), flAssignmentContainer.id, SubmitFragment.TAG)
+    }
+
+    private fun loadSubFragment(
+        newFragment: Fragment,
+        containerId: Int,
+        fragmentTag: String,
+    ) {
+        try {
+            childFragmentManager.beginTransaction()
+                .replace(containerId, newFragment, fragmentTag)
+                .addToBackStack(fragmentTag)
+
+                .commitAllowingStateLoss()
+        } catch (ex: Exception) {
+            //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
+        }
+    }
 }

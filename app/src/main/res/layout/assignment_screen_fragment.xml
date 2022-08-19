@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@id/vDivider" />
 
     <FrameLayout
-        android:id="@+id/flHomeContainer"
+        android:id="@+id/flAssignmentContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
