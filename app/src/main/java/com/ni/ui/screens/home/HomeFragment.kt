@@ -1,12 +1,15 @@
 package com.ni.ui.screens.home
 
+import android.net.Uri
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.ni.data.models.Student
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.HomeScreenFragmentBinding
+import com.ni.ui.activity.avmUser
 import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsStudent
 import com.ni.ui.activity.userIsTeacher
@@ -56,6 +59,7 @@ class HomeFragment :
                 avmUserType = userIsStudent
             if (avmUserType == userIsStudent)
                 viewModel.retrieveStudent()
+            initSetupUi()
         }
         viewModel.showNewStudentDialog.observe(this) {
             if (viewModel.showNewStudentDialog.value == true) {
@@ -63,6 +67,20 @@ class HomeFragment :
                 dialog.show(childFragmentManager, NewStudentDialog.TAG)
             }
         }
+    }
+
+    fun initSetupUi() {
+        if (avmUserType == userIsTeacher) {
+            binding.tvWelcomeMsgHeader.text = "Welcome Teacher"
+            binding.ivLibrary.visibility = View.VISIBLE
+        }
+        else if(avmUserType== userIsStudent) {
+            binding.tvWelcomeMsgHeader.text = "Welcome Student"
+            binding.ivLibrary.visibility = View.GONE
+        }
+        Glide.with(binding.ivAvatar)
+            .load(Uri.parse(avmUser.imgUrl))
+            .into(binding.ivAvatar)
     }
 
     private fun initBackPressed() {
@@ -75,7 +93,7 @@ class HomeFragment :
     }
 
     private fun initBtnListener() {
-        binding.ivTeacherAva.setOnClickListener {
+        binding.ivAvatar.setOnClickListener {
             loadTeacherProfileScreen()
         }
         binding.ivClassroom.setOnClickListener {

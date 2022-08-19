@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:text="Welcome teacher"
+        android:text="Welcome...."
         android:textColor="#6C46FE"
         android:textSize="36dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Hope you are having a great day"
+        android:text=""
         android:textColor="#5B5B5B"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,10 +41,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/ivTeacherAva"
+            android:id="@+id/ivAvatar"
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_demo_teacher" />
+            android:layout_height="48dp" />
     </androidx.cardview.widget.CardView>
 
     <ImageView
@@ -58,6 +57,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:visibility="gone"
         android:id="@+id/ivLibrary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

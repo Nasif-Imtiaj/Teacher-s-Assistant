@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.ni.data.models.Student
+import com.ni.data.models.User
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.MainActivityLayoutBinding
 import com.ni.ui.screens.home.HomeFragment
@@ -19,6 +20,7 @@ import com.ni.ui.screens.user.login.LoginListener
 var userIsTeacher = 1
 var userIsStudent = 2
 var avmUserType = -1
+var avmUser = User()
 var avmStudent = Student()
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashListener {
 

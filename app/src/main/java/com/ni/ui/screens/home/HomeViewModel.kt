@@ -12,6 +12,7 @@ import com.ni.data.repository.remote.StudentRepository
 import com.ni.data.repository.remote.UserCallBacks
 import com.ni.data.repository.remote.UserRepository
 import com.ni.ui.activity.avmStudent
+import com.ni.ui.activity.avmUser
 import com.ni.ui.common.baseClasses.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class HomeViewModel(
     val _user = MutableLiveData<User>()
     val user: LiveData<User>
         get() = _user
+
     val _showNewStudentDialog = MutableLiveData<Boolean>()
     val showNewStudentDialog: LiveData<Boolean>
         get() = _showNewStudentDialog
@@ -79,6 +81,7 @@ class HomeViewModel(
                         override fun onSuccess(user: User) {
                             _isLoading.postValue(false)
                             _user.postValue(user)
+                            avmUser = user
                         }
 
                         override fun onFailed() {
