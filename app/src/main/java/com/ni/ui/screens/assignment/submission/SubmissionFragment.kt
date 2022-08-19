@@ -1,7 +1,8 @@
 package com.ni.ui.screens.assignment.submission
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
@@ -12,6 +13,7 @@ import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import kotlinx.android.synthetic.main.submit_item_layout.*
+
 
 class SubmissionFragment :
     BaseObservableFragment<SubmissionFragmentBinding, SubmissionListener>(SubmissionFragmentBinding::inflate) {
@@ -58,7 +60,8 @@ class SubmissionFragment :
     }
 
     fun openFile(url: String) {
-
+        val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(url))
+        startActivity(intent)
     }
 
     override fun initView() {
