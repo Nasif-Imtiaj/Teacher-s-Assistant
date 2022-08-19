@@ -10,11 +10,10 @@
     tools:context="com.ni.ui.screens.teacherProfile.TeacherProfileFragment">
 
     <ImageView
-        android:id="@+id/ivProfile"
+        android:id="@+id/ivProfilePic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_demo_teacher" />
+        android:scaleType="fitXY" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -107,13 +106,13 @@
             app:layout_constraintRight_toRightOf="parent">
 
             <ImageView
-                android:id="@+id/tvContact"
+                android:id="@+id/ivContact"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_t_phn" />
 
             <ImageView
-                android:id="@+id/tvEmail"
+                android:id="@+id/ivEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -121,7 +120,7 @@
                 android:src="@drawable/ic_t_email" />
 
             <ImageView
-                android:id="@+id/tvLocation"
+                android:id="@+id/ivLinkdin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -131,4 +130,124 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/acUpdateView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#58FFFFFF"
+        android:clickable="true"
+        android:elevation="48dp"
+        android:focusable="true"
+        android:padding="24dp"
+        android:visibility="gone">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvMain"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/ivCurrentIcon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/round_outline_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:drawableStart="@drawable/ic_baseline_find_replace_24"
+                    android:text="Update"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/ivCurrentIcon"
+                    app:layout_constraintStart_toEndOf="@id/ivCurrentIcon"
+                    app:layout_constraintTop_toTopOf="@id/ivCurrentIcon" />
+
+                <ImageView
+                    android:id="@+id/ivUpdateEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_t_email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivCurrentIcon" />
+
+                <EditText
+                    android:id="@+id/etUpdateEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@null"
+                    android:text="email.com"
+                    app:layout_constraintBottom_toBottomOf="@id/ivUpdateEmail"
+                    app:layout_constraintStart_toEndOf="@id/ivUpdateEmail"
+                    app:layout_constraintTop_toTopOf="@id/ivUpdateEmail" />
+
+                <ImageView
+                    android:id="@+id/ivPhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_t_phn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivUpdateEmail" />
+
+                <EditText
+                    android:id="@+id/etUpdatePhoneNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="01786443488"
+                    app:layout_constraintBottom_toBottomOf="@id/ivPhoneNumber"
+                    app:layout_constraintStart_toEndOf="@id/ivPhoneNumber"
+                    app:layout_constraintTop_toTopOf="@id/ivPhoneNumber" />
+
+                <ImageView
+                    android:id="@+id/ivUpdateLinkdin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/ic_t_linkedin"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivPhoneNumber" />
+
+                <EditText
+                    android:id="@+id/etUpdateLindkin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="link.com"
+                    app:layout_constraintBottom_toBottomOf="@id/ivUpdateLinkdin"
+                    app:layout_constraintStart_toEndOf="@id/ivUpdateLinkdin"
+                    app:layout_constraintTop_toTopOf="@id/ivUpdateLinkdin" />
+
+                <Button
+                    android:id="@+id/bSave"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Save"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivUpdateLinkdin" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

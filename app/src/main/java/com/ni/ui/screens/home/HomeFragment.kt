@@ -18,6 +18,7 @@ import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
 import com.ni.ui.screens.classList.ClassListFragment
 import com.ni.ui.screens.library.LibraryFragment
+import com.ni.ui.screens.studentProfile.StudentProfileFragment
 import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 
@@ -73,8 +74,7 @@ class HomeFragment :
         if (avmUserType == userIsTeacher) {
             binding.tvWelcomeMsgHeader.text = "Welcome Teacher"
             binding.ivLibrary.visibility = View.VISIBLE
-        }
-        else if(avmUserType== userIsStudent) {
+        } else if (avmUserType == userIsStudent) {
             binding.tvWelcomeMsgHeader.text = "Welcome Student"
             binding.ivLibrary.visibility = View.GONE
         }
@@ -94,7 +94,10 @@ class HomeFragment :
 
     private fun initBtnListener() {
         binding.ivAvatar.setOnClickListener {
-            loadTeacherProfileScreen()
+            if (avmUserType == userIsTeacher)
+                loadTeacherProfileScreen()
+            else
+                loadStudentProfileScreen()
         }
         binding.ivClassroom.setOnClickListener {
             loadClassListScreen()
@@ -112,6 +115,14 @@ class HomeFragment :
             TeacherProfileFragment.newInstance(),
             flHomeContainer.id,
             TeacherProfileFragment.TAG
+        )
+    }
+
+    private fun loadStudentProfileScreen() {
+        loadSubFragment(
+            StudentProfileFragment.newInstance(),
+            flHomeContainer.id,
+            StudentProfileFragment.TAG
         )
     }
 

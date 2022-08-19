@@ -33,7 +33,11 @@ class UserUseCase : UserRepository {
     }
 
     override fun update(user: User) {
-        TODO("Not yet implemented")
+        var databse = FirebaseDatabase.getInstance()
+        var ref = databse.getReference("TeachersAssistant")
+            .child("User")
+            .child(user.id)
+        ref.setValue(user)
     }
 
     override fun delete(user: User) {
