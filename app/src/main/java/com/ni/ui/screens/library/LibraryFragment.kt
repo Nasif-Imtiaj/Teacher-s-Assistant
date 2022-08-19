@@ -39,19 +39,17 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 position: Int,
             ) {
                 itemBinding.tvName.text = item.name
-                Glide.with(itemBinding.ivPic).load(Uri.parse(item.remoteThumbUrl)).into(itemBinding.ivPic)
                 if(fileExists(item)){
-                    itemBinding.tvRead.visibility= View.VISIBLE
-                    itemBinding.tvShare.visibility= View.VISIBLE
-                    itemBinding.tvDownload.visibility = View.GONE
+                    itemBinding.ivShare.visibility= View.VISIBLE
+                    itemBinding.ivDownload.visibility = View.GONE
                 }
-                itemBinding.tvDownload.setOnClickListener {
+                itemBinding.ivDownload.setOnClickListener {
                     downloadFile(item)
                 }
-                itemBinding.tvRead.setOnClickListener {
+                itemBinding.tvName.setOnClickListener {
                     openFile(item)
                 }
-                itemBinding.tvShare.setOnClickListener {
+                itemBinding.ivShare.setOnClickListener {
                     shareFile(item)
                 }
             }
@@ -70,7 +68,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun initBtnListener() {
-        binding.bUpload.setOnClickListener {
+        binding.ivUpload.setOnClickListener {
             Log.d(TAG, "initBtnListener: UploadFile")
              uploadFile()
             Toast.makeText(activity,"UploadClicked",Toast.LENGTH_SHORT)
