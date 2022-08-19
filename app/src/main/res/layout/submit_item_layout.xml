@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="16dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardElevation="16dp"
+        app:cardBackgroundColor="#F1EDFF"
+        app:cardCornerRadius="16dp"
         app:contentPadding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -21,11 +22,11 @@
                 android:id="@+id/tvId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_dummy"
                 android:drawablePadding="4dp"
                 android:padding="4dp"
                 android:text="ID : 181-115-045"
-                android:textSize="16dp"
+                android:textColor="#ED0000"
+                android:textSize="12dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,126 +35,150 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:drawableStart="@drawable/ic_dummy"
                 android:drawablePadding="4dp"
                 android:padding="4dp"
                 android:text="Answer Script"
-                android:textSize="16dp"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+
                 app:layout_constraintStart_toEndOf="@id/tvId"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivEditMarks"
+            <TextView
+                android:id="@+id/tvCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_settings_24"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="4dp"
+                android:text="Checked "
 
-            <TableLayout
-                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:textSize="12dp"
+                app:layout_constraintBottom_toBottomOf="@id/rbCheck"
+                app:layout_constraintEnd_toStartOf="@id/rbCheck"
+                app:layout_constraintTop_toTopOf="@id/rbCheck" />
+
+            <RadioGroup
+                android:id="@+id/rbCheck"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rbYes"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:buttonTint="#55FF00" />
+
+                <RadioButton
+                    android:id="@+id/rbNo"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:buttonTint="#ED0000" />
+            </RadioGroup>
+
+            <View
+                android:id="@+id/vIdLine"
+                android:layout_width="40dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="4dp"
+                android:background="#6C46FE"
+                app:layout_constraintStart_toStartOf="@id/tvId"
+                app:layout_constraintTop_toBottomOf="@id/tvId" />
+
+            <ImageView
+                android:id="@+id/ivObtained"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_obtained"
+                app:layout_constraintEnd_toStartOf="@id/ivBonus"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvId">
+                app:layout_constraintTop_toBottomOf="@id/vIdLine" />
 
-                <TableRow
-                    android:id="@+id/llMarkName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="5">
+            <EditText
+                android:id="@+id/etObtained"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-                    <TextView
-                        android:id="@+id/tvExamMarks"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Exam marks" />
+                android:text="50"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/ivObtained"
+                app:layout_constraintStart_toStartOf="@id/ivObtained"
+                app:layout_constraintTop_toBottomOf="@id/ivObtained" />
 
-                    <TextView
-                        android:id="@+id/tvObtained"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Obtained" />
 
-                    <TextView
-                        android:id="@+id/tvBonus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Bonus" />
+            <ImageView
+                android:id="@+id/ivBonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_bonus"
+                app:layout_constraintEnd_toStartOf="@id/ivPenalty"
+                app:layout_constraintStart_toEndOf="@id/ivObtained"
+                app:layout_constraintTop_toTopOf="@id/ivObtained" />
 
-                    <TextView
-                        android:id="@+id/tvPenalty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Penalty" />
+            <EditText
+                android:id="@+id/etBonus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/ivBonus"
+                app:layout_constraintStart_toStartOf="@id/ivBonus"
+                app:layout_constraintTop_toBottomOf="@id/ivBonus" />
 
-                    <TextView
-                        android:id="@+id/tvTotal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Total" />
-                </TableRow>
+            <ImageView
+                android:id="@+id/ivPenalty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_penalty"
+                app:layout_constraintEnd_toStartOf="@id/ivTotal"
+                app:layout_constraintStart_toEndOf="@id/ivBonus"
+                app:layout_constraintTop_toTopOf="@id/ivBonus" />
 
-                <TableRow
-                    android:id="@+id/llMarkValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/llMarkName">
+            <EditText
+                android:id="@+id/etPenalty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="50"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="@id/ivPenalty"
+                app:layout_constraintStart_toStartOf="@id/ivPenalty"
+                app:layout_constraintTop_toBottomOf="@id/ivPenalty" />
 
-                    <TextView
-                        android:id="@+id/tvExamValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="20" />
+            <ImageView
+                android:id="@+id/ivTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_total"
+                app:layout_constraintEnd_toEndOf="@id/ivUpdate"
+                app:layout_constraintStart_toEndOf="@id/ivPenalty"
+                app:layout_constraintTop_toTopOf="@id/ivPenalty" />
 
-                    <TextView
-                        android:id="@+id/tvObtainedValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="15" />
-
-                    <TextView
-                        android:id="@+id/tvBonusValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="5" />
-
-                    <TextView
-                        android:id="@+id/tvPenaltyValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="10" />
-
-                    <TextView
-                        android:id="@+id/tvTotalValue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="10" />
-                </TableRow>
-            </TableLayout>
-
+            <TextView
+                android:id="@+id/tvTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="50"
+                android:textColor="#ED0000"
+                android:textSize="12dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/ivTotal"
+                app:layout_constraintStart_toStartOf="@id/ivTotal"
+                app:layout_constraintTop_toBottomOf="@id/ivTotal" />
+            <ImageView
+                android:visibility="gone"
+                android:id="@+id/ivUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_autorenew_24"
+                app:layout_constraintTop_toTopOf="@id/ivTotal"
+                app:layout_constraintBottom_toBottomOf="@id/tvTotal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivTotal"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
