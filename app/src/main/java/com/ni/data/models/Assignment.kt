@@ -4,10 +4,11 @@ data class Assignment(
     val id: String,
     val classroomId: String,
     val name: String,
+    val description: String,
     val startDate: String,
     val endDate: String,
     val mark: Int,
 ) {
     constructor() : this("", "",
-        "", "", "", 0)
+        "", "", "","", 0)
 }

@@ -37,8 +37,6 @@ class ClassRoomViewModel(
     private val _showEnrollOption = MutableLiveData<Boolean>()
     val showEnrollOption: LiveData<Boolean>
         get() = _showEnrollOption
-
-
     var classroomId = ""
     var creatorId = ""
 

@@ -8,11 +8,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.ni.data.models.Assignment
 import com.ni.teachersassistant.R
-import kotlinx.android.synthetic.main.new_assignment_dialog_layout.*
 import kotlinx.android.synthetic.main.new_assignment_dialog_layout.view.*
-import kotlinx.android.synthetic.main.new_student_dialog_layout.etName
-import kotlinx.android.synthetic.main.new_student_dialog_layout.view.*
-import kotlinx.android.synthetic.main.new_student_dialog_layout.view.etName
 import java.util.*
 
 class NewAssignmentDialog : DialogFragment() {
@@ -49,10 +45,12 @@ class NewAssignmentDialog : DialogFragment() {
                             UUID.randomUUID().toString(),
                             roomId,
                             view.etName.text.toString(),
+                            view.etDescription.text.toString(),
                             view.etStartDate.text.toString(),
                             view.etEndDate.text.toString(),
                             view.etMarks.text.toString().toInt()
                         )
+                        listener.onDialogPositiveClick(assignment)
                     })
                 .setNegativeButton("Cancel",
                     DialogInterface.OnClickListener { dialog, id ->

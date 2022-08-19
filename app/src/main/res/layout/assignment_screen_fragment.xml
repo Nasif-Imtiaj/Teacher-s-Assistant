@@ -8,53 +8,62 @@
     tools:context="com.ni.ui.screens.assignment.AssignmentFragment">
 
     <TextView
-        android:id="@+id/tvName"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="4dp"
-        android:text="P-400"
-        android:textSize="24dp" />
-
-    <TextView
-        android:id="@+id/tvCalculate"
+        android:id="@+id/tvAssignmentName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_dummy"
-        android:drawablePadding="4dp"
-        android:padding="4dp"
-        android:text="Plagiarism"
-        app:layout_constraintEnd_toStartOf="@id/tvPrint"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvPrint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:drawableStart="@drawable/ic_dummy"
-        android:drawablePadding="4dp"
-        android:padding="4dp"
-        android:text="print"
+        android:text="Assignment Name"
+        android:textSize="24dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvOption1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Description"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@id/tvOption2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAssignmentName" />
+
+    <TextView
+        android:id="@+id/tvOption2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvOption1"
+        app:layout_constraintTop_toTopOf="@id/tvOption1" />
+
 
     <View
         android:id="@+id/vDivider"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_marginVertical="8dp"
         android:background="@color/black"
-        app:layout_constraintTop_toBottomOf="@id/tvPrint" />
+        app:layout_constraintTop_toBottomOf="@id/tvOption1" />
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/optionRecyclerViewASF"
+    <TextView
+        android:id="@+id/tvDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
+        android:padding="8dp"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/vDivider" />
 
+    <FrameLayout
+        android:id="@+id/flHomeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:elevation="32dp"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/vDivider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

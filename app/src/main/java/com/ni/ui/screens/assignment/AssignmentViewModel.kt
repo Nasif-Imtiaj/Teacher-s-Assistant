@@ -5,22 +5,11 @@ import com.ni.data.dummy.SubmissionDataList
 
 
 class AssignmentViewModel : ViewModel() {
-   // val assignmentDataList = MutableLiveData<List<SubmitModel>>()
-    private val _assignmentDataList = SubmissionDataList
-    var selectedIdx = 0
+
+    var assignmentName = ""
 
     init {
-     //   assignmentDataList.postValue(_assignmentDataList.submissionDataList)
+
     }
 
-    fun updateResultData(obtained: Int, bonus: Int, penalty: Int) {
-//        assignmentDataList.value!!.get(selectedIdx).marks.bonus = bonus
-//        assignmentDataList.value!!.get(selectedIdx).marks.obtained = obtained
-//        assignmentDataList.value!!.get(selectedIdx).marks.penalty = penalty
-//        assignmentDataList.postValue(assignmentDataList.value)
-    }
-
-    fun updateSelectedStudent(selectedIdx: Int) {
-        this.selectedIdx = selectedIdx
-    }
 }

@@ -1,7 +1,6 @@
 package com.ni.ui.screens.classRoom
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -23,7 +22,6 @@ import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
-import java.util.*
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
@@ -78,7 +76,7 @@ class ClassRoomFragment :
                 itemBinding.tvEndDate.text = item.endDate
                 itemBinding.tvExamMarks.text = "Marks: " + item.mark.toString()
                 itemBinding.acMainContainer.setOnClickListener {
-                    loadAssignmentScreen(item.name)
+                    loadAssignmentScreen(item)
                 }
             }
         }
@@ -88,13 +86,17 @@ class ClassRoomFragment :
         initUiListener()
         initObservers()
         initBackPressed()
-        viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
-        viewModel.creatorId = arguments?.getString(CREATORID).toString()
+        initGetArguments()
         viewModel.retrieveAssignment()
         viewModel.retrieveEnrollment()
         if (avmUserType == userIsTeacher && FirebaseAuth.getInstance().currentUser?.uid == viewModel.creatorId) {
             binding.ivAddAssignment.visibility = View.VISIBLE
         }
+    }
+
+    private fun initGetArguments(){
+        viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
+        viewModel.creatorId = arguments?.getString(CREATORID).toString()
     }
 
     private fun initUiListener() {
@@ -166,8 +168,8 @@ class ClassRoomFragment :
         loadSubFragment(fragment, R.id.flCRFContainer, StudentProfileFragment.TAG)
     }
 
-    fun loadAssignmentScreen(assignmentName: String) {
-        var fragment = AssignmentFragment.newInstance(assignmentName)
+    fun loadAssignmentScreen(assignment: Assignment) {
+        var fragment = AssignmentFragment.newInstance(assignment)
         loadSubFragment(fragment, R.id.flCRFContainer, AssignmentFragment.TAG)
     }
 
