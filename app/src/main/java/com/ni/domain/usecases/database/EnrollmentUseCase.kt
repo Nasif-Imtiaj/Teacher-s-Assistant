@@ -1,6 +1,5 @@
 package com.ni.domain.usecases.database
 
-import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import com.ni.data.models.Enrollment
 import com.ni.data.repository.remote.EnrollmentCallbacks

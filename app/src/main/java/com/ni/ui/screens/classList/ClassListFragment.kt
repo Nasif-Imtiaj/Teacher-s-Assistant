@@ -18,6 +18,8 @@ import com.ni.ui.screens.classRoom.ClassRoomFragment
 import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.ClassListFragmentBinding
 import com.ni.teachersassistant.databinding.ClassroomItemLayoutBinding
+import com.ni.ui.activity.avmUserType
+import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 
 class ClassListFragment :
@@ -44,7 +46,7 @@ class ClassListFragment :
                 itemBinding.tvTitle.text = viewModel.getTitle(item)
                 itemBinding.tvSection.text = item.section + " Section"
                 itemBinding.cdMainContainer.setOnClickListener {
-                    loadClassRoom(item.id)
+                    loadClassRoom(item.id,item.creatorId)
                 }
                 itemBinding.acMainContainer.backgroundTintList =
                     ColorStateList.valueOf(Color.parseColor(viewModel.getColor()))
@@ -56,6 +58,11 @@ class ClassListFragment :
         initUiListener()
         initObservers()
         initBackPressed()
+        if(avmUserType== userIsTeacher){
+            binding.ivAddClassroom.visibility = View.VISIBLE
+        }else{
+            binding.ivAddClassroom.visibility = View.GONE
+        }
     }
 
     private fun initUiListener() {
@@ -97,8 +104,8 @@ class ClassListFragment :
 
     }
 
-    private fun loadClassRoom(roomId: String) {
-        var fragment = ClassRoomFragment.newInstance(roomId)
+    private fun loadClassRoom(roomId: String,creatorId: String) {
+        var fragment = ClassRoomFragment.newInstance(roomId,creatorId)
         loadSubFragment(fragment, R.id.flFraContainer, ClassRoomFragment.TAG)
     }
 

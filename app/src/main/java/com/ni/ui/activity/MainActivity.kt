@@ -16,9 +16,10 @@ import com.ni.ui.screens.splash.SplashListener
 import com.ni.ui.screens.user.login.LoginFragment
 import com.ni.ui.screens.user.login.LoginListener
 
-
-var activityVmUserType = 1
-var activityVmStudent = Student()
+var userIsTeacher = 1
+var userIsStudent = 2
+var avmUserType = -1
+var avmStudent = Student()
 class MainActivity : AppCompatActivity(), HomeListener, LoginListener, SplashListener {
 
     private lateinit var binding: MainActivityLayoutBinding

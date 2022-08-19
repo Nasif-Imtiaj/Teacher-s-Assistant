@@ -7,7 +7,9 @@ import androidx.fragment.app.viewModels
 import com.ni.data.models.Student
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.HomeScreenFragmentBinding
-import com.ni.ui.activity.activityVmUserType
+import com.ni.ui.activity.avmUserType
+import com.ni.ui.activity.userIsStudent
+import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialog
 import com.ni.ui.common.dialogs.newStudentDialog.NewStudentDialogListener
@@ -17,7 +19,8 @@ import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 
 class HomeFragment :
-    BaseObservableFragment<HomeScreenFragmentBinding, HomeListener>(HomeScreenFragmentBinding::inflate) , NewStudentDialogListener{
+    BaseObservableFragment<HomeScreenFragmentBinding, HomeListener>(HomeScreenFragmentBinding::inflate),
+    NewStudentDialogListener {
     companion object {
         const val TAG = "HomeScreenFragment"
         fun newInstance() = HomeFragment().apply {}
@@ -39,23 +42,23 @@ class HomeFragment :
     }
 
     private fun initObservers() {
-        viewModel.isLoading.observe(this){
-            if(viewModel.isLoading.value==true){
+        viewModel.isLoading.observe(this) {
+            if (viewModel.isLoading.value == true) {
                 binding.llProgressBar.visibility = View.VISIBLE
-            }else{
+            } else {
                 binding.llProgressBar.visibility = View.GONE
             }
         }
         viewModel.user.observe(this) {
             if (viewModel.getUserTpe() == "Teacher")
-                activityVmUserType = 1
+                avmUserType = userIsTeacher
             else
-                activityVmUserType = 0
-            if(activityVmUserType==0)
+                avmUserType = userIsStudent
+            if (avmUserType == userIsStudent)
                 viewModel.retrieveStudent()
         }
-        viewModel.showNewStudentDialog.observe(this){
-            if(viewModel.showNewStudentDialog.value==true){
+        viewModel.showNewStudentDialog.observe(this) {
+            if (viewModel.showNewStudentDialog.value == true) {
                 val dialog = NewStudentDialog.newInstance()
                 dialog.show(childFragmentManager, NewStudentDialog.TAG)
             }

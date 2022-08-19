@@ -11,7 +11,7 @@ import com.ni.data.repository.remote.StudentCallbacks
 import com.ni.data.repository.remote.StudentRepository
 import com.ni.data.repository.remote.UserCallBacks
 import com.ni.data.repository.remote.UserRepository
-import com.ni.ui.activity.activityVmStudent
+import com.ni.ui.activity.avmStudent
 import com.ni.ui.common.baseClasses.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,7 +53,7 @@ class HomeViewModel(
                     if (list.size == 0) {
                         _showNewStudentDialog.postValue(true)
                     } else {
-                        activityVmStudent = list[0]
+                        avmStudent = list[0]
                     }
                 }
 

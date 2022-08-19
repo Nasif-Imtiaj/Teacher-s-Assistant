@@ -35,6 +35,7 @@ class ClassRoomViewModel(
         get() = _enrolledStudentList
 
     var classroomId = ""
+    var creatorId = ""
 
     init {
 

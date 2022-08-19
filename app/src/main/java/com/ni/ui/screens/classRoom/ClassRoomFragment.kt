@@ -6,6 +6,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.firebase.auth.FirebaseAuth
 import com.ni.data.models.Assignment
 import com.ni.data.models.Student
 import com.ni.ui.common.adapter.AbstractAdapter
@@ -16,7 +17,8 @@ import com.ni.teachersassistant.R
 import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
-import com.ni.ui.activity.activityVmUserType
+import com.ni.ui.activity.avmUserType
+import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
@@ -24,13 +26,15 @@ import java.util.*
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
-     NewAssignmentDialogListener {
+    NewAssignmentDialogListener {
     companion object {
         const val TAG = "ClassRoomFragment"
         const val CLASSROOMID = "classroomId"
-        fun newInstance(classroomId: String) = ClassRoomFragment().apply {
+        const val CREATORID = "creatorId"
+        fun newInstance(classroomId: String, creatorId: String) = ClassRoomFragment().apply {
             this.arguments = Bundle().apply {
                 putString(CLASSROOMID, classroomId)
+                putString(CREATORID, creatorId)
             }
         }
     }
@@ -84,9 +88,10 @@ class ClassRoomFragment :
         initObservers()
         initBackPressed()
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
+        viewModel.creatorId = arguments?.getString(CREATORID).toString()
         viewModel.retrieveAssignment()
         viewModel.retrieveEnrollment()
-        if (activityVmUserType == 1) {
+        if (avmUserType == userIsTeacher && FirebaseAuth.getInstance().currentUser?.uid == viewModel.creatorId) {
             binding.ivAddAssignment.visibility = View.VISIBLE
             binding.ivEnroll.visibility = View.GONE
         } else {
