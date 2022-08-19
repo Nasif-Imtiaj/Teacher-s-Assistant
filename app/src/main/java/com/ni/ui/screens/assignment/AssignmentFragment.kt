@@ -1,6 +1,7 @@
 package com.ni.ui.screens.assignment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -49,6 +50,7 @@ class AssignmentFragment :
     private fun initGetArguments() {
         viewModel.assignmentName = arguments?.getString(ASSIGNMENTNAME).toString()
         viewModel.assignmentId = arguments?.getString(ASSIGNMENTID).toString()
+        Log.d("TESTID", "initGetArguments:1 ${viewModel.assignmentId}")
     }
 
     private fun initSetupView() {
@@ -81,7 +83,8 @@ class AssignmentFragment :
 
     private fun loadSubmissionScreen() {
         loadSubFragment(
-            SubmissionFragment.newInstance(),
+            SubmissionFragment.newInstance(
+                viewModel.assignmentId),
             flAssignmentContainer.id,
             SubmissionFragment.TAG
         )
