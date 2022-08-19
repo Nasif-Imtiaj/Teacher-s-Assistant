@@ -80,6 +80,12 @@ class TeacherProfileFragment :
                 .into(binding.ivProfilePic)
             binding.acUpdateView.visibility = View.GONE
         }
+        viewModel.isLoading.observe(this){
+            if(viewModel.isLoading.value==true)
+                binding.llProgressBar.visibility = View.VISIBLE
+            else
+                binding.llProgressBar.visibility = View.GONE
+        }
     }
 
     private fun initBackPressed() {

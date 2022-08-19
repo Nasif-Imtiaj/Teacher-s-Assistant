@@ -11,6 +11,7 @@ import com.ni.ui.screens.classList.ClassListViewModel
 import com.ni.ui.screens.classRoom.ClassRoomViewModel
 import com.ni.ui.screens.home.HomeViewModel
 import com.ni.ui.screens.library.LibraryViewModel
+import com.ni.ui.screens.studentProfile.StudentProfileViewModel
 import com.ni.ui.screens.teacherProfile.TeacherProfileViewModel
 import com.ni.ui.screens.user.register.RegisterViewModel
 
@@ -43,6 +44,9 @@ class ViewModelFactory() : ViewModelProvider.Factory {
         }
         if (modelClass.isAssignableFrom(TeacherProfileViewModel::class.java)) {
             return TeacherProfileViewModel(UserUseCase(),FirebaseStorageUseCase()) as T
+        }
+        if(modelClass.isAssignableFrom(StudentProfileViewModel::class.java)){
+            return StudentProfileViewModel(UserUseCase(),FirebaseStorageUseCase(),StudentUseCase()) as T
         }
         throw IllegalArgumentException("Please provide the way how this viewModel can be initialized in LibraryViewModelFactory class")
     }

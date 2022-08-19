@@ -9,8 +9,9 @@ import com.ni.data.repository.remote.UserRepository
 import com.ni.ui.activity.avmUser
 import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsTeacher
+import com.ni.ui.common.baseClasses.BaseViewModel
 
-class TeacherProfileViewModel(private val userRepository: UserRepository,private val firebaseStorageRepository: FirebaseStorageRepository) : ViewModel() {
+class TeacherProfileViewModel(private val userRepository: UserRepository,private val firebaseStorageRepository: FirebaseStorageRepository) : BaseViewModel() {
     val _imgUrl = MutableLiveData<String>()
     val imgUrl: LiveData<String>
         get() = _imgUrl
@@ -25,6 +26,7 @@ class TeacherProfileViewModel(private val userRepository: UserRepository,private
         userRepository.update(avmUser)
     }
     fun updateImgInDatabase(){
+        _isLoading.postValue(true)
         var type =""
         if(avmUserType == userIsTeacher)
             type = "teacher"
@@ -39,6 +41,7 @@ class TeacherProfileViewModel(private val userRepository: UserRepository,private
                 override fun onSuccess(url: String) {
                     _toastMsg.postValue("Success")
                     _remoteUrl.postValue(url)
+                    _isLoading.postValue(false)
                 }
 
                 override fun onFailed() {

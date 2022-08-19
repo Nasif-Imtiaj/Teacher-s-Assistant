@@ -2,11 +2,11 @@ package com.ni.data.models
 
 data class Student(
     val id: String,
-    val name: String,
-    val studentId: String,
-    val department: String,
-    val batch: String,
-    val section: String,
+    var name: String,
+    var studentId: String,
+    var department: String,
+    var batch: String,
+    var section: String,
     val imgUrl: String,
 ) {
     constructor() : this("", "",
