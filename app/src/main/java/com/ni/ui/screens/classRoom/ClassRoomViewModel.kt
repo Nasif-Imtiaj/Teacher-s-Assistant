@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 import com.ni.data.models.Assignment
 import com.ni.data.models.Enrollment
 import com.ni.data.models.Student
@@ -33,6 +34,10 @@ class ClassRoomViewModel(
     private val _enrolledStudentList = MutableLiveData<ArrayList<String>>()
     val enrolledStudentList: LiveData<ArrayList<String>>
         get() = _enrolledStudentList
+    private val _showEnrollOption = MutableLiveData<Boolean>()
+    val showEnrollOption: LiveData<Boolean>
+        get() = _showEnrollOption
+
 
     var classroomId = ""
     var creatorId = ""
@@ -130,6 +135,7 @@ class ClassRoomViewModel(
             list.add(i.studentId)
         }
         _enrolledStudentList.postValue(list)
+        _showEnrollOption.postValue(!(list.contains(FirebaseAuth.getInstance().currentUser?.uid)))
     }
 
     fun enrollNewStudent() {

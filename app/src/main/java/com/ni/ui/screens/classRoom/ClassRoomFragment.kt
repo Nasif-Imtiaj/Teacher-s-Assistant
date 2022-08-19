@@ -18,6 +18,7 @@ import com.ni.teachersassistant.databinding.AssignmentItemLayoutBinding
 import com.ni.teachersassistant.databinding.ClassRoomFragmentBinding
 import com.ni.teachersassistant.databinding.StudentItemLayoutBinding
 import com.ni.ui.activity.avmUserType
+import com.ni.ui.activity.userIsStudent
 import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
@@ -117,6 +118,14 @@ class ClassRoomFragment :
         }
         viewModel.enrolledStudentList.observe(this) {
             viewModel.retrieveStudent()
+        }
+        viewModel.showEnrollOption.observe(this) {
+            if (avmUserType == userIsStudent) {
+                if (viewModel.showEnrollOption.value == true)
+                    binding.ivEnroll.visibility = View.VISIBLE
+                else
+                    binding.ivEnroll.visibility = View.GONE
+            }
         }
     }
 
