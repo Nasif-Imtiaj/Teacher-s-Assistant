@@ -39,6 +39,7 @@ class ClassRoomViewModel(
         get() = _showEnrollOption
     var classroomId = ""
     var creatorId = ""
+    var courseName = ""
 
     init {
 

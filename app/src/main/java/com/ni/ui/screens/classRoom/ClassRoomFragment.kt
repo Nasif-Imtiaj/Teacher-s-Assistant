@@ -30,10 +30,12 @@ class ClassRoomFragment :
         const val TAG = "ClassRoomFragment"
         const val CLASSROOMID = "classroomId"
         const val CREATORID = "creatorId"
-        fun newInstance(classroomId: String, creatorId: String) = ClassRoomFragment().apply {
+        const val CLASSROOMCOURSENAME = "classroomCourseName"
+        fun newInstance(classroomId: String, creatorId: String,courseName:String) = ClassRoomFragment().apply {
             this.arguments = Bundle().apply {
                 putString(CLASSROOMID, classroomId)
                 putString(CREATORID, creatorId)
+                putString(CLASSROOMCOURSENAME,courseName)
             }
         }
     }
@@ -92,11 +94,13 @@ class ClassRoomFragment :
         if (avmUserType == userIsTeacher && FirebaseAuth.getInstance().currentUser?.uid == viewModel.creatorId) {
             binding.ivAddAssignment.visibility = View.VISIBLE
         }
+        binding.tvTitle.text =viewModel.courseName
     }
 
     private fun initGetArguments(){
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.creatorId = arguments?.getString(CREATORID).toString()
+        viewModel.courseName = arguments?.getString(CLASSROOMCOURSENAME).toString()
     }
 
     private fun initUiListener() {
