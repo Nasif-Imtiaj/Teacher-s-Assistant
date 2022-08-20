@@ -144,11 +144,15 @@ class ClassRoomFragment :
     }
 
     private fun initBtnListener() {
-        binding.tvBtnStudents.setOnClickListener {
+        binding.tvStudents.setOnClickListener {
             binding.optionRecyclerViewCRF.adapter = studentAdapter
+            binding.tvStudents.setBackgroundResource(R.drawable.text_rounded_selected)
+            binding.tvClassWork.setBackgroundResource(R.drawable.text_rounded_unselected)
         }
-        binding.tvBtnClassWork.setOnClickListener {
+        binding.tvClassWork.setOnClickListener {
             binding.optionRecyclerViewCRF.adapter = assignmentAdapter
+            binding.tvStudents.setBackgroundResource(R.drawable.text_rounded_unselected)
+            binding.tvClassWork.setBackgroundResource(R.drawable.text_rounded_selected)
         }
         binding.ivEnroll.setOnClickListener {
             viewModel.enrollNewStudent()
