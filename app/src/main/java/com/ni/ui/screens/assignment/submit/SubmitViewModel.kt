@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ni.data.models.Booklet
 import com.ni.data.models.Submit
 import com.ni.data.repository.remote.FirebaseStorageCallbacks
 import com.ni.data.repository.remote.FirebaseStorageRepository
@@ -11,6 +12,7 @@ import com.ni.data.repository.remote.SubmitRepository
 import com.ni.ui.activity.avmStudent
 import com.ni.ui.common.baseClasses.BaseViewModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 class SubmitViewModel(
     private val submitRepository: SubmitRepository,
@@ -53,6 +55,10 @@ class SubmitViewModel(
                     _isLoading.postValue(false)
                     submitFile()
                     _showToastMsg.postValue("Successfully submitted")
+                }
+
+                override fun onSuccessBooklets(list: ArrayList<Booklet>) {
+                    TODO("Not yet implemented")
                 }
 
                 override fun onFailed() {

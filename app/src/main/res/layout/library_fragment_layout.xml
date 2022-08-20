@@ -9,26 +9,35 @@
 
     <TextView
         android:id="@+id/tvHeaderMsg"
-        style="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="12dp"
+        android:padding="8dp"
         android:text="Library"
-        android:textColor="@color/black"
-        android:textSize="24dp"
+        android:textSize="20dp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/tvUploadAFile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        android:text="Upload a File"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toBottomOf="@id/ivChooseFile"
+        app:layout_constraintEnd_toStartOf="@id/ivChooseFile"
+        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
+
+    <ImageView
         android:id="@+id/ivChooseFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="12dp"
         android:src="@drawable/click"
         app:layout_constraintEnd_toStartOf="@id/tvFileName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
 
     <TextView
         android:id="@+id/tvFileName"
@@ -61,7 +70,21 @@
         android:layout_marginTop="30dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
+        app:layout_constraintTop_toBottomOf="@id/ivChooseFile" />
+
+    <TextView
+        android:id="@+id/tvEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No books found please upload"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/llProgressBar"
         android:layout_width="match_parent"

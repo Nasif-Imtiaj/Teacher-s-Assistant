@@ -3,6 +3,7 @@ package com.ni.ui.screens.teacherProfile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ni.data.models.Booklet
 import com.ni.data.repository.remote.FirebaseStorageCallbacks
 import com.ni.data.repository.remote.FirebaseStorageRepository
 import com.ni.data.repository.remote.UserRepository
@@ -39,6 +40,10 @@ class TeacherProfileViewModel(private val userRepository: UserRepository,private
                     _toastMsg.postValue("Success")
                     _remoteUrl.postValue(url)
                     _isLoading.postValue(false)
+                }
+
+                override fun onSuccessBooklets(list: ArrayList<Booklet>) {
+                    TODO("Not yet implemented")
                 }
 
                 override fun onFailed() {

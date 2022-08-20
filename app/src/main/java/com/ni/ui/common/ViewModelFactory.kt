@@ -2,8 +2,6 @@ package com.ni.ui.common
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.ni.data.repository.remote.FirebaseStorageRepository
-import com.ni.data.repository.remote.StudentRepository
 import com.ni.domain.usecases.database.*
 import com.ni.ui.screens.assignment.submission.SubmissionViewModel
 import com.ni.ui.screens.assignment.submit.SubmitViewModel
@@ -18,7 +16,7 @@ import com.ni.ui.screens.user.register.RegisterViewModel
 class ViewModelFactory() : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LibraryViewModel::class.java)) {
-            return LibraryViewModel(LibraryUseCase(),FirebaseStorageUseCase()) as T;
+            return LibraryViewModel(BookletUseCase(),FirebaseStorageUseCase()) as T;
         }
         if (modelClass.isAssignableFrom(ClassListViewModel::class.java)) {
             return ClassListViewModel(ClassroomUseCase()) as T

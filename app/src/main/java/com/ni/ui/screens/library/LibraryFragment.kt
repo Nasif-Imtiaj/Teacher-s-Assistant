@@ -1,7 +1,6 @@
 package com.ni.ui.screens.library
 
 import android.Manifest
-import android.R
 import android.app.Activity
 import android.content.ClipData
 import android.content.ContentResolver
@@ -10,7 +9,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.provider.OpenableColumns
-import android.util.Log
 import android.view.View
 import android.webkit.MimeTypeMap
 import android.widget.Toast
@@ -18,7 +16,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
 import com.ni.data.models.Booklet
 import com.ni.teachersassistant.databinding.BookletItemLayoutBinding
 import com.ni.teachersassistant.databinding.LibraryFragmentLayoutBinding
@@ -48,7 +45,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 position: Int,
             ) {
                 itemBinding.tvName.text = item.name
-                if (fileExists(item)) {
+                if (fileExists(item.name)) {
                     itemBinding.ivShare.visibility = View.VISIBLE
                     itemBinding.ivDownload.visibility = View.GONE
                 }
@@ -56,7 +53,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                     downloadFile(item)
                 }
                 itemBinding.tvName.setOnClickListener {
-                    openFile(item)
+                    openFile(item.name)
                 }
                 itemBinding.ivShare.setOnClickListener {
                     shareFile(item)
@@ -78,35 +75,34 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
 
     private fun initBtnListener() {
         binding.ivUpload.setOnClickListener {
-            viewModel.startFileUpload()
+            viewModel.uploadToStorage()
         }
         binding.ivChooseFile.setOnClickListener {
             askPermissionAndBrowseFile()
         }
     }
 
-
-    private fun fileExists(booklet: Booklet): Boolean {
-        return FileUtils.isFileExistsOnDownload(booklet.name + ".png")
+    private fun fileExists(fileName: String): Boolean {
+        return FileUtils.isFileExistsOnDownload(fileName)
     }
 
     private fun downloadFile(booklet: Booklet) {
         viewModel.downloadFile(booklet)
     }
 
-    private fun openFile(booklet: Booklet) {
-        var file = File(FileUtils.getRootDownloadDirectory(), booklet.name + ".png")
-        val uriPdfPath = FileProvider.getUriForFile(
+    private fun openFile(fileName: String) {
+        var file = File(viewModel.getDownloadedFile(), fileName)
+        val uri = FileProvider.getUriForFile(
             requireContext(),
             requireActivity().packageName + ".provider",
             file
         )
         val pdfOpenIntent = Intent(Intent.ACTION_VIEW)
         val mimeType = MimeTypeMap.getSingleton()
-            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uriPdfPath.toString()))
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
         pdfOpenIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        pdfOpenIntent.clipData = ClipData.newRawUri("", uriPdfPath)
-        pdfOpenIntent.setDataAndType(uriPdfPath, mimeType)
+        pdfOpenIntent.clipData = ClipData.newRawUri("", uri)
+        pdfOpenIntent.setDataAndType(uri, mimeType)
         pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         pdfOpenIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
         try {
@@ -121,7 +117,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun shareFile(booklet: Booklet) {
-        var file = File(FileUtils.getRootDownloadDirectory(), booklet.name + ".png")
+        var file = File(FileUtils.getRootDownloadDirectory(), booklet.name)
         val uriPdfPath = FileProvider.getUriForFile(
             requireContext(),
             requireActivity().packageName + ".provider",
@@ -155,6 +151,11 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 binding.llProgressBar.visibility = View.GONE
             }
         }
+        viewModel.showEmptyListMsg.observe(this) {
+            if (viewModel.showEmptyListMsg.value == true) {
+                binding.tvEmpty.visibility = View.VISIBLE
+            }
+        }
         viewModel.toastMsg.observe(this) {
             Toast.makeText(requireContext(), viewModel.toastMsg.value, Toast.LENGTH_SHORT).show()
         }
@@ -169,8 +170,8 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
                 viewModel.updateFilename(it1)
             }
         }
-        viewModel.remoteFileUrl.observe(this){
-            viewModel.uploadBooklet()
+        viewModel.remoteFileUrl.observe(this) {
+            viewModel.createBooklet()
         }
         viewModel.fileName.observe(this) {
             binding.tvFileName.text = viewModel.fileName.value
