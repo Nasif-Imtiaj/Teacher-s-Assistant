@@ -15,6 +15,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.ni.teachersassistant.databinding.SubmitFragmentBinding
+import com.ni.ui.activity.avmStudent
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 
@@ -42,12 +43,20 @@ class SubmitFragment :
         initUiListener()
         initObservers()
         initGetArguments()
+        initSetupUi()
         initBackPressed()
     }
 
     private fun initUiListener() {
         initBtnListener()
         initRecycler()
+    }
+    private fun initSetupUi(){
+        binding.tvStudentName.text =  "Name : " + avmStudent.name
+        binding.tvStudentId.text = "Student Id : " + avmStudent.studentId
+        binding.tvDepartment.text = "Department : " + avmStudent.department
+        binding.tvBatch.text = "Batch : " + avmStudent.batch
+        binding.tvSection.text = "Section : " + avmStudent.section
     }
 
     private fun initGetArguments() {

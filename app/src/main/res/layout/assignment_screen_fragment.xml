@@ -63,10 +63,10 @@
         app:layout_constraintTop_toBottomOf="@id/llBtns" />
 
     <FrameLayout
-        android:visibility="gone"
+
         android:id="@+id/flAssignmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="0dp"
         android:layout_marginTop="4dp"
         android:elevation="32dp"
         android:padding="4dp"

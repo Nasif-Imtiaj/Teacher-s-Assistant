@@ -4,80 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:focusable="true"
     android:clickable="true"
+    android:focusable="true"
+    android:padding="16dp"
     tools:context="com.ni.ui.screens.assignment.submit.SubmitFragment">
 
-    <LinearLayout
-        android:id="@+id/llOptions"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        app:cardBackgroundColor="#6C46FE"
+        app:cardCornerRadius="12dp"
+        app:contentPadding="4dp"
+        android:elevation="32dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvStudentName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Name : Nasif Imtiaj" />
-
-        <TextView
-            android:id="@+id/tvStudentId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Student Id : 181-115-045" />
-
-        <TextView
-            android:id="@+id/tvDepartment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Department : CSE" />
-
-        <TextView
-            android:id="@+id/tvBatch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Batch : 44th" />
-
-        <TextView
-            android:id="@+id/tvSection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="Section : B" />
-
-        <TextView
-            android:id="@+id/tvFileName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:text="File Name : AssignmentText.pdf" />
-
         <LinearLayout
+            android:id="@+id/llOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/bUpload"
+            <TextView
+                android:id="@+id/tvStudentName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="upload" />
+                android:padding="8dp"
+                android:text="Name : Nasif Imtiaj"
+                android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/bSubmit"
+            <TextView
+                android:id="@+id/tvStudentId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="submit" />
+                android:padding="8dp"
+                android:text="Student Id : 181-115-045"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvDepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Department : CSE"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvBatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Batch : 44th"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="Section : B"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvFileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="File Name : AssignmentText.pdf"
+                android:textColor="@color/white" />
+
+
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/cvMain"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/bUpload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="upload" />
+
+        <Button
+            android:id="@+id/bSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="submit" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/llProgressBar"
