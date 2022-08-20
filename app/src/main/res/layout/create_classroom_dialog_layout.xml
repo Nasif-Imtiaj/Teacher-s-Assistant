@@ -2,77 +2,156 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create Class"
-        android:textSize="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvMai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        app:cardBackgroundColor="#6C46FE"
+        app:cardCornerRadius="12dp"
+        app:contentPadding="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/etCourseName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:hint="Course Name" />
-        <EditText
-            android:id="@+id/etCourseCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="4dp"
-            android:hint="Course Code" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/etDepartment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif"
-            android:hint="Department" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Class Room"
+                android:textColor="@color/white"
+                android:textSize="24dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etBatch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif"
-            android:hint="Batch" />
+            <TextView
+                android:id="@+id/tvMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:text="Please fill up the following informations to create the class room.  "
+                android:textColor="@color/white"
+                android:textSize="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-        <EditText
-            android:id="@+id/etSection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="16dp"
-            android:fontFamily="sans-serif"
-            android:hint="Section" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvCourseName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:padding="4dp"
+                android:text="Course Name : "
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvMsg" />
+
+            <EditText
+                android:id="@+id/etCourseName"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvCourseName"
+                app:layout_constraintStart_toEndOf="@id/tvCourseName"
+                app:layout_constraintTop_toTopOf="@id/tvCourseName" />
+
+            <TextView
+                android:id="@+id/tvCourseCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Course Code : "
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCourseName" />
+
+            <EditText
+                android:id="@+id/etCourseCode"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvCourseCode"
+                app:layout_constraintStart_toEndOf="@id/tvCourseCode"
+                app:layout_constraintTop_toTopOf="@id/tvCourseCode" />
+
+            <TextView
+                android:id="@+id/tvDepartment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Department : "
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvCourseCode" />
+
+            <EditText
+                android:id="@+id/etDepartment"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvDepartment"
+                app:layout_constraintStart_toEndOf="@id/tvDepartment"
+                app:layout_constraintTop_toTopOf="@id/tvDepartment" />
+
+            <TextView
+                android:id="@+id/tvBatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Batch : "
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDepartment" />
+
+            <EditText
+                android:id="@+id/etBatch"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvBatch"
+                app:layout_constraintStart_toEndOf="@id/tvBatch"
+                app:layout_constraintTop_toTopOf="@id/tvBatch" />
+
+            <TextView
+                android:id="@+id/tvSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:text="Section : "
+                android:textColor="@color/white"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvBatch" />
+
+            <EditText
+                android:id="@+id/etSection"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tvSection"
+                app:layout_constraintStart_toEndOf="@id/tvSection"
+                app:layout_constraintTop_toTopOf="@id/tvSection" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
