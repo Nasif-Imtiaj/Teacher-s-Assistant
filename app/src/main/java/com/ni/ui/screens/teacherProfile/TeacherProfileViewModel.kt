@@ -42,10 +42,6 @@ class TeacherProfileViewModel(private val userRepository: UserRepository,private
                     _isLoading.postValue(false)
                 }
 
-                override fun onSuccessBooklets(list: ArrayList<Booklet>) {
-                    TODO("Not yet implemented")
-                }
-
                 override fun onFailed() {
                     _toastMsg.postValue("Failed")
                 }

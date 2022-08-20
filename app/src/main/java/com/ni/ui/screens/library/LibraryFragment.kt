@@ -77,7 +77,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
         binding.ivUpload.setOnClickListener {
             viewModel.uploadToStorage()
         }
-        binding.ivChooseFile.setOnClickListener {
+        binding.llUpload.setOnClickListener {
             askPermissionAndBrowseFile()
         }
     }

@@ -13,31 +13,37 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:text="Library"
+        android:textColor="#6C46FE"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvUploadAFile"
+    <LinearLayout
+        android:id="@+id/llUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:text="Upload a File"
-        android:textSize="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/ivChooseFile"
-        app:layout_constraintEnd_toStartOf="@id/ivChooseFile"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
-
-    <ImageView
-        android:id="@+id/ivChooseFile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:src="@drawable/click"
+        android:padding="4dp"
         app:layout_constraintEnd_toStartOf="@id/tvFileName"
-        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
+        app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Upload a File"
+            android:textSize="12dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:src="@drawable/click"
+            app:layout_constraintEnd_toStartOf="@id/tvFileName"
+            app:layout_constraintTop_toBottomOf="@id/tvHeaderMsg" />
+    </LinearLayout>
+
 
     <TextView
         android:id="@+id/tvFileName"
@@ -47,9 +53,9 @@
         android:text="chose.pdf"
         android:textColor="@color/black"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/ivChooseFile"
+        app:layout_constraintBottom_toBottomOf="@id/llUpload"
         app:layout_constraintEnd_toStartOf="@id/ivUpload"
-        app:layout_constraintTop_toTopOf="@id/ivChooseFile" />
+        app:layout_constraintTop_toTopOf="@id/llUpload" />
 
     <ImageView
         android:id="@+id/ivUpload"
@@ -59,9 +65,9 @@
         android:padding="16dp"
         android:src="@drawable/ic_upload_1"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/ivChooseFile"
+        app:layout_constraintBottom_toBottomOf="@id/llUpload"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ivChooseFile" />
+        app:layout_constraintTop_toTopOf="@id/llUpload" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/optionRecyclerViewLF"
@@ -70,7 +76,7 @@
         android:layout_marginTop="30dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivChooseFile" />
+        app:layout_constraintTop_toBottomOf="@id/llUpload" />
 
     <TextView
         android:id="@+id/tvEmpty"

@@ -57,10 +57,6 @@ class SubmitViewModel(
                     _showToastMsg.postValue("Successfully submitted")
                 }
 
-                override fun onSuccessBooklets(list: ArrayList<Booklet>) {
-                    TODO("Not yet implemented")
-                }
-
                 override fun onFailed() {
                     _isLoading.postValue(false)
                     _showToastMsg.postValue("Failed to submit, please try again")
