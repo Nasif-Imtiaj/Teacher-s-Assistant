@@ -2,10 +2,12 @@ package com.ni.ui.screens.assignment
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ni.data.models.Assignment
+import com.ni.teachersassistant.R
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.teachersassistant.databinding.AssignmentScreenFragmentBinding
 import com.ni.ui.activity.avmUserType
@@ -64,11 +66,22 @@ class AssignmentFragment :
     private fun initRecycler() {}
 
     private fun initBtnListener() {
+        binding.tvOption1.setOnClickListener {
+            binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_selected)
+            binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_unselected)
+            binding.flAssignmentContainer.visibility = View.GONE
+        }
         binding.tvOption2.setOnClickListener {
-            if (avmUserType == userIsStudent)
-                loadSubmitScreen()
-            else
-                loadSubmissionScreen()
+            binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_unselected)
+            binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_selected)
+            binding.flAssignmentContainer.visibility = View.VISIBLE
+            if (!viewModel.isSubFragmentLoaded) {
+                viewModel.isSubFragmentLoaded = true
+                if (avmUserType == userIsStudent)
+                    loadSubmitScreen()
+                else
+                    loadSubmissionScreen()
+            }
         }
     }
 
@@ -84,7 +97,8 @@ class AssignmentFragment :
     private fun loadSubmissionScreen() {
         loadSubFragment(
             SubmissionFragment.newInstance(
-                viewModel.assignmentId),
+                viewModel.assignmentId
+            ),
             flAssignmentContainer.id,
             SubmissionFragment.TAG
         )
