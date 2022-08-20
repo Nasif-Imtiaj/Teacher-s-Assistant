@@ -24,10 +24,12 @@ class AssignmentFragment :
         const val TAG = "AssignmentScreenFragment"
         const val ASSIGNMENTNAME = "AssignmentName"
         const val ASSIGNMENTID = "AssignmentId"
+        const val ASSIGNMENTDESCRIPTION = "AssignmentDescription"
         fun newInstance(assignment: Assignment) = AssignmentFragment().apply {
             this.arguments = Bundle().apply {
                 putString(ASSIGNMENTNAME, assignment.name)
                 putString(ASSIGNMENTID, assignment.id)
+                putString(ASSIGNMENTDESCRIPTION, assignment.description)
             }
         }
     }
@@ -52,7 +54,7 @@ class AssignmentFragment :
     private fun initGetArguments() {
         viewModel.assignmentName = arguments?.getString(ASSIGNMENTNAME).toString()
         viewModel.assignmentId = arguments?.getString(ASSIGNMENTID).toString()
-        Log.d("TESTID", "initGetArguments:1 ${viewModel.assignmentId}")
+        viewModel.assignmentDescription = arguments?.getString(ASSIGNMENTDESCRIPTION).toString()
     }
 
     private fun initSetupView() {
@@ -61,6 +63,7 @@ class AssignmentFragment :
             binding.tvOption2.text = "Submit"
         else
             binding.tvOption2.text = "Submissions"
+        binding.tvDescription.text = viewModel.assignmentDescription
     }
 
     private fun initRecycler() {}
@@ -70,11 +73,13 @@ class AssignmentFragment :
             binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_selected)
             binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_unselected)
             binding.flAssignmentContainer.visibility = View.GONE
+            binding.tvDescription.visibility = View.VISIBLE
         }
         binding.tvOption2.setOnClickListener {
             binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_unselected)
             binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_selected)
             binding.flAssignmentContainer.visibility = View.VISIBLE
+            binding.tvDescription.visibility = View.GONE
             if (!viewModel.isSubFragmentLoaded) {
                 viewModel.isSubFragmentLoaded = true
                 if (avmUserType == userIsStudent)

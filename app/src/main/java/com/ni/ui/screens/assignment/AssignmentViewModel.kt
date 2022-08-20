@@ -8,6 +8,7 @@ class AssignmentViewModel : ViewModel() {
 
     var assignmentName = ""
     var assignmentId = ""
+    var assignmentDescription = ""
     var isSubFragmentLoaded = false
     init {
 
