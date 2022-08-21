@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:clickable="true"
+    android:focusable="true"
     tools:context="com.ni.ui.screens.assignment.AssignmentFragment">
 
     <TextView
@@ -18,12 +20,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/tvGenerateResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/generate_result"
+        android:textColor="#6C46FE"
+        android:padding="4dp"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAssignmentName" />
 
     <LinearLayout
         android:id="@+id/llBtns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +77,7 @@
 
     <FrameLayout
 
-        android:id="@+id/flAssignmentContainer"
+        android:id="@+id/flSubmissionContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="4dp"
@@ -72,4 +85,11 @@
         android:padding="4dp"
         app:layout_constraintTop_toBottomOf="@id/llBtns" />
 
+    <FrameLayout
+
+        android:id="@+id/flResultContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        app:layout_constraintTop_toBottomOf="@id/llBtns" />
 </androidx.constraintlayout.widget.ConstraintLayout>

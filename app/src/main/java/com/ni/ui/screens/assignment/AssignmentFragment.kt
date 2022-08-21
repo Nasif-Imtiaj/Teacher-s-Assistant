@@ -14,6 +14,7 @@ import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsStudent
 import com.ni.ui.screens.assignment.submission.SubmissionFragment
 import com.ni.ui.screens.assignment.submit.SubmitFragment
+import com.ni.ui.screens.result.ResultFragment
 import kotlinx.android.synthetic.main.assignment_screen_fragment.*
 
 class AssignmentFragment :
@@ -25,11 +26,13 @@ class AssignmentFragment :
         const val ASSIGNMENTNAME = "AssignmentName"
         const val ASSIGNMENTID = "AssignmentId"
         const val ASSIGNMENTDESCRIPTION = "AssignmentDescription"
+        const val BATCH = "batch"
         fun newInstance(assignment: Assignment) = AssignmentFragment().apply {
             this.arguments = Bundle().apply {
                 putString(ASSIGNMENTNAME, assignment.name)
                 putString(ASSIGNMENTID, assignment.id)
                 putString(ASSIGNMENTDESCRIPTION, assignment.description)
+                putString(BATCH, assignment.batch)
             }
         }
     }
@@ -55,6 +58,7 @@ class AssignmentFragment :
         viewModel.assignmentName = arguments?.getString(ASSIGNMENTNAME).toString()
         viewModel.assignmentId = arguments?.getString(ASSIGNMENTID).toString()
         viewModel.assignmentDescription = arguments?.getString(ASSIGNMENTDESCRIPTION).toString()
+        viewModel.batch = arguments?.getString(BATCH).toString()
     }
 
     private fun initSetupView() {
@@ -72,13 +76,13 @@ class AssignmentFragment :
         binding.tvOption1.setOnClickListener {
             binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_selected)
             binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_unselected)
-            binding.flAssignmentContainer.visibility = View.GONE
+            binding.flSubmissionContainer.visibility = View.GONE
             binding.tvDescription.visibility = View.VISIBLE
         }
         binding.tvOption2.setOnClickListener {
             binding.tvOption1.setBackgroundResource(R.drawable.text_rounded_unselected)
             binding.tvOption2.setBackgroundResource(R.drawable.text_rounded_selected)
-            binding.flAssignmentContainer.visibility = View.VISIBLE
+            binding.flSubmissionContainer.visibility = View.VISIBLE
             binding.tvDescription.visibility = View.GONE
             if (!viewModel.isSubFragmentLoaded) {
                 viewModel.isSubFragmentLoaded = true
@@ -87,6 +91,9 @@ class AssignmentFragment :
                 else
                     loadSubmissionScreen()
             }
+        }
+        binding.tvGenerateResult.setOnClickListener {
+            loadResultScreen()
         }
     }
 
@@ -104,7 +111,7 @@ class AssignmentFragment :
             SubmissionFragment.newInstance(
                 viewModel.assignmentId
             ),
-            flAssignmentContainer.id,
+            flSubmissionContainer.id,
             SubmissionFragment.TAG
         )
     }
@@ -114,7 +121,18 @@ class AssignmentFragment :
             SubmitFragment.newInstance(
                 viewModel.assignmentId,
                 viewModel.assignmentName
-            ), flAssignmentContainer.id, SubmitFragment.TAG
+            ), flSubmissionContainer.id, SubmitFragment.TAG
+        )
+    }
+
+    private fun loadResultScreen() {
+        loadSubFragment(
+            ResultFragment.newInstance(
+                viewModel.assignmentName,
+                viewModel.batch
+            ),
+            flResultContainer.id,
+            ResultFragment.TAG
         )
     }
 

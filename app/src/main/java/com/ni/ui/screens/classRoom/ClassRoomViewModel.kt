@@ -40,6 +40,7 @@ class ClassRoomViewModel(
     var classroomId = ""
     var creatorId = ""
     var courseName = ""
+    var batch = ""
 
     init {
 

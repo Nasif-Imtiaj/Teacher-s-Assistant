@@ -1,7 +1,14 @@
 package com.ni.ui.screens.home
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.pdf.PdfDocument
 import android.net.Uri
+import android.os.Build
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,6 +28,8 @@ import com.ni.ui.screens.library.LibraryFragment
 import com.ni.ui.screens.studentProfile.StudentProfileFragment
 import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
 import kotlinx.android.synthetic.main.home_screen_fragment.*
+import java.io.File
+import java.io.FileOutputStream
 
 class HomeFragment :
     BaseObservableFragment<HomeScreenFragmentBinding, HomeListener>(HomeScreenFragmentBinding::inflate),
@@ -39,6 +48,7 @@ class HomeFragment :
         initUiListener()
         initObservers()
         initBackPressed()
+        initPdf()
     }
 
     private fun initUiListener() {
@@ -81,6 +91,7 @@ class HomeFragment :
         Glide.with(binding.ivAvatar)
             .load(Uri.parse(avmUser.imgUrl))
             .into(binding.ivAvatar)
+        initPdf()
     }
 
     private fun initBackPressed() {
@@ -196,4 +207,41 @@ class HomeFragment :
         }
     }
 
+    fun initPdf(){
+
+        val displayMetrics = DisplayMetrics()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            requireContext().display?.getRealMetrics(displayMetrics)
+            displayMetrics.densityDpi
+        }
+        else{
+            requireActivity().windowManager.defaultDisplay.getMetrics(displayMetrics)
+        }
+        view?.measure(
+            View.MeasureSpec.makeMeasureSpec(
+                displayMetrics.widthPixels, View.MeasureSpec.EXACTLY
+            ),
+            View.MeasureSpec.makeMeasureSpec(
+                displayMetrics.heightPixels, View.MeasureSpec.EXACTLY
+            )
+        )
+        view?.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
+        val bitmap = Bitmap.createBitmap(requireView().measuredWidth, requireView().measuredHeight, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        view?.draw(canvas)
+        var pageW = requireView().measuredWidth
+        var pageH = requireView().measuredHeight
+        Bitmap.createScaledBitmap(bitmap, pageW, pageH, true)
+        val pdfDocument = PdfDocument()
+        val pageInfo = PdfDocument.PageInfo.Builder(pageW, pageH, 1).create()
+        val page = pdfDocument.startPage(pageInfo)
+        page.canvas.drawBitmap(bitmap, 0F, 0F, null)
+        pdfDocument.finishPage(page)
+        val filePath = File(requireContext().getExternalFilesDir(null), "bitmapPdf.pdf")
+
+        pdfDocument.writeTo(FileOutputStream(filePath))
+        Toast.makeText(requireContext(),"${filePath.absolutePath}",Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "initPdf: ${filePath.absolutePath} ")
+        pdfDocument.close()
+    }
 }

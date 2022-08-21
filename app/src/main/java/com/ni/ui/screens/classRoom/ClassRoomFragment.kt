@@ -31,11 +31,13 @@ class ClassRoomFragment :
         const val CLASSROOMID = "classroomId"
         const val CREATORID = "creatorId"
         const val CLASSROOMCOURSENAME = "classroomCourseName"
-        fun newInstance(classroomId: String, creatorId: String,courseName:String) = ClassRoomFragment().apply {
+        const val BATCH = "batch"
+        fun newInstance(classroomId: String, creatorId: String,courseName:String,batch:String) = ClassRoomFragment().apply {
             this.arguments = Bundle().apply {
                 putString(CLASSROOMID, classroomId)
                 putString(CREATORID, creatorId)
                 putString(CLASSROOMCOURSENAME,courseName)
+                putString(BATCH,batch)
             }
         }
     }
@@ -101,6 +103,7 @@ class ClassRoomFragment :
         viewModel.classroomId = arguments?.getString(CLASSROOMID).toString()
         viewModel.creatorId = arguments?.getString(CREATORID).toString()
         viewModel.courseName = arguments?.getString(CLASSROOMCOURSENAME).toString()
+        viewModel.batch = arguments?.getString(BATCH).toString()
     }
 
     private fun initUiListener() {
@@ -198,6 +201,7 @@ class ClassRoomFragment :
 
 
     override fun onDialogPositiveClick(assignment: Assignment) {
+        assignment.batch = viewModel.batch
         viewModel.createAssignment(assignment)
     }
 

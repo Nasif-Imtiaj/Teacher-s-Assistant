@@ -46,7 +46,7 @@ class ClassListFragment :
                 itemBinding.tvTitle.text = viewModel.getTitle(item)
                 itemBinding.tvSection.text = item.section + " Section"
                 itemBinding.cdMainContainer.setOnClickListener {
-                    loadClassRoom(item.id,item.creatorId,item.courseName)
+                    loadClassRoom(item.id,item.creatorId,item.courseName, item.batch)
                 }
                 itemBinding.acMainContainer.backgroundTintList =
                     ColorStateList.valueOf(Color.parseColor(viewModel.getColor()))
@@ -110,8 +110,8 @@ class ClassListFragment :
 
     }
 
-    private fun loadClassRoom(roomId: String,creatorId: String,courseName:String) {
-        var fragment = ClassRoomFragment.newInstance(roomId,creatorId,courseName)
+    private fun loadClassRoom(roomId: String,creatorId: String,courseName:String, batch:String) {
+        var fragment = ClassRoomFragment.newInstance(roomId,creatorId,courseName,batch)
         loadSubFragment(fragment, R.id.flFraContainer, ClassRoomFragment.TAG)
     }
 

@@ -46,6 +46,7 @@ class NewAssignmentDialog : DialogFragment() {
                             roomId,
                             view.etName.text.toString(),
                             view.etDescription.text.toString(),
+                            "batch",
                             view.etStartDate.text.toString(),
                             view.etEndDate.text.toString(),
                             view.etMarks.text.toString().toInt()
