@@ -18,6 +18,9 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
     val _submissionsList = MutableLiveData<ArrayList<Submit>>()
     val subissionList: LiveData<ArrayList<Submit>>
         get() = _submissionsList
+
+    val localSubmissionList = ArrayList<Submit>()
+
     val _assignmentId = MutableLiveData<String>()
     val assignmentId: LiveData<String>
         get() = _assignmentId
@@ -38,7 +41,7 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
                 override fun onSuccess(list: ArrayList<Submit>) {
                     _isLoading.postValue(false)
                     _submissionsList.postValue(list)
-                    Log.d("TESTID", "initGetArguments:4  ${list.size}")
+                    localSubmissionList.addAll(list)
                 }
 
                 override fun onFailed() {
@@ -50,7 +53,6 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
     }
 
     fun setAssignmentId(id: String) {
-        Log.d("TESTID", "initGetArguments:2  ${id}")
         _assignmentId.postValue(id)
     }
 
@@ -75,11 +77,22 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
                 )
             )
         }
-        Log.d("TESTAVMMARKSDATA", "addToMarksData: ${avmMarksData.size}")
     }
 
-    fun enableUpdate(value :Boolean){
+    fun enableUpdate(value: Boolean) {
         _enableUpdate.postValue(value)
     }
 
+    fun updateResultAtIdx(item: Submit, idx: Int) {
+        localSubmissionList[idx] = item
+    }
+
+    fun updateToDatabase() {
+        _isLoading.postValue(true)
+        for (i in localSubmissionList) {
+            submitRepository.update(i)
+        }
+
+        _isLoading.postValue(false)
+    }
 }

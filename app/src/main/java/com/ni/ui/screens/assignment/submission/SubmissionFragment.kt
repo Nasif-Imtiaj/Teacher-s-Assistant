@@ -57,6 +57,7 @@ class SubmissionFragment :
                 if (item.checked) {
                     itemBinding.rbYes.isChecked = true
                     itemBinding.rbNo.isChecked = false
+
                 } else {
                     itemBinding.rbYes.isChecked = false
                     itemBinding.rbNo.isChecked = true
@@ -71,14 +72,24 @@ class SubmissionFragment :
                     itemBinding.ivUpdate.visibility = View.VISIBLE
                 }
                 itemBinding.ivUpdate.setOnClickListener {
-                    calculate(itemBinding)
+                    calculate(itemBinding,item)
+                    toggleTvUpdate(true)
                     itemBinding.ivUpdate.visibility = View.GONE
+
+                }
+                itemBinding.rbYes.setOnClickListener {
+                    toggleTvUpdate(true)
+                    item.checked = true
+                }
+                itemBinding.rbNo.setOnClickListener {
+                    toggleTvUpdate(true)
+                    item.checked = false
                 }
             }
         }
     }
 
-    fun toggleTvUpdate(value: Boolean) {
+    private fun toggleTvUpdate(value: Boolean) {
         if (value) {
             binding.tvUpdate.isClickable = true
             binding.tvUpdate.setBackgroundResource(R.drawable.text_rounded_selected_green)
@@ -95,7 +106,7 @@ class SubmissionFragment :
     }
 
 
-    fun calculate(itemBinding: SubmitItemLayoutBinding) {
+    fun calculate(itemBinding: SubmitItemLayoutBinding,item:Submit) {
         var obtained = ifValidNumber(etObtained.text.toString().toFloat())
         var bonus = ifValidNumber(etBonus.text.toString().toFloat())
         var penalty = ifValidNumber(etPenalty.text.toString().toFloat())
@@ -104,7 +115,10 @@ class SubmissionFragment :
         itemBinding.etPenalty.setText(penalty.toString())
         var tot = ifValidNumber(obtained + bonus - penalty)
         itemBinding.tvTotal.text = tot.toString()
-        viewModel.enableUpdate(true)
+        item.obtained = obtained
+        item.bonus = bonus
+        item.penalty = penalty
+        item.total = tot
     }
 
     fun openFile(url: String) {
@@ -173,7 +187,12 @@ class SubmissionFragment :
     }
 
 
-    private fun initBtnListener() {}
+    private fun initBtnListener() {
+        binding.tvUpdate.setOnClickListener {
+            viewModel.updateToDatabase()
+            toggleTvUpdate(false)
+        }
+    }
 
     override fun onStart() {
         super.onStart()

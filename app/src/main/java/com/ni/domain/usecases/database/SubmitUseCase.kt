@@ -35,7 +35,11 @@ class SubmitUseCase : SubmitRepository {
     }
 
     override fun update(submit: Submit) {
-        TODO("Not yet implemented")
+        var databse = FirebaseDatabase.getInstance()
+        var ref = databse.getReference("TeachersAssistant")
+            .child("Submit")
+            .child(submit.id)
+        ref.setValue(submit)
     }
 
     override fun delete(submit: Submit) {

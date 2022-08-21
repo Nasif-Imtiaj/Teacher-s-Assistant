@@ -6,11 +6,11 @@ data class Submit(
     val studentId: String,
     val assignmentId: String,
     val answerScriptUrl: String,
-    val checked: Boolean,
-    val obtained: Float,
-    val bonus: Float,
-    val penalty: Float,
-    val total: Float,
+    var checked: Boolean,
+    var obtained: Float,
+    var bonus: Float,
+    var penalty: Float,
+    var total: Float,
 ) {
     constructor() : this(
         "", "", "",
