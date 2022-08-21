@@ -84,19 +84,11 @@ class MarksFragment :
     }
 
     fun openFile(){
-        val filename = viewModel.fileName
-        val filePath = viewModel.filePath
-        val myExternalFile = File(requireContext().getExternalFilesDir(null),filename)
-        var fileInputStream =FileInputStream(myExternalFile)
-        var inputStreamReader: InputStreamReader = InputStreamReader(fileInputStream)
-        val bufferedReader: BufferedReader = BufferedReader(inputStreamReader)
-        val stringBuilder: StringBuilder = StringBuilder()
-        var text: String? = null
-        while ({ text = bufferedReader.readLine(); text }() != null) {
-            stringBuilder.append(text)
+        requireContext().openFileInput(viewModel.fileName).bufferedReader().useLines { lines ->
+            lines.fold("") { some, text ->
+                "$some\n$text"
+            }
         }
-        fileInputStream.close()
-
     }
 
     fun initRecycler() {
@@ -156,11 +148,10 @@ class MarksFragment :
         page.canvas.drawBitmap(bitmap, 0F, 0F, null)
         pdfDocument.finishPage(page)
         viewModel.fileName =  "txt.pdf"
-        val filePath = File(requireContext().getExternalFilesDir(null), viewModel.assignmentName)
+        val filePath = File(requireContext().getExternalFilesDir(null), viewModel.fileName)
         pdfDocument.writeTo(FileOutputStream(filePath))
         Toast.makeText(requireContext(),"${filePath.absolutePath}", Toast.LENGTH_SHORT).show()
         viewModel.filePath = filePath.absolutePath
-
         Log.d(HomeFragment.TAG, "initPdf: ${filePath.absolutePath} ")
         pdfDocument.close()
     }

@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp">
+    app:cardBackgroundColor="#6C46FE" >
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#6C46FE"
-        app:cardCornerRadius="12dp"
         app:contentPadding="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -61,9 +60,10 @@
                 android:id="@+id/etCourseName"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvCourseName"
-                app:layout_constraintStart_toEndOf="@id/tvCourseName"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvCourseName" />
 
             <TextView
@@ -83,8 +83,9 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvCourseCode"
-                app:layout_constraintStart_toEndOf="@id/tvCourseCode"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvCourseCode" />
 
             <TextView
@@ -103,9 +104,9 @@
                 android:id="@+id/etDepartment"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvDepartment"
-                app:layout_constraintStart_toEndOf="@id/tvDepartment"
+               app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvDepartment" />
 
             <TextView
@@ -124,9 +125,9 @@
                 android:id="@+id/etBatch"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvBatch"
-                app:layout_constraintStart_toEndOf="@id/tvBatch"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvBatch" />
 
             <TextView
@@ -145,9 +146,9 @@
                 android:id="@+id/etSection"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvSection"
-                app:layout_constraintStart_toEndOf="@id/tvSection"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tvSection" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

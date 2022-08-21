@@ -43,7 +43,7 @@
                 android:text="Marks: 50"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/tvName"
+                 android:layout_marginEnd="50dp"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
@@ -74,6 +74,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/tvCounter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

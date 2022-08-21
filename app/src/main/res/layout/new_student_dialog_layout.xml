@@ -4,16 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#58FFFFFF"
-    android:padding="8dp">
+    app:cardBackgroundColor="#6C46FE">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="#6C46FE"
-        app:cardCornerRadius="12dp"
 
-        app:contentPadding="4dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -50,103 +49,110 @@
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="Name : "
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:padding="4dp"
-                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvMsg" />
+
             <EditText
                 android:id="@+id/etName"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@id/tvName"
+
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvName"
-                app:layout_constraintStart_toEndOf="@id/tvName"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvName" />
 
 
             <TextView
                 android:id="@+id/tvStudentId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="Student Id : "
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:padding="4dp"
-                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvName" />
+
             <EditText
                 android:id="@+id/etStudentId"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@id/tvStudentId"
+
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvStudentId"
-                app:layout_constraintStart_toEndOf="@id/tvStudentId"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvStudentId" />
+
             <TextView
                 android:id="@+id/tvDepartment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="Department : "
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:padding="4dp"
-                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvStudentId" />
+
             <EditText
                 android:id="@+id/etDepartment"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@id/tvDepartment"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvDepartment"
-                app:layout_constraintStart_toEndOf="@id/tvDepartment"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvDepartment" />
 
             <TextView
                 android:id="@+id/tvBatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="Batch : "
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:padding="4dp"
-                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvDepartment" />
+
             <EditText
                 android:id="@+id/etBatch"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@id/tvBatch"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvBatch"
-                app:layout_constraintStart_toEndOf="@id/tvBatch"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvBatch" />
 
             <TextView
                 android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="4dp"
                 android:text="Section : "
+                android:textColor="@color/white"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:padding="4dp"
-                android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvBatch" />
+
             <EditText
                 android:id="@+id/etSection"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                app:layout_constraintTop_toTopOf="@id/tvSection"
+
+                android:layout_marginEnd="24dp"
                 app:layout_constraintBottom_toBottomOf="@id/tvSection"
-                app:layout_constraintStart_toEndOf="@id/tvSection"/>
-
-
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvSection" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

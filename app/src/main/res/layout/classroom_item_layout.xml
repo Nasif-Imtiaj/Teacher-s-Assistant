@@ -31,21 +31,21 @@
                 android:gravity="start|center_vertical"
                 android:text="CSE 331: Project Final"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvStudents"
+                android:id="@+id/tvBatch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="4dp"
                 android:layout_marginStart="12dp"
                 android:gravity="start|center_vertical"
-                android:text="24 Students"
-                android:textSize="13sp"
+                android:text="Batch : "
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
 
@@ -58,12 +58,24 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="start|center_vertical"
-                android:text="B Section"
-                android:textSize="13sp"
+                android:text="Section : B"
+                android:textSize="12sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/tvStudents"
-                app:layout_constraintTop_toBottomOf="@id/tvStudents" />
+                app:layout_constraintStart_toStartOf="@id/tvBatch"
+                app:layout_constraintTop_toBottomOf="@id/tvBatch" />
+            <TextView
+                android:id="@+id/tvCreatedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="start|center_vertical"
+                android:text="Created on: 21/09/2022"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/tvSection"
+                app:layout_constraintTop_toBottomOf="@id/tvSection" />
 
             <ImageView
                 android:id="@+id/ivNxtBtn"

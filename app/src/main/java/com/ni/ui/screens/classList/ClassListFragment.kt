@@ -44,7 +44,9 @@ class ClassListFragment :
                 position: Int,
             ) {
                 itemBinding.tvTitle.text = viewModel.getTitle(item)
-                itemBinding.tvSection.text = item.section + " Section"
+                itemBinding.tvSection.text = "Section : " + item.section
+                itemBinding.tvBatch.text = "Batch : "+ item.batch
+                itemBinding.tvCreatedDate.text = "Created on : "+ item.dateCreated
                 itemBinding.cdMainContainer.setOnClickListener {
                     loadClassRoom(item.id,item.creatorId,item.courseName, item.batch)
                 }
