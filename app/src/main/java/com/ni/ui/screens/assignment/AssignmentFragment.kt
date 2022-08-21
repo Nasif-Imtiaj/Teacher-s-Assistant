@@ -64,8 +64,10 @@ class AssignmentFragment :
         binding.tvAssignmentName.text = viewModel.assignmentName
         if (avmUserType == userIsStudent)
             binding.tvOption2.text = "Submit"
-        else
+        else {
             binding.tvOption2.text = "Submissions"
+            binding.tvGenerateResult.visibility = View.VISIBLE
+        }
         binding.tvDescription.text = viewModel.assignmentDescription
     }
 

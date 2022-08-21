@@ -21,6 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
+        android:visibility="gone"
         android:id="@+id/tvGenerateResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
