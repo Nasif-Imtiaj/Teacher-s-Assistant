@@ -1,6 +1,5 @@
 package com.ni.ui.screens.marks
 
-import android.R
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.pdf.PdfDocument
@@ -84,11 +83,6 @@ class MarksFragment :
     }
 
     fun openFile(){
-        requireContext().openFileInput(viewModel.fileName).bufferedReader().useLines { lines ->
-            lines.fold("") { some, text ->
-                "$some\n$text"
-            }
-        }
     }
 
     fun initRecycler() {

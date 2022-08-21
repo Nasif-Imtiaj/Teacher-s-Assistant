@@ -91,7 +91,7 @@ class LibraryFragment : BaseObservableFragment<LibraryFragmentLayoutBinding, Lib
     }
 
     private fun openFile(fileName: String) {
-        var file = File(viewModel.getDownloadedFile(), fileName)
+        var file = File(FileUtils.getRootDownloadDirectory(), fileName)
         val uri = FileProvider.getUriForFile(
             requireContext(),
             requireActivity().packageName + ".provider",

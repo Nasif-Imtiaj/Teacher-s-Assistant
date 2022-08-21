@@ -123,11 +123,6 @@ class LibraryViewModel(
         })
     }
 
-    fun getDownloadedFile(): File {
-        val downloadLocation = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-        val filePath = "Teachers_Assistant/$FOLDERNAME/${avmUser.id}"
-        return File(downloadLocation,filePath)
-    }
 
 
 }
