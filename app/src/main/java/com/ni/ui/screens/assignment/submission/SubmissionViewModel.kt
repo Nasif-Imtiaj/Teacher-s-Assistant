@@ -5,9 +5,11 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.ni.data.models.Marks
 import com.ni.data.models.Submit
 import com.ni.data.repository.remote.SubmitCallbacks
 import com.ni.data.repository.remote.SubmitRepository
+import com.ni.ui.activity.avmMarksData
 import com.ni.ui.common.baseClasses.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -49,5 +51,27 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
         _assignmentId.postValue(id)
     }
 
-
+    fun addToMarksData() {
+        if (subissionList.value.isNullOrEmpty()) return
+        for (i in subissionList.value!!) {
+            for (j in avmMarksData) {
+                if (i.id == j.id) {
+                    avmMarksData.remove(j)
+                    break
+                }
+            }
+        }
+        for (i in subissionList.value!!) {
+            avmMarksData.add(
+                Marks(
+                    i.id,
+                    "classroomId",
+                    assignmentId.value!!,
+                    i.studentId,
+                    i.total
+                )
+            )
+        }
+        Log.d("TESTAVMMARKSDATA", "addToMarksData: ${avmMarksData.size}")
+    }
 }

@@ -12,7 +12,6 @@ import com.ni.teachersassistant.databinding.SubmitItemLayoutBinding
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
-import kotlinx.android.synthetic.main.submit_item_layout.*
 
 
 class SubmissionFragment :
@@ -93,6 +92,7 @@ class SubmissionFragment :
         }
         viewModel.subissionList.observe(this) {
             submissionListAdapter.setItems(it)
+            viewModel.addToMarksData()
         }
     }
 

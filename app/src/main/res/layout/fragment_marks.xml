@@ -7,7 +7,7 @@
     android:background="#FFFFFF"
     android:clickable="true"
     android:focusable="true"
-    tools:context="com.ni.ui.screens.result.ResultFragment">
+    tools:context="com.ni.ui.screens.result.MarksFragment">
 
     <TextView
         android:id="@+id/tvAssignmentName"

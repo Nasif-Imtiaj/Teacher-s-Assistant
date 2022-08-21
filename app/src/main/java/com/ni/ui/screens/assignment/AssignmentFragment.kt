@@ -1,7 +1,6 @@
 package com.ni.ui.screens.assignment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -14,7 +13,7 @@ import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsStudent
 import com.ni.ui.screens.assignment.submission.SubmissionFragment
 import com.ni.ui.screens.assignment.submit.SubmitFragment
-import com.ni.ui.screens.result.ResultFragment
+import com.ni.ui.screens.result.MarksFragment
 import kotlinx.android.synthetic.main.assignment_screen_fragment.*
 
 class AssignmentFragment :
@@ -127,12 +126,13 @@ class AssignmentFragment :
 
     private fun loadResultScreen() {
         loadSubFragment(
-            ResultFragment.newInstance(
+            MarksFragment.newInstance(
+                viewModel.assignmentId,
                 viewModel.assignmentName,
                 viewModel.batch
             ),
             flResultContainer.id,
-            ResultFragment.TAG
+            MarksFragment.TAG
         )
     }
 
