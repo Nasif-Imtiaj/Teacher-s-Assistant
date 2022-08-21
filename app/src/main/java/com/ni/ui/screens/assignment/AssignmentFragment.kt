@@ -12,6 +12,7 @@ import com.ni.teachersassistant.databinding.AssignmentScreenFragmentBinding
 import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsStudent
 import com.ni.ui.screens.assignment.submission.SubmissionFragment
+import com.ni.ui.screens.assignment.submission.SubmissionListener
 import com.ni.ui.screens.assignment.submit.SubmitFragment
 import com.ni.ui.screens.marks.MarksFragment
 import kotlinx.android.synthetic.main.assignment_screen_fragment.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.assignment_screen_fragment.*
 class AssignmentFragment :
     BaseObservableFragment<AssignmentScreenFragmentBinding, AssignmentListener>(
         AssignmentScreenFragmentBinding::inflate
-    ) {
+    ) ,SubmissionListener{
     companion object {
         const val TAG = "AssignmentScreenFragment"
         const val ASSIGNMENTNAME = "AssignmentName"
@@ -66,7 +67,6 @@ class AssignmentFragment :
             binding.tvOption2.text = "Submit"
         else {
             binding.tvOption2.text = "Submissions"
-            binding.tvGenerateResult.visibility = View.VISIBLE
         }
         binding.tvDescription.text = viewModel.assignmentDescription
     }
@@ -152,5 +152,8 @@ class AssignmentFragment :
         } catch (ex: Exception) {
             //Toaster.debugToast(this, "Fragment transaction failed 70 ${ex.message}")
         }
+    }
+    override fun showGenerateResult() {
+        binding.tvGenerateResult.visibility = View.VISIBLE
     }
 }

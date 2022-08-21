@@ -22,6 +22,7 @@ import com.ni.ui.activity.userIsTeacher
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialog
 import com.ni.ui.common.dialogs.newAssignmentDialog.NewAssignmentDialogListener
+import com.ni.ui.screens.assignment.submission.SubmissionListener
 
 class ClassRoomFragment :
     BaseObservableFragment<ClassRoomFragmentBinding, ClassRoomListener>(ClassRoomFragmentBinding::inflate),
@@ -208,4 +209,7 @@ class ClassRoomFragment :
     override fun onDialogNegativeClick() {
 
     }
+
+
+
 }

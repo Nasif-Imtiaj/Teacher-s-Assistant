@@ -92,6 +92,7 @@ class SubmissionFragment :
         }
         viewModel.subissionList.observe(this) {
             submissionListAdapter.setItems(it)
+            notify { it.showGenerateResult() }
             viewModel.addToMarksData()
         }
     }
@@ -112,5 +113,37 @@ class SubmissionFragment :
 
 
     private fun initBtnListener() {}
+
+    override fun onStart() {
+        super.onStart()
+        registerListener()
+    }
+
+    private fun registerListener() {
+        parentFragment?.let {
+            if (it is SubmissionListener) {
+                registerObserver(it)
+            }
+        }
+        if (context is SubmissionListener) {
+            registerObserver(context as SubmissionListener)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unRegisterListener()
+    }
+
+    private fun unRegisterListener() {
+        parentFragment?.let {
+            if (it is SubmissionListener) {
+                unRegisterObserver(it)
+            }
+        }
+        if (context is SubmissionListener) {
+            unRegisterObserver(context as SubmissionListener)
+        }
+    }
 
 }
