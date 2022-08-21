@@ -13,7 +13,7 @@ import com.ni.ui.activity.avmUserType
 import com.ni.ui.activity.userIsStudent
 import com.ni.ui.screens.assignment.submission.SubmissionFragment
 import com.ni.ui.screens.assignment.submit.SubmitFragment
-import com.ni.ui.screens.result.MarksFragment
+import com.ni.ui.screens.marks.MarksFragment
 import kotlinx.android.synthetic.main.assignment_screen_fragment.*
 
 class AssignmentFragment :
