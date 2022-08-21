@@ -102,7 +102,7 @@
                 android:id="@+id/etObtained"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:maxLength="4"
                 android:text="50"
                 android:textSize="12dp"
                 app:layout_constraintEnd_toEndOf="@id/ivObtained"
@@ -125,6 +125,7 @@
                 android:layout_height="wrap_content"
                 android:text="50"
                 android:textSize="12dp"
+                android:maxLength="4"
                 app:layout_constraintEnd_toEndOf="@id/ivBonus"
                 app:layout_constraintStart_toStartOf="@id/ivBonus"
                 app:layout_constraintTop_toBottomOf="@id/ivBonus" />
@@ -144,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="50"
                 android:textSize="12dp"
+                android:maxLength="4"
                 app:layout_constraintEnd_toEndOf="@id/ivPenalty"
                 app:layout_constraintStart_toStartOf="@id/ivPenalty"
                 app:layout_constraintTop_toBottomOf="@id/ivPenalty" />

@@ -21,6 +21,9 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
     val _assignmentId = MutableLiveData<String>()
     val assignmentId: LiveData<String>
         get() = _assignmentId
+    val _enableUpdate = MutableLiveData<Boolean>()
+    val enableUpdate: LiveData<Boolean>
+        get() = _enableUpdate
 
     fun retrieveSubmission() {
         _isLoading.postValue(true)
@@ -74,4 +77,9 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
         }
         Log.d("TESTAVMMARKSDATA", "addToMarksData: ${avmMarksData.size}")
     }
+
+    fun enableUpdate(value :Boolean){
+        _enableUpdate.postValue(value)
+    }
+
 }
