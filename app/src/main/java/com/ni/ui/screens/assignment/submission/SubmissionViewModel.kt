@@ -13,6 +13,8 @@ import com.ni.ui.activity.avmMarksData
 import com.ni.ui.common.baseClasses.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.math.max
+import kotlin.math.min
 
 class SubmissionViewModel(private val submitRepository: SubmitRepository) : BaseViewModel() {
     val _submissionsList = MutableLiveData<ArrayList<Submit>>()
@@ -94,5 +96,56 @@ class SubmissionViewModel(private val submitRepository: SubmitRepository) : Base
         }
 
         _isLoading.postValue(false)
+    }
+
+    fun levenshtein(lhs : CharSequence, rhs : CharSequence) : Int {
+        val lhsLength = lhs.length
+        val rhsLength = rhs.length
+
+        var cost = IntArray(lhsLength + 1) { it }
+        var newCost = IntArray(lhsLength + 1) { 0 }
+
+        for (i in 1..rhsLength) {
+            newCost[0] = i
+
+            for (j in 1..lhsLength) {
+                val editCost= if(lhs[j - 1] == rhs[i - 1]) 0 else 1
+
+                val costReplace = cost[j - 1] + editCost
+                val costInsert = cost[j] + 1
+                val costDelete = newCost[j - 1] + 1
+
+                newCost[j] = minOf(costInsert, costDelete, costReplace)
+            }
+
+            val swap = cost
+            cost = newCost
+            newCost = swap
+        }
+
+        return cost[lhsLength]
+    }
+
+
+    fun startPlagiarismCheck(){
+        _isLoading.postValue(true)
+        for(i in localSubmissionList){
+            var penalty = 0f
+            for(j in localSubmissionList){
+                if(i==j)continue
+                var req = levenshtein(i.solutionTxt,j.solutionTxt)*1.0f
+                var mn = min(i.solutionTxt.length,j.solutionTxt.length)*1.0f
+                var cur = 100f-(100f*(req/mn))
+                penalty = max(penalty,cur)
+            }
+            penalty = min(penalty,100f)
+            i.penalty = penalty
+            i.total = i.obtained+i.bonus-i.penalty
+            i.total = max(0f,i.total)
+            i.total = min(100f,i.total)
+        }
+        _submissionsList.postValue(localSubmissionList)
+        _isLoading.postValue(false)
+        _enableUpdate.postValue(true)
     }
 }

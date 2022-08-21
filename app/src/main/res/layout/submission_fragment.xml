@@ -6,7 +6,17 @@
     android:background="#FFFFFF"
     android:clickable="true"
     android:focusable="true">
-
+   <TextView
+       android:id="@+id/tvPlagiarismChecker"
+       app:layout_constraintTop_toTopOf="@id/tvUpdate"
+       android:text="Plagiarism"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintBottom_toBottomOf="@id/tvUpdate"
+       android:layout_marginEnd="12dp"
+       android:paddingVertical="4dp"
+       android:textColor="#6C46FE"
+       app:layout_constraintEnd_toStartOf="@id/tvUpdate"/>
     <TextView
         android:id="@+id/tvUpdate"
         android:layout_width="wrap_content"

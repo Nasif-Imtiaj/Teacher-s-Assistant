@@ -10,7 +10,13 @@ plugins {
 
 android {
     compileSdkVersion 31
-
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/INDEX.LIST'
+        exclude 'META-INF/spring.handlers'
+        exclude 'META-INF/spring.schemas'
+        exclude 'META-INF/cxf/bus-extensions.txt'
+    }
     defaultConfig {
         applicationId "com.ni.teachersassistant"
         minSdkVersion 21
@@ -84,6 +90,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
-
+    api 'com.google.guava:guava:28.1-android'
+    implementation 'com.github.Asutosh11:DocumentReader:0.12'
 }
 

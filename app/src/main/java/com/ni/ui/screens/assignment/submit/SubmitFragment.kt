@@ -5,19 +5,29 @@ import android.app.Activity
 import android.content.ContentResolver
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat
 import androidx.fragment.app.viewModels
+import androidx.loader.content.CursorLoader
 import com.ni.teachersassistant.databinding.SubmitFragmentBinding
 import com.ni.ui.activity.avmStudent
 import com.ni.ui.common.ViewModelFactory
 import com.ni.ui.common.baseClasses.BaseObservableFragment
+import com.ni.utils.FileUtils
+import com.thoughtleaf.textsumarizex.DocumentReaderUtil
+import java.io.File
+
 
 class SubmitFragment :
     BaseObservableFragment<SubmitFragmentBinding, SubmitListener>(SubmitFragmentBinding::inflate) {
@@ -79,6 +89,12 @@ class SubmitFragment :
         viewModel.fileName.observe(this) {
             binding.tvFileName.text = viewModel.fileName.value
         }
+        viewModel.startTextExtraction.observe(this){
+            extractTextFromPDF()
+        }
+        viewModel.answerText.observe(this){
+            viewModel.submitFile()
+        }
     }
 
     private fun initBackPressed() {
@@ -130,6 +146,7 @@ class SubmitFragment :
                     val fileUri = data.data
                     val name = queryFileName(requireContext().contentResolver, fileUri!!)
                     viewModel.localFileUri = fileUri.toString()
+                    viewModel.localFilePath = fileUri.path.toString()
                     viewModel.setFileName(name!!)
                 }
             }
@@ -146,6 +163,7 @@ class SubmitFragment :
         return name
     }
 
+
     private fun initBtnListener() {
         binding.bUpload.setOnClickListener {
             askPermissionAndBrowseFile()
@@ -154,4 +172,11 @@ class SubmitFragment :
             viewModel.startSubmitProcess()
         }
     }
+
+    private fun extractTextFromPDF(){
+        var file = File(FileUtils.getRootDownloadDirectory(), viewModel.submitFileName)
+        val docString: String = DocumentReaderUtil.readPdfFromFile(file, requireContext())
+       viewModel.postAnswerText(docString)
+    }
+
 }

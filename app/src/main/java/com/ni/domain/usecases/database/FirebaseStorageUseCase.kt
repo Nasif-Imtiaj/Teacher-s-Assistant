@@ -41,7 +41,7 @@ class FirebaseStorageUseCase : FirebaseStorageRepository {
             .getInstance()
             .reference
             .child(folderName)
-            .child(avmUser.id)
+            .child(subFolderName)
             .child(fileName)
         Log.e("TEST_download", "success ${fileName}");
         val newFolder = FileUtils.getRootDownloadDirectory()

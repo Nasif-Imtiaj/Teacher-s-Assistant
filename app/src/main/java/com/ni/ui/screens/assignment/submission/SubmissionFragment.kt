@@ -150,9 +150,7 @@ class SubmissionFragment :
             else
                 binding.llProgressBar.visibility = View.GONE
         }
-        viewModel.enableUpdate.observe(this){
-            toggleTvUpdate(it)
-        }
+
         viewModel.assignmentId.observe(this) {
             viewModel.retrieveSubmission()
         }
@@ -162,13 +160,7 @@ class SubmissionFragment :
             viewModel.addToMarksData()
         }
         viewModel.enableUpdate.observe(this) {
-            if (it == true) {
-                binding.tvUpdate.isClickable = true
-                binding.tvUpdate.setBackgroundResource(R.drawable.text_rounded_selected_green)
-            } else {
-                binding.tvUpdate.isClickable = false
-                binding.tvUpdate.setBackgroundResource(R.drawable.text_rounded_unselected)
-            }
+            toggleTvUpdate(it)
         }
     }
 
@@ -191,6 +183,9 @@ class SubmissionFragment :
         binding.tvUpdate.setOnClickListener {
             viewModel.updateToDatabase()
             toggleTvUpdate(false)
+        }
+        binding.tvPlagiarismChecker.setOnClickListener {
+            viewModel.startPlagiarismCheck()
         }
     }
 

@@ -27,6 +27,8 @@ import com.ni.ui.screens.classList.ClassListFragment
 import com.ni.ui.screens.library.LibraryFragment
 import com.ni.ui.screens.studentProfile.StudentProfileFragment
 import com.ni.ui.screens.teacherProfile.TeacherProfileFragment
+import com.ni.utils.FileUtils
+import com.thoughtleaf.textsumarizex.DocumentReaderUtil
 import kotlinx.android.synthetic.main.home_screen_fragment.*
 import java.io.File
 import java.io.FileOutputStream
@@ -70,6 +72,7 @@ class HomeFragment :
             if (avmUserType == userIsStudent)
                 viewModel.retrieveStudent()
             initSetupUi()
+            initTest()
         }
         viewModel.showNewStudentDialog.observe(this) {
             if (viewModel.showNewStudentDialog.value == true) {
@@ -205,4 +208,8 @@ class HomeFragment :
         }
     }
 
+    fun initTest(){
+
+
+    }
 }
