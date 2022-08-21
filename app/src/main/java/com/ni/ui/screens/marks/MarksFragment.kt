@@ -1,5 +1,7 @@
 package com.ni.ui.screens.marks
 
+import android.content.ClipData
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.pdf.PdfDocument
@@ -8,8 +10,10 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.webkit.MimeTypeMap
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
 import com.ni.data.models.Marks
 import com.ni.teachersassistant.databinding.FragmentMarksBinding
@@ -17,6 +21,7 @@ import com.ni.teachersassistant.databinding.MarksItemLayoutBinding
 import com.ni.ui.common.adapter.AbstractAdapter
 import com.ni.ui.common.baseClasses.BaseObservableFragment
 import com.ni.ui.screens.home.HomeFragment
+import com.ni.utils.FileUtils
 import java.io.*
 
 
@@ -83,6 +88,29 @@ class MarksFragment :
     }
 
     fun openFile(){
+        var file = File(FileUtils.getRootDownloadDirectory(), viewModel.fileName)
+        val uri = FileProvider.getUriForFile(
+            requireContext(),
+            requireActivity().packageName + ".provider",
+            file
+        )
+        val pdfOpenIntent = Intent(Intent.ACTION_VIEW)
+        val mimeType = MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(MimeTypeMap.getFileExtensionFromUrl(uri.toString()))
+        pdfOpenIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        pdfOpenIntent.clipData = ClipData.newRawUri("", uri)
+        pdfOpenIntent.setDataAndType(uri, mimeType)
+        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        pdfOpenIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+        try {
+            startActivity(pdfOpenIntent);
+        } catch (e: Exception) {
+            Toast.makeText(
+                requireContext(),
+                "There is no app to load corresponding PDF",
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     fun initRecycler() {
@@ -98,6 +126,7 @@ class MarksFragment :
     private fun initGetArguments() {
         viewModel.assignmentId = arguments?.getString(ASSIGNMENTID).toString()
         viewModel.assignmentName = arguments?.getString(ASSIGNMENTNAME).toString()
+        viewModel.fileName = viewModel.assignmentName+".pdf"
         viewModel.batch = arguments?.getString(BATCH).toString()
         viewModel.generateMarksList()
     }
@@ -112,7 +141,6 @@ class MarksFragment :
     }
 
     fun initPdf(){
-
         val displayMetrics = DisplayMetrics()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             requireContext().display?.getRealMetrics(displayMetrics)
@@ -141,11 +169,10 @@ class MarksFragment :
         val page = pdfDocument.startPage(pageInfo)
         page.canvas.drawBitmap(bitmap, 0F, 0F, null)
         pdfDocument.finishPage(page)
-        viewModel.fileName =  "txt.pdf"
-        val filePath = File(requireContext().getExternalFilesDir(null), viewModel.fileName)
+        val filePath = File(FileUtils.getRootDownloadDirectory(), viewModel.fileName)
         pdfDocument.writeTo(FileOutputStream(filePath))
-        Toast.makeText(requireContext(),"${filePath.absolutePath}", Toast.LENGTH_SHORT).show()
         viewModel.filePath = filePath.absolutePath
+        Toast.makeText(requireContext(),"${filePath.absolutePath}", Toast.LENGTH_SHORT).show()
         Log.d(HomeFragment.TAG, "initPdf: ${filePath.absolutePath} ")
         pdfDocument.close()
     }
