@@ -91,7 +91,6 @@
         android:id="@+id/flResultContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="4dp"
         android:elevation="32dp"
         app:layout_constraintTop_toBottomOf="@id/llBtns" />
 </androidx.constraintlayout.widget.ConstraintLayout>

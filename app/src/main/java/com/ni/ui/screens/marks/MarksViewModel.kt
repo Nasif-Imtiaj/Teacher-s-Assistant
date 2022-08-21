@@ -1,5 +1,6 @@
 package com.ni.ui.screens.marks
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,6 +23,8 @@ class MarksViewModel : ViewModel() {
             if(i.assignmentId==assignmentId)
                 list.add(i)
         }
+        Log.d("TAG", "generateMarksList: ${list}")
+        Log.d("TAG", "generateMarksList: ${avmMarksData}")
         _marksList.postValue(list)
     }
 }
